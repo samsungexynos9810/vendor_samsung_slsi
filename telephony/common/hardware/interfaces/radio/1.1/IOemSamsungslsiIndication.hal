@@ -1,0 +1,58 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.telephony.hardware.radio@1.1;
+
+import android.hardware.radio@1.0::types;
+import @1.0::IOemSamsungslsiIndication;
+
+interface IOemSamsungslsiIndication extends @1.0::IOemSamsungslsiIndication {
+
+    /**
+     * Indicates current physical channel configuration.
+     *
+     * @param type Type of radio indication
+     * @param rat The radio technology for this physical channel.
+     * @param status Connection status for cell. Valid values are PRIMARY_SERVING and SECONDARY_SERVING.
+     */
+    oneway currentNrPhysicalChannelConfigs(RadioIndicationType indicationType, int32_t rat, int32_t status);
+
+    /**
+     * Indicates current signal strength of the radio.
+     *
+     * @param type Type of radio indication
+     * @param signalStrength SignalStrength information
+     */
+    oneway currentSignalStrength(RadioIndicationType type, SignalStrength signalStrength);
+
+    /**
+     * Report all of the current cell information known to the radio.
+     *
+     * @param type Type of radio indication
+     * @param records Current cell information
+     */
+    oneway cellInfoList(RadioIndicationType type, vec<CellInfo> records);
+
+
+    /**
+     * Indicates current physical channel configuration.
+     *
+     * @param type Type of radio indication
+     * @param capability available/not available
+     * @param cause network ENDC capability cause
+     */
+    oneway endcCapabilityInd(RadioIndicationType type, int32_t capability, int32_t cause);
+};

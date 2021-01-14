@@ -1,0 +1,8 @@
+#============= platform_app ==============
+get_prop(platform_app, vendor_ro_config_default_prop);
+#set_prop(platform_app, vendor_ro_config_default_prop);
+
+get_prop(platform_app, exported_system_radio_prop);
+set_prop(platform_app, exported_system_radio_prop);
+allow platform_app vendor_wlbt_log_file:dir getattr;
+allow platform_app system_app_data_file:dir getattr;

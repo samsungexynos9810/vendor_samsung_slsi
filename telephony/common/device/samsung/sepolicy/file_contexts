@@ -1,0 +1,4 @@
+# Secure Element
+/(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.0-service-uicc              u:object_r:hal_secure_element_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.1-service-uicc              u:object_r:hal_secure_element_default_exec:s0
+

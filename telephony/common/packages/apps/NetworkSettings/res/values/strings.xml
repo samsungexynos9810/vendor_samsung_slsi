@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">Network Settings</string>
+    <string name="femto_cell_setting">MicroCell Settings</string>
+    <string name="str_setup_title">Search for AT&amp;T MicroCell</string>
+    <string name="str_setup_dialog">Unable to search for networks while data service in use. Stop using current data service and search for other available networks?</string>
+    <string name="str_conncet_register">Registering on AT&amp;T\nmicro Cell...</string>
+    <string name="str_connect_error">Failed to connect to mobile network via AT&amp;T MicroCell. Try again.</string>
+    <string name="str_conncet_complete">Connected to Microcell</string>
+    <!-- Mobile network settings screen, toast when searching for available networks -->
+    <string name="load_networks_progress">Searching\u2026</string>
+    <!-- Positive button label ("OK") used in several dialogs in the phone UI [CHAR LIMIT=10] -->
+    <string name="ok">OK</string>
+    <!-- Label for "cancel" button on the MMI dialog -->
+    <string name="cancel">Cancel</string>
+    <!-- GSM Call settings screen, setting option name, with label identifying the SIM the settings are for. -->
+    <string name="additional_gsm_call_settings_with_label">Additional settings (<xliff:g id="subscriptionlabel" example="Verizon">%s</xliff:g>)</string>
+
+</resources>

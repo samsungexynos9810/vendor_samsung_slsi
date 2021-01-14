@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_ap_settings"
+        android:title="@string/ap_settings">
+        <PreferenceScreen
+            android:key="key_ap_logtype_list"
+            android:title="@string/ap_logging_type">
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_cp_settings"
+        android:title="@string/cp_settings">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_cp_tcp_dump"
+            android:summaryOff="CP log do not include TCP packet"
+            android:summaryOn="CP log include TCP packet"
+            android:title="@string/cp_tcp_dump">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_tcp_settings"
+        android:title="@string/tcp_settings">
+        <ListPreference
+            android:defaultValue="any"
+            android:entries="@array/tcp_logtype"
+            android:entryValues="@array/tcp_logtype"
+            android:key="key_tcp_logging_type"
+            android:title="@string/tcp_logging_type">
+        </ListPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

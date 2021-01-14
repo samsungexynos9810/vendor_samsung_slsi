@@ -1,0 +1,6 @@
+
+service sfmd /vendor/bin/sfmd
+    class factory
+    user root
+    group root system bluetooth radio misc
+

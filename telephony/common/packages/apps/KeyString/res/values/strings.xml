@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Key String</string>
+    <string name="action_help">Help</string>
+    <string name="str_ok">OK</string>
+    <string name="str_delete">Delete</string>
+
+</resources>

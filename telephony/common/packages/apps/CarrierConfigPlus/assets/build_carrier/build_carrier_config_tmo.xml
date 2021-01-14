@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="auto_voice_recording_for_emergency_call_build" value="true" />
+        <boolean name="dial_conversion_build_tmo" value="true" />
+        <boolean name="silent_redial_to_volte_build" value="true" />
+    </carrier_config>
+</carrier_config_list>

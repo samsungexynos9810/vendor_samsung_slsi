@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1"
+          android:versionName="1.0.0"
+          package="com.android.carrierconfig">
+
+    <uses-sdk android:minSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+
+    <application android:allowBackup="false"
+                 android:directBootAware="true">
+        <service android:name="com.samsung.slsi.telephony.carrierconfigplus.CarrierConfigPlusService"
+                 android:permission="android.permission.BIND_CARRIER_SERVICES">
+            <intent-filter>
+                <action android:name="android.service.carrier.CarrierService" />
+            </intent-filter>
+        </service>
+        <receiver android:name="com.samsung.slsi.telephony.carrierconfigplus.CarrierConfigPlusReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.SERVICE_STATE"/>
+                <action android:name="com.samsung.slsi.telephony.action.RELOAD_CARRIER_CONFIG"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

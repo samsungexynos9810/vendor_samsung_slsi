@@ -1,0 +1,56 @@
+type swcnd, domain, mlstrustedsubject;
+type swcnd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(swcnd);
+#domain_auto_trans(init, swcnd_exec, swcnd)
+#tmpfs_domain(swcnd)
+#typeattribute swcnd coredomain;
+
+
+#dontaudit domain {
+#  exported3_system_prop
+#}:property_service set;
+
+
+net_domain(swcnd)
+bluetooth_domain(swcnd)
+
+allow swcnd radio_device:chr_file rw_file_perms;
+
+allow swcnd self:udp_socket { create ioctl };
+allowxperm swcnd self:udp_socket ioctl SIOCSIFFLAGS;
+
+
+allow swcnd sysfs:file { open getattr read };
+allow swcnd vendor_shell_exec:file { execute_no_trans };
+
+allow swcnd device:dir { remove_name write add_name };
+allow swcnd device:fifo_file { unlink create };
+allow swcnd swcnd:capability { net_raw net_admin };
+
+allow swcnd sysfs:file create_file_perms;
+allow swcnd vendor_toolbox_exec:file { execute_no_trans };
+allow swcnd vendor_wlbt_udi_device:chr_file rw_file_perms;
+
+allow swcnd init:dir { getattr search };
+allow swcnd init:file { read };
+allow swcnd vendor_file:file { execute_no_trans };
+allow swcnd vendor_wlbt_sysfs_mxlog_filter:file rw_file_perms;
+
+allow swcnd vendor_gps_file:file create_file_perms;
+allow swcnd vendor_gps_file:dir rw_dir_perms;
+
+allow swcnd property_socket:sock_file { write };
+set_prop(swcnd, mptool_prop)
+#get_prop(swcnd, mptool_prop)
+#get_prop(swcnd, exported3_system_prop)
+get_prop(gpsd, exported3_radio_prop)
+allow swcnd gpsd:unix_stream_socket { connectto };
+
+allow swcnd self:tcp_socket create_stream_socket_perms;
+
+# Connect to ports.
+allow swcnd port_type:tcp_socket name_connect;
+
+# Bind to ports.
+allow swcnd node_type:{ tcp_socket udp_socket } node_bind;
+allow swcnd port_type:tcp_socket name_bind;

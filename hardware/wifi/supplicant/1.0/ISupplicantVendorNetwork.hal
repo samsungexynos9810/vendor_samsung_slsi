@@ -1,0 +1,13 @@
+package vendor.samsung_slsi.hardware.wifi.supplicant@1.0;
+
+/**
+ * Vendor Interface exposed by the supplicant for each network configuration it
+ * controls.
+ * A network is the supplicant's way of representing the configuration
+ * parameters of a Wifi service set. Service sets are identified by their
+ * service set identitifier (SSID). The parameters for a network includes the
+ * credentials, bssid, etc.
+ */
+interface ISupplicantVendorNetwork {
+/* Dummy Interface created which is used to extend ISupplicantVendorStaNetwork */
+};

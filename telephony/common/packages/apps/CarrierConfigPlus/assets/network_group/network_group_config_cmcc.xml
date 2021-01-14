@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="restrict_waiting_vt_call_nw" value="true" />
+        <boolean name="china_emergency_number_nw" value="true" />
+    </carrier_config>
+</carrier_config_list>

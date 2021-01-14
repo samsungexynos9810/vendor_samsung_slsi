@@ -1,0 +1,12 @@
+package vendor.samsung_slsi.hardware.wifi.supplicant@1.0;
+
+import android.hardware.wifi.supplicant@1.0::ISupplicantStaIfaceCallback;
+
+/**
+ * Vendor StaIface Callback Interface
+ */
+interface ISupplicantVendorStaIfaceCallback {
+
+    oneway onVendorDriverHang(string state, string msg);
+};
+

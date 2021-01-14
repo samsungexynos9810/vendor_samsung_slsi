@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="android:Theme.Light">
+    </style>
+
+        <style name="Theme.Light.Translucent" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+</resources>

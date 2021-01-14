@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
+    package="com.samsung.slsi.cnntlogger"
+    android:versionCode="1"
+    android:versionName="0.1.1">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <protected-broadcast android:name="com.samsung.slsi.wifi.action.LOGGING_RESULT" />
+    <protected-broadcast android:name="com.samsung.slsi.bt.action.LOGGING_RESULT" />
+    <protected-broadcast android:name="com.samsung.slsi.log.action.COPY_RESULT" />
+    <protected-broadcast android:name="com.samsung.slsi.log.action.CLEAR_RESULT" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".CNNTActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+	<activity
+            android:name=".CNNTSetting"
+            android:label="@string/cnnt_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <action android:name="android.intent.action.PICK" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".APSettingActivity"
+            android:label="@string/ap_settings" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".BTSettingActivity"
+            android:label="@string/bt_settings" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.samsung.slsi.cnntlogger.KeyStringReceiver" >
+                <intent-filter>
+                    <action android:name="android.provider.Telephony.SECRET_CODE" />
+                    <data
+                        android:host="9526"
+                        android:scheme="android_secret_code" />
+                </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.samsung.slsi.cnntlogger.BootReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:label="BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.samsung.slsi.cnntlogger.LoggingService" />
+    </application>
+
+</manifest>

@@ -1,0 +1,260 @@
+/**
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.telephony.hardware.radio@1.0;
+
+import android.hardware.radio@1.0::types;
+import IOemSamsungslsiResponse;
+import IOemSamsungslsiIndication;
+
+/**
+ */
+interface IOemSamsungslsi {
+
+    /**
+     * This request passes raw byte arrays between framework and vendor code.
+     *
+     * @param serial Serial number of request.
+     * @param data data passed as raw bytes
+     *
+     * Response function is IOemHookResponse.sendRequestRawResponse()
+     */
+    oneway sendRequestRaw(int32_t serial, vec<uint8_t> data);
+
+    /**
+     * setResponseFunctions
+     * (TBD)
+     *
+     * @param oemResponse Object containing response functions
+     * @param oemIndication Object containing oem indications
+     */
+    setResponseFunctions(IOemSamsungslsiResponse oemResponse, IOemSamsungslsiIndication oemIndication);
+
+    /**
+     * queryCOLP
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway queryCOLP(int32_t serial);
+
+    /**
+     * queryCOLR
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway queryCOLR(int32_t serial);
+
+    /**
+     * iccGetAtr
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway iccGetAtr(int32_t serial);
+
+    /**
+     * sendUSSDWithDcs
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway sendUSSDWithDcs(int32_t serial, string dcs, string ussd);
+
+    /**
+     * setPreferredUplmn
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway setPreferredUplmn(int32_t serial, int32_t networkType, int32_t indMode, int32_t index, string plmn);
+
+    /**
+     * getPreferredUplmn
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway getPreferredUplmn(int32_t serial);
+
+    /**
+     * setEmcStatus
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway setEmcStatus(int32_t serial, int32_t status, int32_t rat);
+
+    /**
+     * setFemtoCellSearch
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway setFemtoCellSearch(int32_t serial, int32_t searchMode);
+
+    /**
+     * setCdmaHybridMode
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway setCdmaHybridMode(int32_t serial, int32_t hybridMode);
+
+    /**
+     * getCdmaHybridMode
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway getCdmaHybridMode(int32_t serial);
+
+     /**
+     * queryBplmnSearch
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway queryBplmnSearch(int32_t serial);
+
+    /**
+     * Manually select a specified network.
+     * This request must not respond until the new operator is selected and registered.
+     *
+     * @param serial Serial number of request.
+     * @param operatorNumeric string specifying MCCMNC of network to select (eg "310170")
+     *
+     * Response function is IOemSamsungslsiResponse.setNetworkSelectionModeManualResponse()
+     */
+    oneway setNetworkSelectionModeManual(int32_t serial, string operatorNumeric, string rat);
+
+    /**
+     * Initiate voice call.
+     * This method is never used for supplementary service codes
+     *
+     * @param serial Serial number of request.
+     * @param dialInfo Dial struct
+     * @param callType
+     *
+     * Response function is IOemSamsungslsiResponse.dialWithCallTypeResponse()
+     *
+     */
+    oneway dialWithCallType(int32_t serial, Dial dialInfo, int32_t callType);
+
+    /**
+     * setVoiceOperation
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     */
+    oneway setVoiceOperation(int32_t serial, int32_t prefMode);
+
+    /**
+     * Change call barring facility password
+     *
+     * @param serial Serial number of request.
+     * @param facility facility string code from TS 27.007 7.4 (eg "AO" for BAOC)
+     * @param oldPassword old password
+     * @param newPassword new password
+     * @param newPasswordAgain new password again
+     *
+     * Response function is IOemSamsungslsiResponse.setBarringPasswordOverMmiResponse()
+     */
+    oneway setBarringPasswordOverMmi(int32_t serial, string facility,
+            string oldPassword, string newPassword, string newPasswordAgain);
+
+    /**
+     * Requests to set dual network mode & ps service
+     *
+     * @param serial Serial number of request.
+     * @param REF_NET_TYPE for Primary
+     * @param REF_NET_TYPE for Secondary
+     * @param PS capability for Primary
+     * @param PS capability for Secondary
+     *
+     * Response function is IOemSamsungslsiResponse.setDualNetworkTypeAndAllowDataResponse()
+     */
+    oneway setDualNetworkTypeAndAllowData(int32_t serial, int32_t networkTypeForPrimary,
+            int32_t networkTypeForSecondary, int32_t allowDataForPrimary, int32_t allowDataForSecondary);
+
+    /**
+     * Requests to set the preferred network type for searching and registering.
+     * (CS/PS domain, RAT, and operation mode)
+     *
+     * @param serial Serial number of request.
+     * @param RIL_DS_NetworkType
+     *
+     * Response function is IOemSamsungslsiResponse.setDsNetworkTypeResponse()
+     */
+    oneway setDsNetworkType(int32_t serial, int32_t networkType);
+
+    /**
+     * Deactivate packet data connection and remove from the
+     * data call list if RadioError:NONE is returned. Any other return
+     * values must also try to remove the call from the list. An
+     * unsolDataCallListChanged must be
+     * issued because of an deactivateDataCalWithReasonl.
+     *
+     * @param serial Serial number of request.
+     * @param cid Indicates CID
+     * @param reason Indicates Disconnect Reason
+     *
+     * Response function is IOemSamsungslsiResponse.deactivateDataCallWithReasonResponse()
+     */
+    oneway deactivateDataCallWithReason(int32_t serial, int32_t cid, int32_t reason);
+
+    /**
+     * Emulate Indication from RIL layer to internal test
+     * send RIL Message ID, and just response null
+     *
+     * @param serial Serial number of request.
+     * @param msgid  Indicates RIL MSG id
+     * @param option Indicates TestingOption or parameters
+     *
+     * Response function is IOemSamsungslsiResponse.emulateIndResponse()
+     */
+    oneway emulateInd(int32_t serial, int32_t msgid, int32_t option);
+
+    /**
+     * Get a current SIM lock status information
+     *
+     * @param serial Serial number of request.
+     *
+     * Response function is IOemSamsungslsiResponse.getSimLockStatusResponse()
+     */
+    oneway getSimLockStatus(int32_t serial);
+
+    /**
+     * send Vsim Notification
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     *
+     * Response function is IOemSamsungslsiResponse.sendVsimNotificationResponse()
+     */
+    oneway sendVsimNotification(int32_t serial, int32_t transactionId, int32_t eventId, int32_t simType);
+
+    /**
+     * send Vsim Operation
+     *
+     * @param serial Serial number of request.
+     * (TBD)
+     *
+     * Response function is IOemSamsungslsiResponse.sendVsimOperationResponse()
+     */
+    oneway sendVsimOperation(int32_t serial, int32_t transactionId, int32_t eventId, int32_t result, string data);
+};

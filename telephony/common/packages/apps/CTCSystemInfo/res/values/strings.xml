@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CTCSystemInfo</string>
+    <string name="str_title">CTC System Info</string>
+    <string name="str_ok">OK</string>
+
+    <!-- CTCSystemInfo -->
+    <string name="key_screen">key_screen</string>
+    <string name="key_model_num">key_model_num</string>
+    <string name="key_sw_ver">key_sw_ver</string>
+    <string name="key_hw_ver">key_hw_ver</string>
+    <string name="key_prl_ver">key_prl_ver</string>
+    <string name="key_uimid">key_uimid</string>
+    <string name="key_esn_meid">key_esn_meid</string>
+    <string name="key_sid">key_sid</string>
+    <string name="key_nid">key_nid</string>
+    <string name="pref_model_num">Terminal model number</string>
+    <string name="pref_sw_ver">Software version</string>
+    <string name="pref_hw_ver">Hardware version</string>
+    <string name="pref_prl_ver">PRL file version</string>
+    <string name="pref_uimid">UIMID</string>
+    <string name="pref_esn_meid">ESN/MEID</string>
+    <string name="pref_sid">SID</string>
+    <string name="pref_nid">NID</string>
+
+    <!-- TinyCTCSystemInfo -->
+    <string name="key_tiny_screen">key_tiny_screen</string>
+</resources>

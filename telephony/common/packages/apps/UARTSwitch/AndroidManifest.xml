@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.samsung.slsi.telephony.uartswitch"
+    android:sharedUserId="android.uid.system" >
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REBOOT" />
+
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="24" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".UartSwitchActivity"
+            android:label="@string/str_uart_switch" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.samsung.slsi.telephony.uartswitch.KeyStringReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+
+                <data
+                    android:host="1290"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

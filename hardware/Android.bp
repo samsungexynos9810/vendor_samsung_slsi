@@ -1,0 +1,4 @@
+hidl_package_root {
+    name: "vendor.samsung_slsi.hardware",
+    path: "vendor/samsung_slsi/hardware",
+}

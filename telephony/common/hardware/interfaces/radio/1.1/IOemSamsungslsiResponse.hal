@@ -1,0 +1,105 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.telephony.hardware.radio@1.1;
+
+import android.hardware.radio@1.0::types;
+import @1.0::IOemSamsungslsiResponse;
+
+/**
+ *  Empty top level interface.
+ */
+interface IOemSamsungslsiResponse extends @1.0::IOemSamsungslsiResponse {
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param status status returned by oem ( 0: fail, 1: success)
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_ARGUMENTS
+     *   RadioError:INTERNAL_ERR
+     *   RadioError:OEM_ERROR_X
+     */
+    oneway setActivateVsimResponse(RadioResponseInfo info, int32_t status);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_ARGUMENTS
+     *   RadioError:INTERNAL_ERR
+     *   RadioError:OEM_ERROR_X
+     */
+    oneway setEndcModeResponse(RadioResponseInfo info);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param enable = true EN-DC enabled, enable = false EN-DC disabled
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_ARGUMENTS
+     *   RadioError:INTERNAL_ERR
+     *   RadioError:OEM_ERROR_X
+     */
+    oneway getEndcModeResponse(RadioResponseInfo info, bool enable);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param dataRegResponse Current Data registration response as defined by DataRegStateResult in
+     *        types.hal
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INTERNAL_ERR
+     *   RadioError:NOT_PROVISIONED
+     */
+    oneway getDataRegistrationStateResponse(RadioResponseInfo info,
+            DataRegStateResult dataRegResponse);
+
+    /**
+     * @param signalStrength Current signal strength
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INTERNAL_ERR
+     */
+    oneway getSignalStrengthResponse(RadioResponseInfo info, SignalStrength signalStrength);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param cellInfo List of current cell information known to radio
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INTERNAL_ERR
+     */
+    oneway getCellInfoListResponse(RadioResponseInfo info, vec<CellInfo> cellInfo);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param ret capacity information of sim
+     */
+    oneway getSmsStorageOnSimResponse(RadioResponseInfo info, int32_t[2] ret);
+};

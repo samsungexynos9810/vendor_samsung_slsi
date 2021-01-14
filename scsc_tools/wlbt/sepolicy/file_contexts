@@ -1,0 +1,9 @@
+### slsi wlbt udilog
+/dev/s5n2560udi0               u:object_r:wland_udi_device:s0
+### slsi wlbt udilog
+
+/(vendor|system/vendor)/bin/wland              u:object_r:wland_exec:s0
+
+### slsi wlbt log output
+/data/vendor/log/wlbt(/.*)?   u:object_r:vendor_wlbt_log_file:s0
+### slsi wlbt log output

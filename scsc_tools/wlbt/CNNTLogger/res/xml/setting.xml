@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_logging_settings"
+        android:title="@string/logging_settings">
+        <PreferenceScreen
+            android:key="key_ap_logtype_list"
+            android:title="@string/ap_logging_type">
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="key_bt_logtype_list"
+            android:title="@string/bt_logging_type">
+        </PreferenceScreen>
+
+        <ListPreference
+            android:defaultValue="any"
+            android:entries="@array/tcp_logtype"
+            android:entryValues="@array/tcp_logtype"
+            android:key="key_tcp_logging_type"
+            android:title="@string/tcp_logging_type">
+        </ListPreference>
+    </PreferenceCategory>
+</PreferenceScreen>
+

@@ -1,0 +1,7 @@
+ifeq ($(CONFIG_SAMSUNG_SCSC_WIFIBT),true)
+LOCAL_PATH := $(my-dir)
+include $(CLEAR_VARS)
+$(warning "Apply SLSI-WIFI framework patch")
+$(warning $(shell $(ANDROID_JAVA_TOOLCHAIN)/javac ./$(LOCAL_PATH)/com/samsung/slsi/Patch.java))
+$(warning $(shell $(ANDROID_JAVA_TOOLCHAIN)/java -cp ./$(LOCAL_PATH) com.samsung.slsi.Patch $(PWD)/$(LOCAL_PATH)))
+endif

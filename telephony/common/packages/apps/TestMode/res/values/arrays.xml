@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="array_sgc_global_key">
+        <item>Clear SGC Global value</item>
+        <item>CHNOPEN</item>
+        <item>CHNOPEN_GCF</item>
+        <item>CMCC</item>
+        <item>CTC</item>
+        <item>CU</item>
+        <item>ATT</item>
+        <item>TMO</item>
+        <item>VZW</item>
+        <item>SPR</item>
+        <item>LATIN</item>
+        <item>LATIN_GCF</item>
+        <item>EUOPEN</item>
+        <item>EUOPEN GCF</item>
+        <item>NTT</item>
+        <item>KDDI</item>
+    </string-array>
+
+    <string-array name="array_sgc_global_value">
+        <item></item>
+        <item>0</item>
+        <item>1</item>
+        <item>100</item>
+        <item>101</item>
+        <item>102</item>
+        <item>200</item>
+        <item>201</item>
+        <item>202</item>
+        <item>203</item>
+        <item>300</item>
+        <item>301</item>
+        <item>400</item>
+        <item>401</item>
+        <item>500</item>
+        <item>501</item>
+    </string-array>
+
+    <string-array name="array_sgc_latam_key">
+        <item>Clear SGC Latam value</item>
+        <item>Claro AR</item>
+        <item>Mov. AR</item>
+        <item>Tuenti AR</item>
+        <item>NII AR</item>
+        <item>Nuestro AR MVNO</item>
+        <item>Personal AR</item>
+        <item>Tigo BO</item>
+        <item>Viva BO</item>
+        <item>Claro BR</item>
+        <item>Vivo BR</item>
+        <item>NII BR</item>
+        <item>Oi BR</item>
+        <item>Porto Conecta BR</item>
+        <item>Surf BR</item>
+        <item>TIM BR</item>
+        <item>Claro CL</item>
+        <item>Mov. CL</item>
+        <item>Entel CL</item>
+        <item>WOM CL</item>
+        <item>Claro CO</item>
+        <item>Mov. CO</item>
+        <item>Avantel CO</item>
+        <item>ETB CO</item>
+        <item>Tigo CO</item>
+        <item>Claro CR</item>
+        <item>Claro DO</item>
+        <item>Claro EC</item>
+        <item>Mov. EC</item>
+        <item>CNT EC</item>
+        <item>Claro SV</item>
+        <item>Tigo SV</item>
+        <item>Claro GT</item>
+        <item>Tigo GT</item>
+        <item>Claro HN</item>
+        <item>Tigo HO</item>
+        <item>Telcel MX</item>
+        <item>Mov. MX</item>
+        <item>Altan MX</item>
+        <item>AT&amp;T MX</item>
+        <item>Claro NI</item>
+        <item>Claro PA</item>
+        <item>Claro PY</item>
+        <item>Personal PY</item>
+        <item>Tigo PY</item>
+        <item>Claro PE</item>
+        <item>Mov. PE</item>
+        <item>Entel PE</item>
+        <item>Claro PR</item>
+        <item>Open Mobile PR</item>
+        <item>Claro UY</item>
+        <item>Mov. UY</item>
+        <item>Antel UY</item>
+        <item>Mov. VZ</item>
+    </string-array>
+
+    <string-array name="array_sgc_latam_value">
+        <item></item>
+        <item>601</item>
+        <item>602</item>
+        <item>603</item>
+        <item>604</item>
+        <item>605</item>
+        <item>606</item>
+        <item>607</item>
+        <item>608</item>
+        <item>609</item>
+        <item>610</item>
+        <item>611</item>
+        <item>612</item>
+        <item>613</item>
+        <item>614</item>
+        <item>615</item>
+        <item>616</item>
+        <item>617</item>
+        <item>618</item>
+        <item>619</item>
+        <item>620</item>
+        <item>621</item>
+        <item>622</item>
+        <item>623</item>
+        <item>624</item>
+        <item>625</item>
+        <item>626</item>
+        <item>627</item>
+        <item>628</item>
+        <item>629</item>
+        <item>630</item>
+        <item>631</item>
+        <item>632</item>
+        <item>633</item>
+        <item>634</item>
+        <item>635</item>
+        <item>636</item>
+        <item>637</item>
+        <item>638</item>
+        <item>639</item>
+        <item>640</item>
+        <item>641</item>
+        <item>642</item>
+        <item>643</item>
+        <item>644</item>
+        <item>645</item>
+        <item>646</item>
+        <item>647</item>
+        <item>648</item>
+        <item>649</item>
+        <item>650</item>
+        <item>651</item>
+        <item>652</item>
+        <item>653</item>
+    </string-array>
+
+    <string-array name="array_sgc_na_key">
+        <item>Clear SGC NA value</item>
+        <item>VZW</item>
+        <item>ATT</item>
+        <item>TMO USA</item>
+        <item>Sprint</item>
+        <item>Telus</item>
+        <item>Rogers</item>
+        <item>Bell</item>
+        <item>Freedom</item>
+    </string-array>
+
+    <string-array name="array_sgc_na_value">
+        <item></item>
+        <item>202</item>
+        <item>200</item>
+        <item>201</item>
+        <item>203</item>
+        <item>802</item>
+        <item>803</item>
+        <item>801</item>
+        <item>804</item>
+    </string-array>
+
+    <string-array name="array_phoneid_key">
+        <item>Phone 0</item>
+        <item>Phone 1</item>
+    </string-array>
+
+    <string-array name="array_phoneid_value">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="array_networkmode_key">
+        <item>GSM/WCDMA (WCDMA preferred)[0]</item>
+        <item>GSM only[1]</item>
+        <item>WCDMA[2]</item>
+        <item>GSM/WCDMA auto (PRL)[3]</item>
+        <item>CDMA/EvDo auto (PRL)[4]</item>
+        <item>CDMA only[5]</item>
+        <item>EvDo only[6]</item>
+        <item>GSM/WCDMA/CDMA/EvDo auto (PRL)[7]</item>
+        <item>LTE/CDMA/EvDo[8]</item>
+        <item>LTE/GSM/WCDMA[9]</item>
+        <item>LTE/CDMA/EvDo/GSM/WCDMA[10]</item>
+        <item>LTE only[11]</item>
+        <item>LTE/WCDMA[12]</item>
+        <item>NR/LTE/GSM/WCDMA[26]</item>
+        <item>NR/CDMA/EvDo/GSM/WCDMA[27]</item>
+    </string-array>
+
+    <string-array name="array_networkmode_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>26</item>
+        <item>27</item>
+    </string-array>
+
+</resources>

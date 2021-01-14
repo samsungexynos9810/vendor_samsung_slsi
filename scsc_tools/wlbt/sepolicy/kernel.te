@@ -1,0 +1,2 @@
+allow kernel vendor_wlbt_app:file r_file_perms;
+allow kernel wland:file r_file_perms;

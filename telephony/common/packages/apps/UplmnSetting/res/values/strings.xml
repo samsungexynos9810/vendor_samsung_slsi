@@ -1,0 +1,37 @@
+<resources>
+
+    <string name="app_name">UplmnSetting</string>
+
+    <string-array name="select_network_mode_choices">
+        <item>Unknown</item>
+        <item>GSM</item>
+        <item>GSM Compact</item>
+        <item>UTRAN</item>
+        <item>EUTRAN</item>
+    </string-array>
+    <string-array name="select_network_mode_values" translatable="false">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"4"</item>
+        <item>"8"</item>
+    </string-array>
+
+    <!-- Label for the "Network settings" screen in the Settings UI -->
+    <string name="settings_label">Network settings</string>
+    <string name="preferred_network_mode_summary">Change the network operating mode</string>
+    <string name="preferred_network_mode_dialogtitle">Preferred network type</string>
+
+    <!-- String for the "Uplmn Setting" screen -->
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="no_set">No set</string>
+    <string name="network_id">Network ID</string>
+    <string name="network_type">Network Type</string>
+    <string name="input_value">Please input 5~6 digit!</string>
+    <string name="uplmn_setting">Uplmn Setting</string>
+    <string name="add_new">Add New</string>
+
+</resources>

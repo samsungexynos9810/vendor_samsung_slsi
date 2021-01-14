@@ -1,0 +1,5 @@
+allow hwservicemanager spad:dir search;
+allow hwservicemanager spad:file { read open};
+allow hwservicemanager spad:process getattr;
+allow hwservicemanager spad:binder transfer;
+

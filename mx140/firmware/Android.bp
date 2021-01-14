@@ -1,0 +1,13 @@
+cc_prebuilt_binary {
+    srcs: ["enable_test_mode.sh"],
+    name: "enable_test_mode.sh",
+    proprietary: true,
+    strip: { none: true},
+}
+
+cc_prebuilt_binary {
+    srcs: ["enable_monitor_mode.sh"],
+    name: "enable_monitor_mode.sh",
+    proprietary: true,
+    strip: { none: true},
+}

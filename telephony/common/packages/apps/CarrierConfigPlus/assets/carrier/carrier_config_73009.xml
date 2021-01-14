@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+</carrier_config>
+    <carrier_config>
+        <string-array name="non_roaming_operator_string_array" num="14">
+            <item value="73001"/>
+            <item value="73002"/>
+            <item value="73003"/>
+            <item value="73004"/>
+            <item value="73005"/>
+            <item value="73006"/>
+            <item value="73007"/>
+            <item value="73008"/>
+            <item value="73009"/>
+            <item value="73010"/>
+            <item value="73011"/>
+            <item value="73012"/>
+            <item value="73013"/>
+            <item value="73014"/>
+        </string-array>
+        <boolean name="spn_display_rule_use_roaming_from_service_state_bool" value="true"/>
+        <string name="default_vm_number_string">*99</string>
+    </carrier_config>
+</carrier_config_list>

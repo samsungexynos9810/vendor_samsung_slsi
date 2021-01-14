@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="carrier_default_data_roaming_enabled_bool" value="true" />
+        <boolean name="operator_name_rule_use_opl_pnn_from_sim_bool" value="false" />
+    </carrier_config>
+</carrier_config_list>

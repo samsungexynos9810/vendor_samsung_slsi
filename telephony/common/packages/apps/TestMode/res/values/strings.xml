@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TestMode</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- USIM/USAT Test -->
+    <string name="usimusattest_activity_title">USIM/USAT APN Config</string>
+    <string name="str_usim">USIM Testcase</string>
+    <string name="str_usat">USAT Testcase</string>
+
+    <!-- APN Dialog Info -->
+    <string name="str_name">Name</string>
+    <string name="str_apn">APN</string>
+    <string name="str_user_name">User Name</string>
+    <string name="str_pwd">Password</string>
+    <string name="str_mcc">MCC</string>
+    <string name="str_mnc">MNC</string>
+    <string name="str_apn_type">APN Type</string>
+    <string name="txt_name">TestGp.rs</string>
+    <string name="txt_apn">TestGp.rs</string>
+    <string name="txt_user_name">UserLog</string>
+    <string name="txt_pwd">UserPwd</string>
+
+    <!-- APN List Info -->
+    <string name="apnlist_activity_title">Checking APN List</string>
+    <string name="str_edit_apn">Edit APN</string>
+    <string name="str_delete_apn">Delete APN</string>
+
+    <!-- Port Forwarding Info -->
+    <string name="portforwarding_activity_title">NS Test - Port Forwarding</string>
+    <string name="str_rb_on">On</string>
+    <string name="str_rb_off">Off</string>
+    <string name="str_enabled">NS Test Enabled</string>
+    <string name="str_udpport">UDP Port</string>
+    <string name="str_tcpport">TCP Port</string>
+    <string name="str_synpacketdrop">SYN Packet Drop</string>
+    <string name="str_ok">OK</string>
+    <string name="str_reset">Reset - Initial value</string>
+    <string name="str_result">Result</string>
+    <string name="str_tethering">USB Tethering</string>
+    <string name="str_ipv6_address">Tethered PC IPv6 Address</string>
+
+    <!-- SMS Pref Mode Info -->
+    <string name="sms_mode_activity_title">SMS Pref Mode</string>
+    <string name="str_cs_pref">CS Preferred</string>
+    <string name="str_ps_pref">PS Preferred</string>
+    <string name="str_cs_only">CS Only</string>
+    <string name="str_ps_only">PS Only</string>
+
+    <!-- BIP Test Info -->
+    <string name="bip_test_activity_title">BIP Test Mode</string>
+    <string name="str_test_enabled">BIP test enabled</string>
+
+    <!-- EMBMS Test Info -->
+    <string name="embms_test_activity_title">eMBMS Test Mode</string>
+    <string name="str_embms_test_enabled">EMBMS test enabled</string>
+
+    <!-- PLAT SUBNET Info -->
+    <string name="plat_subnet_activity_title">PLAT_SUBNET Setting</string>
+    <string name="str_plat_subnet">PLAT_SUBNET</string>
+    <string name="str_comment">Refer</string>
+    <string name="str_plat_subnet_summary">Airplane On/Off is required to apply setting change</string>
+
+    <!-- SGC Test Info -->
+    <string name="sgc_test_activity_title">SGC Config Setting</string>
+    <string name="str_sgc_global">Global SGC</string>
+    <string name="str_key_sgc_global">key_sgc_global</string>
+    <string name="str_sgc_latam_specific">Latam Specific SGC</string>
+    <string name="str_key_sgc_latam_specific">key_sgc_latam_specific</string>
+    <string name="str_sgc_na">North America SGC</string>
+    <string name="str_key_sgc_na">key_sgc_na</string>
+
+    <!-- Name to assign to a Network Access Point that was saved without a name -->
+    <string name="untitled_apn">Untitled</string>
+    <string name="str_search">Search</string>
+    <string name="str_search_hint">MCC/MNC</string>
+
+    <!-- Network Mode Info -->
+    <string name="networkmode_activity_title">Network Mode Settings</string>
+    <string name="str_phoneid">Phone ID</string>
+    <string name="str_key_phoneid">key_phoneid</string>
+    <string name="str_networkmode">Network Mode</string>
+    <string name="str_key_networkmode">key_networkmode</string>
+
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.slsi.blacklist"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+     <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <permission android:name="android.permission.READ_BLACKLIST"
+    android:label="@string/app_name"
+    android:protectionLevel="normal" />
+
+    <permission android:name="android.permission.WRITE_BLACKLIST"
+    android:label="@string/app_name"
+    android:protectionLevel="normal" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light" >
+        <activity
+            android:name=".BlackListMainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.slsi.blacklist.SHOW_BLACK_LIST_SETTINGS_ACTION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BlackListBatchActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CallFireLogActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CallLogBatchActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SmsLogBatchActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddBlacklistDialog"
+            android:theme="@style/Theme.Light.Translucent"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.android.slsi.blacklist.ADDBLACKLIST_ACTION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".SmsReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".BlackListProvider"
+            android:authorities="com.android.slsi.blacklist.BlackListProvider"
+            android:exported="true"
+            android:multiprocess="false"
+            android:readPermission="android.permission.READ_BLACKLIST"
+            android:writePermission="android.permission.WRITE_BLACKLIST" />
+    </application>
+
+</manifest>

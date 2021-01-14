@@ -1,0 +1,388 @@
+//------------------------------------------------------------------------------
+/// @file  IOfiService.hdl
+/// @ingroup  ofi_service
+///
+/// @brief HAL interface description for VIP Service
+///
+/// @section copyright_section Copyright
+/// &copy; 2018, Samsung Electronics Co., Ltd.
+///
+/// @section license_section License
+//------------------------------------------------------------------------------
+package vendor.samsung_slsi.hardware.ofi@3.0;
+
+typedef uint32_t GUID_TYPE;
+typedef uint32_t OFI_FMQ_MSG_TYPE;
+
+struct rt_hidl_image_meta {
+  uint32_t batch;
+  uint32_t channel;
+  uint32_t width;
+  uint32_t height;
+};
+
+struct rt_hidl_mem_t {
+  handle buffer_fd;
+  uint32_t size;           /* if size = 0, this is null */
+  uint32_t offset;
+  uint8_t allocation_type; /* ION or ASHMEM */
+  uint8_t attribute;       /* CACHE or not */
+};
+
+struct rt_hidl_mem_info_t {
+  int32_t buffer_pool_index;
+  rt_hidl_image_meta img_meta;
+};
+
+struct rt_hidl_graph_info_t {
+  rt_hidl_mem_t compile;
+  rt_hidl_mem_t temp;
+  rt_hidl_mem_t weight;
+  rt_hidl_mem_t bias;
+  rt_hidl_mem_t user_para;
+};
+
+struct rt_hidl_caffe_extras {
+  string blob;
+  vec<uint32_t> shape;
+};
+
+struct rt_hidl_caffemodel_info {
+  vec<string> in_blob_name;
+  vec<string> out_blob_name;
+  vec<rt_hidl_caffe_extras> overrided;
+  rt_hidl_mem_t caffemodel_binary;
+};
+
+struct rt_hidl_submodel_info {
+  GUID_TYPE submodel_id;
+  vec<rt_hidl_mem_info_t> in_buffer_infos;
+  vec<rt_hidl_mem_info_t> out_buffer_infos;
+  vec<GUID_TYPE> deps;
+  vec<GUID_TYPE> trigs;
+  uint32_t callback_status;   /* if callback function is registered? */
+  uint32_t callback_type;
+  rt_hidl_caffemodel_info caffemodel_info;  /* for armnn */
+};
+
+
+/* 1. load_graph */
+/* // merged with rt_hidl_model_info
+struct rt_hidl_load_graph_t {
+  uint32_t n_kernel_binary_list;
+  vec<GUID_TYPE> gid;
+  vec<string> kernel_binary_list;
+};
+*/
+
+/* 2. model (verify) */
+struct rt_hidl_model_info {
+  GUID_TYPE model_id;
+  uint32_t nn_id;
+  uint32_t pid;
+  vec<rt_hidl_submodel_info> submodel_info;
+  vec<rt_hidl_mem_t> model_memory_pool;
+
+  /* for vip */
+  rt_hidl_graph_info_t graph_info;
+
+  uint32_t n_kernel_binary_list;
+  vec<GUID_TYPE> gid;
+  vec<string> kernel_binary_list;
+};
+
+
+/* 3. request (execute) */
+struct rt_hidl_request_info {
+  GUID_TYPE graph_id;                       /* return from armnn */
+  uint32_t macro_sg_offset;                 /* for vip */
+  vec<rt_hidl_mem_t> inputs;
+  vec<rt_hidl_mem_t> outputs;
+  uint32_t user_para_size;
+  uint32_t custom_cpu_kernel_id;
+  uint8_t skip_flag;
+  rt_hidl_mem_t userparam;
+};
+
+struct rt_hidl_execute_info {
+  GUID_TYPE model_id;
+  uint64_t req_id;
+  vec<rt_hidl_request_info> req_infos;
+  bool is_wait;
+};
+
+struct rt_hidl_profile {
+  string filename;
+};
+
+enum fb_OfiGraphType: uint16_t {
+  OFI_GRAPH_TYPE_NOT_DEFINED = 0,
+  OFI_GRAPH_TYPE_NN2018 = 1801,
+  OFI_GRAPH_TYPE_CVNN2019 = 1901,
+};
+
+enum fb_OfiSclType : uint32_t {
+  OFI_SCL_TYPE_NONE = 0,
+  OFI_SCL_TYPE_INT,
+  OFI_SCL_TYPE_DOUBLE,
+  OFI_SCL_TYPE_FLOAT,
+  OFI_SCL_TYPE_CHAR,
+  OFI_SCL_TYPE_UINT8,
+  OFI_SCL_TYPE_INT64,
+  OFI_SCL_TYPE_BOOL,
+  OFI_SCL_TYPE_INT16,
+  OFI_SCL_TYPE_INT8,
+};
+
+enum fb_OfiBufType : uint32_t {
+  OFI_BUF_TYPE_NONE = 0,
+
+  /* Buffer Types */
+  OFI_BUF_TYPE_U8,
+  OFI_BUF_TYPE_U16,
+  OFI_BUF_TYPE_U32,
+  OFI_BUF_TYPE_S8,
+  OFI_BUF_TYPE_S16,
+  OFI_BUF_TYPE_S32,
+
+  /* Image Types */
+  OFI_BUF_TYPE_YUV422,
+  OFI_BUF_TYPE_YUV420,
+  OFI_BUF_TYPE_RGB888,
+  OFI_BUF_TYPE_RGB8888,
+  OFI_BUF_TYPE_BGR888,
+  OFI_BUF_TYPE_BGR8888,
+};
+
+enum fb_OfiMemoryType : uint32_t {
+  OFI_MEM_TYPE_NONE = 0,
+  OFI_MEM_TYPE_ION = 1,
+  OFI_MEM_TYPE_MALLOC = 2,
+  OFI_MEM_TYPE_ASHMEM = 3,
+};
+
+// should be synchronized with other typedef
+enum fb_OfiTargetType : uint32_t {
+  OFI_TARGET_CUSTOM_CPU = 0,
+  OFI_TARGET_VIP = 1,
+  OFI_TARGET_ORCA = 2,
+  OFI_TARGET_ARMNN_CPU = 3,
+  OFI_TARGET_ARMNN_GPU = 4,
+  OFI_TARGET_USER = 5,
+  OFI_TARGET_MAX = 6,
+  OFI_TARGET_NONE = 99,
+};
+
+enum fb_OfiMemLoadType : uint8_t {
+  OFI_MEM_LOAD_FROM_CGO = 0,
+  OFI_MEM_LOAD_FROM_IONFD = 1,
+  OFI_MEM_LOAD_NONE = 2,
+};
+
+enum fb_OfiOpLibraryType : uint8_t {
+  LIB_BUILTIN,
+  LIB_USR,
+};
+
+///////////// for flatbuffer //////////////
+
+typedef fb_OfiGraphType OfiGraphType;
+
+typedef fb_OfiSclType OfiSclType;
+
+typedef fb_OfiBufType OfiBufType;
+
+typedef fb_OfiMemoryType OfiMemoryType;
+
+typedef fb_OfiTargetType OfiTargetType;
+
+typedef fb_OfiMemLoadType OfiMemLoadType;
+
+typedef fb_OfiOpLibraryType OfiOpLibraryType;
+
+struct _OfiRawGraphHeader {
+  OfiGraphType graph_type;                 // NN2018? NN2019? CV2019?
+  uint32_t graph_app_id_default;           // graph topology indentifier, 0(disabled) is
+                                           // default
+  uint16_t graph_format_version;           // protocol version
+};
+
+struct _BufferShapeInfo {
+  uint32_t width;
+  uint32_t height;
+  uint32_t channel;                        // meaningful if NN type
+};
+
+
+struct  _OfiQuantParam {
+  float scale;
+  int32_t zero_point;
+  int32_t fl;
+};
+
+struct _OfiBuffer {
+  string blob_name;
+  uint32_t pool_index;                     // parameter index
+  uint32_t offset;
+  uint32_t size;                           // if size is zero, memory set fully.
+  _BufferShapeInfo shape;
+  OfiBufType type;
+  _OfiQuantParam quantization;
+};
+
+struct _OfiScalar {
+  string blob_name;
+  uint32_t pool_index;
+  OfiSclType scl_type;
+  uint32_t offset;
+  uint32_t typesize;
+  uint32_t length;
+};
+
+struct _OfiNode {
+  uint32_t node_id;                          // not a gid.
+  uint32_t function_id;                      // kernel_id of entire target
+  GUID_TYPE msg_id;                          // chaining group, can be 1:1 with msg_id
+
+  vec<uint32_t> in_deps;                  // global id
+  vec<uint32_t> out_trigs;                // global id
+
+  vec<uint32_t> in_buffers;
+  vec<uint32_t> out_buffers;
+  vec<uint32_t> usr_scalars;
+};
+
+struct _OfiKernelInfo {
+  uint8_t load_type;
+  string lib_path;
+  string function_name;
+  uint32_t num_in_buffers;
+  uint32_t num_out_buffers;
+  uint32_t num_user_scalars;
+  uint32_t function_id;
+};
+
+struct _OfiMacroSubGraph {
+  GUID_TYPE msg_id;                          // use as a gid
+  vec<uint32_t> node_ids;                 // node_id
+  OfiTargetType assigned_target;
+  //uint32_t function_id;                      // CPU specific attribute
+  _OfiKernelInfo kernel_info;
+  vec<uint32_t> in_deps;                  // deps
+  vec<uint32_t> out_trigs;                // trigs
+  vec<uint32_t> in_buffers;               // _OfiRawGraphCore buffers idx
+  vec<uint32_t> out_buffers;              // _OfiRawGraphCore buffers idx
+  vec<uint32_t> usr_scalars;              // _OfiRawGraphCore buffers idx
+  uint32_t callback_status;                        // if callback function is registered?
+  uint32_t callback_type;
+
+};
+
+
+struct _OfiMemory {
+  OfiMemoryType type;
+  OfiTargetType target_dev;
+  uint32_t size;                             // if there's req_buf, size will be 0
+  uint8_t attr;                         // attr
+  handle buffer_fd;                         // file descripter
+  uint64_t va;                                  // virtual address
+  int32_t mem_offset;                               // memory offset for external fd
+  _BufferShapeInfo shape;
+};
+
+struct _msg_offset {
+  uint32_t msg_id;
+  uint32_t offset;
+};
+
+struct _OfiTargetSpecificGraphDescriptor_DSP2018 {
+  vec<_msg_offset> msg_offset_info;
+  vec<string> tsgd_bin_name;
+  _OfiMemory tmp_buf_info;                   // no string, only req size is meaningful
+  _OfiMemory graph_info;
+  _OfiBuffer weight_info;
+  _OfiBuffer bias_info;
+};
+
+struct _OfiTargetSpecificGraphDescriptor_DSP2019 {
+  vec<_OfiOpLibrary> lib_bin_list;
+  _OfiMemory graph_info;
+};
+
+struct _OfiTargetSpecificGraphDescriptor {
+  OfiGraphType type;
+  _OfiTargetSpecificGraphDescriptor_DSP2018 dsp2018;
+  _OfiTargetSpecificGraphDescriptor_DSP2019 dsp2019;
+};
+
+struct _OfiRawGraphCore {
+  GUID_TYPE graph_id;                        // Gid
+
+  vec<uint32_t> graph_in_buffers;         // Index of buffers
+  vec<uint32_t> graph_out_buffers;        // Index of buffers
+
+  vec<uint32_t> graph_usr_scalars;        // Index of buffers
+
+  vec<_OfiNode> nodes;                    // vector<OfiNode> node;
+  vec<_OfiBuffer> buffers;                  // vector<_OfiBuffer> buffers
+  vec<_OfiScalar> scalars;
+  vec<_OfiMacroSubGraph> msgs;            // vector<OfiMacroSubGraph> msg;
+  _OfiTargetSpecificGraphDescriptor target_info;
+
+};
+
+struct _OfiParameter {
+  bool is_mandatory;
+  bool is_user_defined;
+  bool is_scalar;
+  bool is_allocate_every_session;            // in case of temp_buffer,
+                                             // this flags indicates that
+                                             // this buffer should be allocated
+                                             // in every session
+  _OfiMemory buf_info;
+};
+
+struct _OfiOpLibrary {
+  OfiOpLibraryType type;
+  uint32_t lib_id;                           // hash value of libaray string
+  string lib_path;
+  uint32_t version;
+};
+
+struct _OfiParameterUpdate {
+  _OfiBuffer UpdateRegion;
+  bool is_scalar;
+
+  // for scalar update ( the size should be same as UpdateRegion )
+  vec<uint8_t> update_scalar;
+
+  // for buffer update ( if is_scalar = false )
+  _OfiMemory update_buf_info;
+};
+
+struct _OfiReqParamList {
+  uint32_t dev_param_max_idx;
+  vec<_OfiParameter> param_list;
+};
+
+struct _OfiExecuteParamList {
+  vec<_OfiParameterUpdate> param_list;
+};
+
+struct OfiRawGraph {
+  _OfiRawGraphHeader header;
+  vec<_OfiMacroSubGraph> pre_cpu_core;
+  _OfiRawGraphCore core;
+  vec<_OfiMacroSubGraph> post_cpu_core;
+  _OfiReqParamList param;
+  uint32_t pid;
+};
+
+struct OfiExecuteMsg {
+  GUID_TYPE graph_id;                        // Gid
+  uint64_t req_id;
+  bool is_wait;
+  vec<bool> is_skip;
+  uint32_t priority;
+  _OfiExecuteParamList user_param;
+};

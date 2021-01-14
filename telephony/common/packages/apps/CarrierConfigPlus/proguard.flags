@@ -1,0 +1,1 @@
+-keep class com.samsung.slsi.telephony.carrierconfigplus.CarrierConfigPlusService

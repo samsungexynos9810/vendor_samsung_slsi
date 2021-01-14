@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="spn_display_rule_use_roaming_from_service_state_bool" value="true"/>
+        <string-array name="non_roaming_operator_string_array" num="1">
+            <item value="73001"/>
+        </string-array>
+        <string name="default_vm_number_string">#123</string>
+    </carrier_config>
+</carrier_config_list>

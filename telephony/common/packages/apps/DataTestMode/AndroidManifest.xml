@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.samsung.slsi.telephony.datatestmode"
+    android:sharedUserId="android.uid.system"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="24" />
+
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+    <uses-permission android:name="android.permission.REBOOT" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.samsung.slsi.telephony.datatestmode.DataTestModeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.apnsettingmode.ApnSettingModeActivity"
+            android:label="@string/apnlist_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.samsung.slsi.telephony.apnsettingmode.ApnEditorActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="Edit Access Point">
+            <intent-filter>
+                <action android:name="com.samsung.slsi.telephony.apnsettingmode.action.VIEW" />
+                <action android:name="com.samsung.slsi.telephony.apnsettingmode.action.EDIT" />
+                <action android:name="com.samsung.slsi.telephony.apnsettingmode.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.apnmode.ApnModeActivity"
+            android:label="@string/str_apn_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.vzwtestmode.VzwTestModeActivity"
+            android:label="@string/str_vzwtest_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.dataretrymode.DataRetryModeActivity"
+            android:label="@string/str_dataretry_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.dnsblock.DnsBlockActivity"
+            android:label="@string/str_dns_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.voltesetting.VoLteModeActivity"
+            android:label="@string/str_volte_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.dualvolte.DualVolteSettingActivity"
+            android:label="@string/str_dual_volte_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.samsung.slsi.telephony.datatestmode.KeyStringReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+
+                <data
+                    android:host="0290"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

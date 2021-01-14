@@ -1,0 +1,11 @@
+package vendor.samsung_slsi.hardware.wifi.supplicant@1.0;
+
+import vendor.samsung_slsi.hardware.wifi.supplicant@1.0::ISupplicantVendorNetwork;
+import android.hardware.wifi.supplicant@1.0::types;
+
+/**
+ * Vendor Interface exposed by the supplicant for each network interface (e.g wlan0)
+ * it controls.
+ */
+interface ISupplicantVendorIface {
+};

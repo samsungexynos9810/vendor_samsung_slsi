@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Data Test Mode</string>
+    <string name="key_pref_screen">key_pref_screen</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="str_apn">PDN Up/Down</string>
+    <string name="str_dns">DNS Query Block</string>
+
+    <!-- APN Mode -->
+    <string name="str_apn_title">APN Mode Setting</string>
+    <string name="str_select_sim">Select SIM</string>
+    <string name="str_sim1">SIM1</string>
+    <string name="str_sim2">SIM2</string>
+    <string name="key_apn_list">key_apn_list</string>
+    <string name="key_select_sim">key_select_sim</string>
+    <string name="key_sim1">key_sim1</string>
+    <string name="key_sim2">key_sim2</string>
+
+  <!-- APN Settings -->
+    <!-- APN settings screen title -->
+    <string name="apn_settings">APNs</string>
+    <!-- Screen title after user selects APNs setting option -->
+    <string name="apn_edit">Edit access point</string>
+    <!-- Edit access point label summary text when no value has been set -->
+    <string name="apn_not_set">Not set</string>
+    <!-- Edit access point labels: A label the user can give to the APN to allow him to differentiate it from the others -->
+    <string name="apn_name">Name</string>
+    <!-- Edit access point labels: The actual access point name-->
+    <string name="apn_apn">APN</string>
+    <!-- Edit access point labels: The addess of the proxy to use for this APN -->
+    <string name="apn_http_proxy">Proxy</string>
+    <!-- Edit access point labels: The port number of the proxy to use for this APN -->
+    <string name="apn_http_port">Port</string>
+    <!-- Edit access point labels: The username that will be used when conencting to this APN-->
+    <string name="apn_user">Username</string>
+    <!-- Edit access point labels: The password that will be used when connecting to this APN -->
+    <string name="apn_password">Password</string>
+    <!-- Edit access point labels: The server address to conenct to for this APN -->
+    <string name="apn_server">Server</string>
+    <!-- Edit access point labels: -->
+    <string name="apn_mmsc">MMSC</string>
+    <!-- Edit access point labels: The proxy to use for MMS (multimedia messages)-->
+    <string name="apn_mms_proxy">MMS proxy</string>
+    <!-- Edit access point labels: The port on the proxy used for MMS-->
+    <string name="apn_mms_port">MMS port</string>
+    <!-- Edit access point labels: -->
+    <string name="apn_mcc">MCC</string>
+    <!-- Edit access point labels: -->
+    <string name="apn_mnc">MNC</string>
+    <!-- Edit acces  point labels: Authenticaton type-->
+    <string name="apn_auth_type">Authentication type</string>
+    <!-- Authentication Typs: None -->
+    <string name="apn_auth_type_none">None</string>
+    <!-- Authentication Typs: PAP -->
+    <string name="apn_auth_type_pap">PAP</string>
+    <!-- Authentication Typs: CHAP -->
+    <string name="apn_auth_type_chap">CHAP</string>
+    <!-- Authentication Typs: PAP or CHAP -->
+    <string name="apn_auth_type_pap_chap">PAP or CHAP</string>
+    <!-- Edit access point labels: The type of APN -->
+    <string name="apn_type">APN type</string>
+    <!-- Edit access point labels: The protocol of the APN, e.g., "IPv4", "IPv6", or "IPv4/IPv6". -->
+    <string name="apn_protocol">APN protocol</string>
+    <!-- Edit access point labels: The protocol of the APN when roaming, e.g., "IPv4", "IPv6", or "IPv4/IPv6". -->
+    <string name="apn_roaming_protocol">APN roaming protocol</string>
+    <!-- Edit enable/disable of APN -->
+    <string name="carrier_enabled">APN enable/disable</string>
+    <string name="carrier_enabled_summaryOn">APN enabled</string>
+    <string name="carrier_enabled_summaryOff">APN disabled</string>
+    <!-- Edit Beaerer Info of APN -->
+    <string name="bearer">Bearer</string>
+    <!-- Edit Mvno Type Info of APN -->
+    <string name="mvno_type">MVNO type</string>
+    <!-- Edit Mvno Match Data Info of APN -->
+    <string name="mvno_match_data">MVNO value</string>
+    <!-- Edit access point screen menu option to delete this APN -->
+    <string name="menu_delete">Delete APN</string>
+    <!-- APNs screen menu option to create a brand spanking new APN -->
+    <string name="menu_new">New APN</string>
+    <!-- Edit access point screen menu option to save the user's changes for this APN to the persistent storage -->
+    <string name="menu_save">Save</string>
+    <!-- Edit access point screen menu option to discard the user's changes for this APN -->
+    <string name="menu_cancel">Discard</string>
+    <!-- APN error dialog title -->
+    <string name="error_title"></string>
+    <!-- APN error dialog messages: -->
+    <string name="error_name_empty">The Name field can\u2019t be empty.</string>
+    <!-- APN error dialog messages: -->
+    <string name="error_apn_empty">The APN can\u2019t be empty.</string>
+    <!-- APN error dialog messages: -->
+    <string name="error_mcc_not3">MCC field must be 3 digits.</string>
+    <!-- APN error dialog messages: -->
+    <string name="error_mnc_not23">MNC field must be 2 or 3 digits.</string>
+    <!-- APN error dialog messages: -->
+    <string name="error_adding_apn_type">Carrier does not allow adding APNs of type %s.</string>
+    <!-- The message of dialog indicated restoring default APN settings in progress -->
+    <string name="restore_default_apn">Restoring default APN settings.</string>
+    <!-- APNs screen menu option to reset default APN settings -->
+    <string name="menu_restore">Reset to default</string>
+    <!-- APNs screen toast message to inform reset default APN settings is completed -->
+    <string name="restore_default_apn_completed">Reset default APN settings completed.</string>
+
+    <!-- APN List Info -->
+    <string name="apnlist_activity_title">Checking APN List</string>
+    <string name="str_edit_apn">Edit APN</string>
+    <string name="str_delete_apn">Delete APN</string>
+
+    <!-- TEST Mode Info -->
+    <string name="str_vzwtest_title">VzwTestMode Setting</string>
+    <string name="str_vzwtest_mode">VzwTestMode</string>
+    <string name="key_vzwtest_mode">key_vzwtest_mode</string>
+
+    <!-- Data Retry Mode -->
+    <string name="str_dataretry_title">Data Retry Mode Setting</string>
+    <string name="key_dataretry_list">key_dataretry_list</string>
+    <string name="str_search_hint">MCC/MNC</string>
+    <string name="str_search">Search</string>
+
+    <!-- DNS Query Block -->
+    <string name="str_dns_block">DNS Query Block</string>
+    <string name="str_dns_title">DNS Query Block Setting</string>
+
+    <!-- VoLTE Setting -->
+    <string name="key_volte_mode">key_volte_mode</string>
+    <string name="str_volte_title">VoLTE mode setting</string>
+    <string name="str_volte_mode">VoLTE mode</string>
+
+    <!-- Dual VoLTE Setting -->
+    <string name="str_dual_volte_title">Dual VoLTE mode setting</string>
+
+</resources>

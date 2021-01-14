@@ -1,0 +1,15 @@
+package vendor.samsung_slsi.hardware.exynosdisplayfeature@1.0;
+
+/** Type enumerating various result codes returned from IExynosDisplayFeature methods  */
+enum Status : int32_t {
+    OK,
+    PERMISSION_DENIED                   = -1,
+    NO_MEMORY                           = -12,
+    BAD_VALUE                           = -22,
+    INVALID_OPERATION                   = -38,
+};
+/** Type enumerating various panel feature mode from IExynosDisplayFeature methods  */
+enum PanelFeature : int32_t {
+    CABC_MODE = 0,
+    HBM_MODE = 1,
+};

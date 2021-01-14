@@ -1,0 +1,29 @@
+package vendor.samsung_slsi.hardware.exynosdisplayfeature@1.0;
+
+
+interface IExynosDisplayFeature {
+    /**
+     * send feature command to exynosdisplayfeature hal.
+     * @param  displayId.
+     * @param  caseId.
+     * @param  modeId.
+     * @param  cookie.
+     * @return result OK on success or BAD_VALUE if any parameters are invalid.
+     */
+    setFeature(int32_t displayId, int32_t caseId, int32_t modeId, int32_t cookie) generates (Status result);
+    /**
+     * send RGB Gain command to exynosdisplayfeature hal.
+     * @param  r.
+     * @param  g.
+     * @param  b.
+     * @return result OK on success or BAD_VALUE if any parameters are invalid.
+     */
+    setRgbGain(double r, double g, double b) generates (Status result);
+    /**
+     * send panel feature command to exynosdisplayfeature hal.
+     * @param  mode.
+     * @param  value.
+     * @return result OK on success or BAD_VALUE if any parameters are invalid.
+     */
+    setPanelFeature(int32_t mode, int32_t value) generates (Status result);
+};

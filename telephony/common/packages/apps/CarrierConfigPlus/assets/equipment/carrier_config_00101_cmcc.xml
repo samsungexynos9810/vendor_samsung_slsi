@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+<boolean name="show_apn_setting_cdma_bool" value="true" />
+<boolean name="carrier_volte_available_bool" value="true" />
+<boolean name="carrier_check_VOPS_bool" value="true" />
+<boolean name="china_emergency_number_nw" value="true" />
+<boolean name="ss_data_popup_sim" value="true" />
+<boolean name="restrict_waiting_vt_call_nw" value="true" />
+<boolean name="ut_support_sim" value="true" />
+<boolean name="ss_policy_sim_cmcc" value="true" />
+<boolean name="drop_hold_call_for_emc_sim" value="false" />
+</carrier_config>
+</carrier_config_list>

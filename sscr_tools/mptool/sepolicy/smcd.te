@@ -1,0 +1,8 @@
+type smcd, domain;
+type smcd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(smcd);
+
+allow smcd radio_device:chr_file rw_file_perms;
+set_prop(smcd, mptool_prop)
+allow smcd vcd:unix_stream_socket { connectto };
+

@@ -1,0 +1,18 @@
+### slsi wlbt mxlog
+genfscon debugfs /scsc                u:object_r:vendor_wlbt_debugfs:s0
+### slsi wlbt mxlog
+
+### slsi wlbt udilog
+genfscon proc /driver/unifi0/build    u:object_r:vendor_wlbt_build:s0
+### slsi wlbt udilog
+
+### slsi wlbt btlog
+genfscon sysfs /module/scsc_logring/parameters/scsc_reset_all_droplevels_to    u:object_r:vendor_wlbt_sysfs_scsc_reset_all_droplevels_to:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_droplevel_mlme             u:object_r:vendor_wlbt_sysfs_scsc_droplevel_mlme:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_droplevel_mx_fw            u:object_r:vendor_wlbt_sysfs_scsc_droplevel_mx_fw:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_redirect_to_printk_droplvl u:object_r:vendor_wlbt_sysfs_scsc_redirect_to_printk_droplvl:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_droplevel_udi              u:object_r:vendor_wlbt_sysfs_scsc_droplevel_udi:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_droplevel_fw_test          u:object_r:vendor_wlbt_sysfs_scsc_droplevel_fw_test:s0
+genfscon sysfs /module/scsc_logring/parameters/scsc_droplevel_bt_h4            u:object_r:vendor_wlbt_sysfs_scsc_droplevel_bt_h4:s0
+genfscon sysfs /module/scsc_bt/parameters/mxlog_filter                         u:object_r:vendor_wlbt_sysfs_mxlog_filter:s0
+### slsi wlbt btlog

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+<boolean name="china_emergency_number_nw" value="true" />
+<boolean name="ss_data_popup_sim" value="true" />
+<boolean name="ut_support_hplmn_sim" value="true" />
+<boolean name="ss_data_off_popup_sim" value="true" />
+</carrier_config>
+</carrier_config_list>

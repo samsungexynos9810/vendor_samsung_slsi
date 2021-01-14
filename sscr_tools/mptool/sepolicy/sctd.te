@@ -1,0 +1,22 @@
+#============= sctd ==============
+type sctd, domain;
+type sctd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(sctd);
+
+allow sctd radio_device:chr_file rw_file_perms;
+allow sctd swcnd:unix_stream_socket { connectto };
+allow sctd spad:unix_stream_socket { connectto };
+allow sctd smcd:unix_stream_socket { connectto };
+allow sctd sfmd:unix_stream_socket { connectto };
+allow sctd serial_device:chr_file { read write getattr open ioctl };
+set_prop(sctd, mptool_prop)
+
+allow sctd self:tcp_socket create_stream_socket_perms;
+
+# Connect to ports.
+allow sctd port_type:tcp_socket name_connect;
+
+# Bind to ports.
+allow sctd node_type:{ tcp_socket udp_socket } node_bind;
+allow sctd port_type:tcp_socket name_bind;
+

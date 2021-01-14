@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">黑名单</string>
+    <string name="intercept_number">号码：</string>
+    <string name="intercept_name">姓名：</string>
+    <string name="intercept_call">拦截电话</string>
+    <string name="intercept_sms">拦截短信</string>
+    <string name="add_note">备注（可选）</string>
+    <string name="yes">确定</string>
+    <string name="no">取消</string>
+    <string name="add_invalid_toast">添加无效！</string>
+    <string name="add_success_toast">添加成功！</string>
+    <string name="set_intercept_toast">请选择拦截项！</string>
+    <string name="add_repeat_toast">该号码已经加入黑名单！</string>
+    <string name="add_blacklist_title">添加到黑名单</string>
+    <string name="no_name">未知</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="batch_delete">批量删除</string>
+    <string name="no_black_contact">没有黑名单!</string>
+    <string name="log_name">拦截记录</string>
+    <string name="block_call">拦截来电</string>
+    <string name="block_sms">拦截短信</string>
+    <string name="str_call_tab">通话</string>
+    <string name="str_sms_tab">短信</string>
+</resources>

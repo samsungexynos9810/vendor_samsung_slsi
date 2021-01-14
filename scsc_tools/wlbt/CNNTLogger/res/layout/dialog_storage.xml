@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <RadioGroup
+        android:id="@+id/dialog_rg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp" >
+
+        <RadioButton
+            android:id="@+id/dialog_rb_internal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:checked="true"
+            android:paddingLeft="10dp"
+            android:text="@string/dialog_internal"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/dialog_rb_sdcard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="@string/dialog_sdcard"
+            android:textSize="20dp" />
+    </RadioGroup>
+
+</LinearLayout>
+

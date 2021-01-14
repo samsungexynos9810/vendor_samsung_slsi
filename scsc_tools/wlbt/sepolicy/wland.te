@@ -1,0 +1,67 @@
+type wland, domain;
+type wland_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(wland);
+
+set_prop(wland, vendor_wland_prop);
+allow wland vendor_wland_prop:file { read getattr open map };
+
+### slsi wlbt mxlog
+allow wland vendor_wlbt_debugfs:file r_file_perms;
+allow wland wlbtd_exec:file execute_no_trans;
+### slsi wlbt mxlog
+
+### slsi wlbt udilog
+allow vendor_wlbt_build { proc }:filesystem associate;
+allow wland vendor_wlbt_build:file { open read getattr ioctl };
+allow wland wland_udi_device:chr_file { read write open ioctl };
+### slsi wlbt udilog
+
+### slsi wlbt log output
+allow wland vendor_wlbt_log_file:dir create_dir_perms;
+allow wland vendor_wlbt_log_file:file create_file_perms;
+### slsi wlbt log output
+
+### For logging command execution
+allow wland system_file:file execute_no_trans;
+allow wland vendor_file:file execute_no_trans;
+allow wland vendor_toolbox_exec:file execute_no_trans;
+allow wland vendor_shell_exec:file execute_no_trans;
+### For logging command execution
+
+### For Bluetooth
+allow wland vendor_wlbt_sysfs_scsc_reset_all_droplevels_to:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_droplevel_mlme:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_droplevel_mx_fw:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_redirect_to_printk_droplvl:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_droplevel_udi:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_droplevel_fw_test:file w_file_perms;
+allow wland vendor_wlbt_sysfs_scsc_droplevel_bt_h4:file w_file_perms;
+allow wland vendor_wlbt_sysfs_mxlog_filter:file w_file_perms;
+
+allow wland bluetooth_data_file:dir search;
+allow wland bluetooth_logs_data_file:dir r_dir_perms;
+allow wland bluetooth_logs_data_file:file r_file_perms;
+allow wland self:capability { dac_override };
+allow wland self:capability { dac_read_search };
+### For Bluetooth
+
+### For routing monitor
+allow wland self:netlink_route_socket { read nlmsg_read write nlmsg_write bind create setopt getattr };
+### For routing monitor
+
+allow wland logd:unix_stream_socket connectto;
+allow wland logdr_socket:sock_file write;
+allow wland self:capability { setuid sys_nice setgid net_raw fowner fsetid };
+allow wland self:packet_socket { read getopt create setopt };
+allow wland self:udp_socket { create ioctl };
+
+allow wland system_data_file:dir { create getattr setattr write add_name };
+
+type wland_data_file, file_type, data_file_type;
+type_transition wland system_data_file:{ dir file } wland_data_file;
+allow wland wland_data_file:dir {create_dir_perms search setattr };
+allow wland wland_data_file:file {create_file_perms setattr};
+
+allow wland vendor_log_file:dir create_dir_perms;
+allow wland vendor_log_file:file create_file_perms;
+allow wland vendor_data_file:dir { setattr };

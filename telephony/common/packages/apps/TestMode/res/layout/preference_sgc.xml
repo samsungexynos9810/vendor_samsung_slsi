@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:title="@string/sgc_test_activity_title" >
+
+    <ListPreference
+        android:dialogTitle="@string/str_sgc_global"
+        android:entries="@array/array_sgc_global_key"
+        android:entryValues="@array/array_sgc_global_value"
+        android:key="@string/str_key_sgc_global"
+        android:title="@string/str_sgc_global" />
+
+    <ListPreference
+        android:dialogTitle="@string/str_sgc_latam_specific"
+        android:entries="@array/array_sgc_latam_key"
+        android:entryValues="@array/array_sgc_latam_value"
+        android:key="@string/str_key_sgc_latam_specific"
+        android:title="@string/str_sgc_latam_specific" />
+
+    <ListPreference
+        android:dialogTitle="@string/str_sgc_na"
+        android:entries="@array/array_sgc_na_key"
+        android:entryValues="@array/array_sgc_na_value"
+        android:key="@string/str_key_sgc_na"
+        android:title="@string/str_sgc_na" />
+
+</PreferenceScreen>

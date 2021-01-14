@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:key="@string/key_screen"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:title="@string/str_title" >
+
+    <PreferenceCategory android:title="@string/str_title" />
+
+    <Preference
+        android:key="@string/key_model_num"
+        android:title="@string/pref_model_num" />
+    <Preference
+        android:key="@string/key_hw_ver"
+        android:title="@string/pref_hw_ver" />
+    <Preference
+        android:key="@string/key_sw_ver"
+        android:title="@string/pref_sw_ver" />
+    <Preference
+        android:key="@string/key_prl_ver"
+        android:title="@string/pref_prl_ver" />
+    <Preference
+        android:key="@string/key_uimid"
+        android:title="@string/pref_uimid" />
+    <Preference
+        android:key="@string/key_esn_meid"
+        android:title="@string/pref_esn_meid" />
+    <Preference
+        android:key="@string/key_sid"
+        android:title="@string/pref_sid" />
+    <Preference
+        android:key="@string/key_nid"
+        android:title="@string/pref_nid" />
+
+</PreferenceScreen>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="18dp"
+    android:weightSum="1"
+    android:gravity="center"
+    android:layout_marginBottom="18dp"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <CheckBox
+        android:layout_width="0px"
+        android:gravity="center_vertical"
+        android:layout_weight="0.1"
+        android:layout_height="wrap_content"
+        android:id="@+id/logTypeCheckBox"/>
+
+    <TextView
+        android:id="@+id/logTypeText"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0px"
+        android:layout_weight="0.8"
+        android:paddingLeft="18dp"
+        android:textSize="25dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/logTypeSetBtn"
+        android:layout_width="0px"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:background="@drawable/logtype_settings" />
+</LinearLayout>

@@ -1,0 +1,67 @@
+type vendor_wlbt_app, domain;
+# Exynos Log Files
+
+app_domain(vendor_wlbt_app);
+binder_use(vendor_wlbt_app);
+
+get_prop(vendor_wlbt_app, exported_system_radio_prop);
+set_prop(vendor_wlbt_app, exported_system_radio_prop);
+
+allow vendor_wlbt_app vendor_wlbt_log_file:dir create_dir_perms;
+allow vendor_wlbt_app vendor_wlbt_log_file:file create_file_perms;
+
+allow vendor_wlbt_app system_app_data_file:dir create_dir_perms;
+allow vendor_wlbt_app system_app_data_file:file create_file_perms;
+
+allow vendor_wlbt_app wland_data_file:dir { create_dir_perms search setattr };
+allow vendor_wlbt_app wland_data_file:file create_file_perms;
+
+allow vendor_wlbt_app init:dir { getattr search };
+allow vendor_wlbt_app kernel:dir { getattr search read };
+allow vendor_wlbt_app vendor_log_file:dir { search getattr read open };
+allow vendor_wlbt_app vendor_log_file:file rw_file_perms;
+
+allow vendor_wlbt_app proc:file { getattr open read };
+allow vendor_wlbt_app proc_stat:file r_file_perms;
+allow vendor_wlbt_app vendor_wland_prop:file { read getattr open map };
+
+allow vendor_wlbt_app debugfs_tracing:file { write open };
+allow vendor_wlbt_app tee:file { read getattr };
+allow vendor_wlbt_app hal_thermal_default:file { read getattr };
+allow vendor_wlbt_app hal_light_default:file { read };
+allow vendor_wlbt_app hal_memtrack_default:file { read };
+
+allow vendor_wlbt_app wland:unix_stream_socket connectto;
+allow vendor_wlbt_app hwservicemanager:file read;
+allow vendor_wlbt_app vndservicemanager:file read;
+allow vendor_wlbt_app servicemanager:file read;
+allow vendor_wlbt_app {
+    activity_service
+    accessibility_service
+    appops_service
+    audio_service
+    audioserver_service
+    autofill_service
+    cameraserver_service
+    connectivity_service
+    content_service
+    display_service
+    mediaextractor_service
+    mediametrics_service
+    mediaserver_service
+    media_session_service
+    mount_service
+    network_management_service
+    notification_service
+    power_service
+    radio_service
+    registry_service
+    wifi_service
+    usb_service
+    user_service
+    surfaceflinger_service
+    input_method_service
+    graphicsstats_service
+    textservices_service
+    input_service
+}:service_manager find;

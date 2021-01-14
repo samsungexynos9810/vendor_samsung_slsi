@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="rtt_supported_bool" value="true" />
+        <boolean name="carrier_volte_available_bool" value="true"/>
+        <boolean name="carrier_volte_tty_supported_bool" value="false"/>
+        <boolean name="carrier_wfc_ims_available_bool" value="true"/>
+        <boolean name="carrier_ims_gba_required_bool" value="true"/>
+        <int name="vvm_port_number_int" value="1808"/>
+        <string name="vvm_destination_number_string">122</string>
+        <string name="carrier_vvm_package_name_string">com.tmobile.vvm.application</string>
+        <string name="vvm_type_string">vvm_type_cvvm</string>
+        <int name="volte_replacement_rat_int" value="3"/>
+        <int name="maxMessageSize" value="1048576"/>
+        <int name="maxImageWidth" value="2592"/>
+        <int name="maxImageHeight" value="1944"/>
+        <boolean name="mmsCloseConnection" value="true"/>
+        <boolean name="carrier_name_override_bool" value="true" />
+        <string name="carrier_name_string">T-Mobile</string>
+        <!--Array of auto retry intervals(in milliseconds).
+         For example, if a device retries after 30 seconds for 1st retry, 2nd retry after 3 mins,
+         3rd retry after 5 mins, and no more auto retry, this would look like:
+            <long-array name="rexxxxingIntervals" num="3">
+                <item value="30000"/>
+                <item value="180000"/>
+                <item value="300000"/>
+            </long-array>
+
+         For no retry, just configure as follows:
+            <long-array name="rexxxxingIntervals" num="1">
+                <item value="-1"/>
+            </long-array>
+        -->
+        <long-array name="resendingIntervals" num="3">
+            <item value="30000"/>
+            <item value="180000"/>
+            <item value="300000"/>
+        </long-array>
+        <long-array name="redownloadingIntervals" num="3">
+            <item value="30000"/>
+            <item value="180000"/>
+            <item value="300000"/>
+        </long-array>
+        <boolean name="carrier_name_override_bool" value="true" />
+        <string name="carrier_name_string">T-Mobile</string>
+    </carrier_config>
+</carrier_config_list>

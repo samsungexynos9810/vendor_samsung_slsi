@@ -1,0 +1,190 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.telephony.hardware.radio@1.0;
+
+import android.hardware.radio@1.0::types;
+
+/**
+ *
+ */
+interface IOemSamsungslsiResponse {
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param data data returned by oem
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_ARGUMENTS
+     *   RadioError:OEM_ERROR_X
+     */
+    oneway sendRequestRawResponse(RadioResponseInfo info, vec<uint8_t> data);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway generalResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway queryCOLPResponse(RadioResponseInfo info, int32_t status);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway queryCOLRResponse(RadioResponseInfo info, int32_t status);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway iccGetAtrResponse(RadioResponseInfo info, string atr);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway sendUSSDWithDcsResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setPreferredUplmnResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway getPreferredUplmnResponse(RadioResponseInfo info, int32_t max, vec<UplmnInfo> uplmnInfo);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setEmcStatusResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setFemtoCellSearchResponse(RadioResponseInfo info, int32_t result, string numeric);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setCdmaHybridModeResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway getCdmaHybridModeResponse(RadioResponseInfo info, int32_t mode);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway queryBplmnSearchResponse(RadioResponseInfo info, vec<OperatorInfoEx> networkInfos);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setNetworkSelectionModeManualResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway dialWithCallTypeResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setVoiceOperationResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setBarringPasswordOverMmiResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setDualNetworkTypeAndAllowDataResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway setDsNetworkTypeResponse(RadioResponseInfo info);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_CALL_ID
+     *   RadioError:INVALID_STATE
+     *   RadioError:INVALID_ARGUMENTS
+     *   RadioError:REQUEST_NOT_SUPPORTED
+     */
+    oneway deactivateDataCallWithReasonResponse(RadioResponseInfo info);
+
+    oneway emulateIndResponse(RadioResponseInfo info);
+
+    /**
+     * @param info Response info struct containing response type, serial no. and error
+     * @param policy SIM lock policy 0 to 11
+     * @param status 0: unlocked, 1: locked
+     * @lockType 0: unlocked, 1: Network Lock(PN), 2: Network Subset Lock(PU),
+     * @param maxRetryCount max retry count
+     * @param remainCount remaining unlock retry count
+     * @param list of lock code as ASCII string
+     *
+     * Valid errors returned:
+     *   RadioError:NONE
+     *   RadioError:RADIO_NOT_AVAILABLE
+     *   RadioError:INVALID_RESPONSE
+     *   RadioError:REQUEST_NOT_SUPPORTED
+     *   RadioError:INTERNAL_ERR
+     */
+    oneway getSimLockStatusResponse(RadioResponseInfo info, int32_t policy, int32_t status, int32_t lockType, int32_t maxRetryCount, int32_t remainCount, vec<string> lockCode);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway sendVsimNotificationResponse(RadioResponseInfo info);
+
+    /**
+     * (TBD)
+     *
+     */
+    oneway sendVsimOperationResponse(RadioResponseInfo info);
+};

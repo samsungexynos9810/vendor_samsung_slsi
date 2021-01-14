@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">UART Switch</string>
+
+    <!-- preferences -->
+    <string name="key_uart_switch">key_uart_switch</string>
+    <string name="str_uart_switch">UART settings</string>
+    <string name="key_uart_switch_mode">key_uart_switch_mode</string>
+    <string name="str_uart_switch_mode">UART switch mode</string>
+    <string name="key_dun_settings">key_dun_settings</string>
+    <string name="str_dun_settings">DUN settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>

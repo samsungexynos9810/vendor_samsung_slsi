@@ -1,0 +1,15 @@
+diff --git a/frameworks/base/services/java/com/android/server/SystemServer.java b/services/java/com/android/server/SystemServer.java
+index bff0eaa..9502d9d
+--- a/frameworks/base/services/java/com/android/server/SystemServer.java
++++ b/frameworks/base/services/java/com/android/server/SystemServer.java
+@@ -1303,6 +1303,10 @@ public final class SystemServer {
+             mSystemServiceManager.startService(SoundTriggerService.class);
+             traceEnd();
+ 
++            traceBeginAndSlog("SlsiWifiService");
++            mSystemServiceManager.startService("com.android.server.wifi.SlsiWifiService");
++            traceEnd();
++
+             if (!disableNonCoreServices) {
+                 if (!disableTrustManager) {
+                     traceBeginAndSlog("StartTrustManager");

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Network Test Mode</string>
+    <string name="key_pref_screen">key_pref_screen</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="str_apn">PDN Up/Down</string>
+    <string name="str_dns">DNS Query Block</string>
+
+    <!-- APN Mode -->
+    <string name="str_apn_title">APN Mode Setting</string>
+    <string name="str_select_sim">Select SIM</string>
+    <string name="str_sim1">SIM1</string>
+    <string name="str_sim2">SIM2</string>
+    <string name="key_apn_list">key_apn_list</string>
+    <string name="key_select_sim">key_select_sim</string>
+    <string name="key_sim1">key_sim1</string>
+    <string name="key_sim2">key_sim2</string>
+
+    <!-- DNS Query Block -->
+    <string name="str_dns_block">DNS Query Block</string>
+    <string name="str_dns_title">DNS Query Block Setting</string>
+
+    <!-- VoLTE Setting -->
+    <string name="key_volte_mode">key_volte_mode</string>
+    <string name="str_volte_title">VoLTE mode setting</string>
+    <string name="str_volte_mode">VoLTE mode</string>
+
+    <!-- Dual VoLTE Setting -->
+    <string name="str_dual_volte_title">Dual VoLTE mode setting</string>
+
+</resources>

@@ -1,0 +1,91 @@
+# if some rules is required for shipping device
+# move rules to selinux_ship
+
+#============= init ==============
+allow init netutils_wrapper:process transition;
+allow init netutils_wrapper_exec:file { getattr execute read open };
+allow init netutils_wrapper:process { noatsecure rlimitinh siginh };
+
+#============= netutils_wrapper ==============
+#neverallowed
+#allow netutils_wrapper system_file:file entrypoint;
+
+#============= dnsmasq ==============
+#allow dnsmasq kernel:system module_request;
+#allow dnsmasq netd:unix_stream_socket getattr;
+
+#============= netd ==============
+#neverallowed
+#allow netd sysfs:file write;
+# To access tcp/ tethered pc setting from properties
+allow netd vendor_default_prop:file { open read getattr map };
+
+#============= rild ==============
+#neverallowed
+#allow rild default_prop:file read;
+# Q
+#neverallowed
+#allow rild system_file:file read;
+
+#============= shell ==============
+# Need to check
+#allow shell abox_exec:file getattr;
+# Need to check ?? undefined mdnsd
+#allow shell bpfloader_exec:file getattr;
+# Need to check
+#allow shell cache_file:lnk_file getattr;
+# Need to check ?? undefined mdnsd
+#allow shell mdnsd_exec:file getattr;
+# Need to check
+#allow shell netd_exec:file getattr;
+# Need to check
+#allow shell netutils_wrapper_exec:file getattr;
+# Need to check
+#allow shell postinstall_mnt_dir:dir getattr;
+# Need to check
+#allow shell recovery_persist_exec:file getattr;
+# Need to check
+#allow shell rfsd_exec:file getattr;
+# Need to check
+#allow shell rootfs:file getattr;
+# Need to check
+#allow shell sced_exec:file getattr;
+# Need to check
+#allow shell sklogcatd_exec:file getattr;
+# Need to check
+#allow shell uncrypt_exec:file getattr;
+# Need to check
+#allow shell vdc_exec:file getattr;
+# Need to check
+#allow shell vendor_file:file getattr;
+
+#============= vendor_init ==============
+# P
+allow vendor_init block_device:lnk_file relabelfrom;
+allow vendor_init vendor_block_device:lnk_file relabelto;
+allow vendor_init kernel:system module_request;
+#neverallowed, P~Q
+#allow vendor_init system_data_file:dir { read write setattr };
+# Q
+#nerverallowed, Q
+#allow vendor_init exported2_default_prop:property_service set;
+#allow vendor_init default_prop:property_service set;
+
+allow vendor_init net_dns_prop:property_service set;
+# Need to check
+#allow vendor_init nfc_data_file:dir setattr;
+allow vendor_init system_file:file { open read};
+
+#============= zygote ==============
+allow zygote vendor_rild_prop:file { open read getattr map };
+
+#============= vendor_telephony_app ==============
+allow vendor_telephony_app cgroup:file write;
+allow vendor_telephony_app activity_task_service:service_manager find;
+
+#============= vendor_ims_app ==============
+#vendor/samsung_slsi/telephony/common/device/samsung/sepolicy/netd.te:86:ERROR 'unknown type ashmem_device_service' at token ';' on line 37482:
+#allow vendor_ims_app ashmem_device_service:service_manager find;
+
+#============= dmd ==============
+allow dmd vendor_telephony_app:binder call;

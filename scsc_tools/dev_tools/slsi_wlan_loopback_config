@@ -1,0 +1,71 @@
+#!/system/bin/sh
+
+errout() {
+    echo "error:$1"
+    exit 1
+}
+
+# ------------------------------------------------------------
+# Source/sink
+#
+# Loopback config script
+#
+# Sets up a fake IP address so that Linux kernel routes the
+# packets from one NIC down to chip rather than doing loopback
+# in Kernel itself.
+# ------------------------------------------------------------
+
+XCOMMAND=$1
+
+test -z "$XCOMMAND" && errout "No command supplied"
+
+if [ $XCOMMAND == "set" ];then
+
+	ifconfig wlan0 192.168.1.100 up
+	ifconfig p2p0 192.168.43.1 up
+
+
+	# NAT table configuration
+
+	# translate source IP 192.168.1.100 to 10.60.0.1 when going to 10.60.1.1
+	iptables -t nat -A POSTROUTING -s 192.168.1.100 -d 10.60.1.1 -j SNAT --to-source 10.60.0.1
+
+	# translate inbound 10.60.0.1 to 192.168.1.100
+	iptables -t nat -A PREROUTING -d 10.60.0.1 -j DNAT --to-destination 192.168.1.100
+
+	# translate source IP 192.168.43.1 to 10.60.1.1 when going to 10.60.0.1
+	iptables -t nat -A POSTROUTING -s 192.168.43.1 -d 10.60.0.1 -j SNAT --to-source 10.60.1.1
+
+	# translate inbound 10.60.1.1 -> 192.168.43.1
+	iptables -t nat -A PREROUTING -d 10.60.1.1 -j DNAT --to-destination 192.168.43.1
+
+	# add route and static ARP entries for fake IP
+	ip route add 10.60.1.1 dev wlan0
+	arp -i wlan0 -s 10.60.1.1 02:00:0f:04:34:ae
+	ip route add 10.60.0.1 dev p2p0
+	arp -i p2p0 -s 10.60.0.1 00:00:0f:04:34:ae
+
+	# add default routing for 2nd interface or else Linux sends all on primary interface only
+	ip route add default via 192.168.43.1 dev p2p0 table 1
+	ip rule add from 192.168.43.0/24 table 1
+	ip rule add to 192.168.43.0/24 table 1
+else
+	ip rule delete from 192.168.43.0/24 table 1
+	ip rule delete to 192.168.43.0/24 table 1
+
+	ip route delete default via 192.168.43.1 dev p2p0 table 1
+	ip route delete 10.60.0.1 dev p2p0
+	ip route delete 10.60.1.1 dev wlan0
+
+	arp -i wlan0 -d 10.60.1.1
+	arp -i p2p0 -d 10.60.0.1
+
+	iptables -t nat -D POSTROUTING -s 192.168.1.100 -d 10.60.1.1 -j SNAT --to-source 10.60.0.1
+	iptables -t nat -D PREROUTING -d 10.60.0.1 -j DNAT --to-destination 192.168.1.100
+	iptables -t nat -D POSTROUTING -s 192.168.43.1 -d 10.60.0.1 -j SNAT --to-source 10.60.1.1
+	iptables -t nat -D PREROUTING -d 10.60.1.1 -j DNAT --to-destination 192.168.43.1
+
+	ifconfig wlan0 default
+	ifconfig p2p0 default
+fi
+

@@ -1,0 +1,93 @@
+//------------------------------------------------------------------------------
+/// @file  IOfiService.hdl
+/// @ingroup  ofi_service
+///
+/// @brief HAL interface description for Ofi Service
+///
+/// @section copyright_section Copyright
+/// &copy; 2018, Samsung Electronics Co., Ltd.
+///
+/// @section license_section License
+//------------------------------------------------------------------------------
+
+package vendor.samsung_slsi.hardware.ofi@1.0;
+
+import IOfiClientMonitor;
+
+/**
+ * IOfiService is HAL interface for Ofi
+ */
+interface IOfiService {
+
+  /**
+   * @brief
+   * open Service
+   * @param[input]
+   * @return[output] status
+   */
+ ofiServiceInit(int32_t pid, IOfiClientMonitor clientMntr) generates(int32_t ret);
+
+ /**
+   * @brief
+   * close Service
+   * @param[input]
+   * @return[output] status
+   */
+ ofiServiceDeinit(int32_t pid) generates(int32_t ret);
+
+ /**
+   * @brief
+   * attach Model to MM
+   * @param[input] arg model_info
+   * @return[output] status
+   */
+  attachModelToModelManager(rt_hidl_model_info model_info) generates(int32_t ret);
+
+ /**
+   * @brief
+   * start Model to MM
+   * @param[input] arg execute_info
+   * @return[output] status
+   */
+  startModelToModelManger(rt_hidl_execute_info execute_info) generates(int32_t ret);
+
+  /**
+   * @brief
+   * release Model to MM
+   * @param[input] arg model_id
+   * @return[output] status
+   */
+  releaseModelToModelManger(GUID_TYPE model_id) generates(int32_t ret);
+
+  /**
+   * @brief
+   * create profile struct under hidl
+   * @param[input] profile-inited time from client
+   * @return[output] status
+   */
+  profileCreate(double time_init) generates(int32_t ret);
+
+  /**
+   * @brief
+   * show profile data under hidl
+   * @return[output] status
+   */
+  profileShow() generates(int32_t ret);
+
+  /**
+   * @brief
+   * export profile data under hidl
+   * @param[input] filename to write data
+   * @return[output] status
+   */
+  profileExport(rt_hidl_profile prof) generates(int32_t ret);
+
+ /**
+   * @brief
+   * request ModelId
+   * @param[input] arg
+   * @return[output] status
+   */
+  requestModelId() generates(int32_t ret);
+
+};

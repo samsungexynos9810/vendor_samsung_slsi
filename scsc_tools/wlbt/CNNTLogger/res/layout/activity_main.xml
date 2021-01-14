@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="Directory Name" />
+
+        <EditText
+            android:id="@+id/editDir"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:hint="Log_MMddHHmmss  "
+            android:lines="1"
+            android:maxLength="15"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/bg_rectangle"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <CheckBox
+            android:id="@+id/logcat_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingLeft="10dp"
+            android:text="logcat"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray" />
+
+        <RadioGroup
+            android:id="@+id/wifi_bt_RadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/wifi_radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:checked="true"
+                android:paddingLeft="10dp"
+                android:text="wifi log"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp">
+
+                <CheckBox
+                    android:id="@+id/udilog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="udi log"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/mxlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="mx log"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/bt_radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:checked="false"
+                android:paddingLeft="10dp"
+                android:text="bt log"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/btFilter_RadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp">
+
+            <RadioButton
+                android:id="@+id/bt_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="general"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/bt_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="audio"
+                android:textSize="18sp"/>
+
+            <RadioButton
+                android:id="@+id/bt_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="custom"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:id="@+id/layoutCustomFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Custom Filter" />
+
+                <EditText
+                    android:id="@+id/editFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="0x00824007"
+                    android:lines="1"
+                    android:maxLength="10"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLog"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#FFDDDDDD"
+        android:gravity="center"
+        android:text="@string/start_log"
+        android:textColor="@android:color/black"
+        android:textStyle="bold|italic" />
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:phone="http://schemas.android.com/apk/res/com.android.phone"
+    android:title="@string/uplmn_setting" >
+
+    <com.samsung.slsi.telephony.uplmnsetting.EditPlmnPreference
+        android:hint="@string/input_value"
+        android:key="button_network_type"
+        android:numeric="integer"
+        android:persistent="false"
+        android:summary="@string/no_set"
+        android:title="@string/network_id" />
+
+    <ListPreference
+        android:defaultValue="0"
+        android:dialogTitle="@string/preferred_network_mode_dialogtitle"
+        android:entries="@array/select_network_mode_choices"
+        android:entryValues="@array/select_network_mode_values"
+        android:key="select_networks_key"
+        android:summary="@string/preferred_network_mode_summary"
+        android:title="@string/network_type" />
+
+</PreferenceScreen>

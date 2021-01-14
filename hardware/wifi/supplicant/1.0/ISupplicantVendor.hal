@@ -1,0 +1,46 @@
+package vendor.samsung_slsi.hardware.wifi.supplicant@1.0;
+
+import android.hardware.wifi.supplicant@1.1::ISupplicant;
+import android.hardware.wifi.supplicant@1.0::ISupplicant;
+import android.hardware.wifi.supplicant@1.0::ISupplicantIface;
+import android.hardware.wifi.supplicant@1.0::SupplicantStatus;
+import vendor.samsung_slsi.hardware.wifi.supplicant@1.0::ISupplicantVendorIface;
+import android.hardware.wifi.supplicant@1.0::types;
+
+/**
+ * Vendor Interface exposed by the supplicant HIDL service registered
+ * with the hardware service manager.
+ * This is the root level object for any vendor specific supplicant interactions.
+ */
+interface ISupplicantVendor {
+  /**
+   * Gets a HIDL interface object for the interface corresponding to iface
+   * name which the supplicant already controls.
+   *
+   * @param ifaceInfo Combination of the iface type and name retrieved
+   *        using |listInterfaces|.
+   * @return status Status of the operation.
+   *         Possible status codes:
+   *         |SupplicantStatusCode.SUCCESS|,
+   *         |SupplicantStatusCode.FAILURE_UNKNOWN|,
+   *         |SupplicantStatusCode.FAILURE_IFACE_UNKOWN|
+   * @return iface HIDL interface object representing the interface if
+   *         successful, null otherwise.
+   */
+  getVendorInterface(IfaceInfo ifaceInfo)
+      generates (SupplicantStatus status, ISupplicantVendorIface iface);
+
+  /**
+   * Retrieve a list of all the vendor interfaces controlled by the supplicant.
+   *
+   * The corresponding |ISupplicantIface| object for any interface can be
+   * retrieved using |getInterface| method.
+   *
+   * @return status Status of the operation.
+   *         Possible status codes:
+   *         |SupplicantStatusCode.SUCCESS|,
+   *         |SupplicantStatusCode.FAILURE_UNKNOWN|
+   * @return ifaces List of all interfaces controlled by the supplicant.
+   */
+  listVendorInterfaces() generates (SupplicantStatus status, vec<IfaceInfo> ifaces);
+};

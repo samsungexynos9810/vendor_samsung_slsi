@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+<boolean name="ut_support_sim" value="true" />
+<boolean name="volte_ussd_support_sim" value="true" />
+<boolean name="silent_redial_of_ussd_sim" value="true" />
+<int name="smsToMmsTextThreshold" value="2" />
+</carrier_config>
+</carrier_config_list>

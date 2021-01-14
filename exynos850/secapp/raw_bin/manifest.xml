@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<parameters>
+  <oem-keys>
+
+    <oem-reserved-uuid-list>
+        <!--
+
+        list with up to 16 different UUIDs, which allows the OEM to restrict a
+        certain key to a limited number of UUIDs. To make use of this list,
+        define a key without the ALLOW_ANY_UUID flag.
+
+        <uuid value="b230723bcfe75f8581122dc1f8e52f4d"/>
+         -->
+
+    </oem-reserved-uuid-list>
+
+    <key-list>
+        <!--
+
+        list with up to 32 different hashes:
+
+        <key filename=... flags=.../>
+        <key hash=... flags=.../>
+
+        Attributes:
+        "filename": is a path to a PEM file, where the hash will be generated over
+                        the public key
+        "hash":     a hexadecimal byte string of the form "xxxx...xx", length is 64
+                        chars, each char must be [0-9,A-F,a-f]
+
+        "flags": case insensitive comma separated list of
+            "ALLOW_DRIVER",                # This key signs drivers
+            "ALLOW_MIDDLEWARE",            # This key signs middle ware
+            "ALLOW_SYSTEM_TA"              # This key signs system TA
+            "ALLOW_ANY_UUID"               # This key signs any UUID, otherwise UUID must be in <oem-reserved-uuid-list>
+            "OEM_ID"
+            "OEM_FLAG_0" - "OEM_FLAG_7"
+
+        Either "hash" or "filename" should be used. If both attributes present,
+        "hash" must match the hash generated from the PEM file. If not, the
+        program will abort with an error. This can be used as a fail-safe check
+        to ensure the correct PEM file is used and there is a key pair for a
+        hash.
+         -->
+
+       <key filename="Locals/Build/pairVendorTltSig.pem"
+            flags="ALLOW_DRIVER,ALLOW_MIDDLEWARE,ALLOW_ANY_UUID,ALLOW_SYSTEM_TA"/>
+
+    </key-list>
+
+  </oem-keys>
+
+</parameters>

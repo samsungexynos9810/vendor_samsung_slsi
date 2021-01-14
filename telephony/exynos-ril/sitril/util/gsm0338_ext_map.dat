@@ -1,0 +1,21 @@
+/*
+ * Copyright Samsung Electronics Co., LTD.
+ *
+ * This software is proprietary of Samsung Electronics.
+ * No part of this software, either material or conceptual may be copied or distributed, transmitted,
+ * transcribed, stored in a retrieval system or translated into any human or computer language in any form by any means,
+ * electronic, mechanical, manual or otherwise, or disclosed
+ * to third parties without the express written permission of Samsung Electronics.
+ */
+
+{0x0A,    0x000C},    //    FORM FEED
+{0x14,    0x005E},    //    CIRCUMFLEX ACCENT
+{0x28,    0x007B},    //    LEFT CURLY BRACKET
+{0x29,    0x007D},    //    RIGHT CURLY BRACKET
+{0x2F,    0x005C},    //    REVERSE SOLIDUS
+{0x3C,    0x005B},    //    LEFT SQUARE BRACKET
+{0x3D,    0x007E},    //    TILDE
+{0x3E,    0x005D},    //    RIGHT SQUARE BRACKET
+{0x40,    0x007C},    //    VERTICAL LINE
+{0x65,    0x20AC},    //    EURO SIGN
+

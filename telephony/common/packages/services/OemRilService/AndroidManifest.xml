@@ -1,0 +1,56 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+    package="com.samsung.slsi.telephony.oemril"
+    android:sharedUserId="android.uid.phone"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-sdk
+        android:minSdkVersion="29"
+        android:targetSdkVersion="29" />
+
+    <application android:enabled="true" >
+        <receiver android:name=".OemRilReceiver"
+            androidprv:systemUserOnly="true">
+            <intent-filter android:priority="100" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".OemRilService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="com.samsung.slsi.telephony.extservice.DesenseService"
+            android:permission="android.permission.BIND_TELEPHONY_NETWORK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.telephony.extservice.DesenseService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.samsung.slsi.telephony.extservice.SarService"
+            android:permission="android.permission.BIND_TELEPHONY_NETWORK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.telephony.extservice.SarService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.samsung.slsi.telephony.extservice.SensorService"
+            android:permission="android.permission.BIND_TELEPHONY_NETWORK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.telephony.extservice.SensorService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.samsung.slsi.telephony.extservice.VsimService"
+            android:permission="android.permission.BIND_TELEPHONY_NETWORK_SERVICE" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.telephony.extservice.VsimService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

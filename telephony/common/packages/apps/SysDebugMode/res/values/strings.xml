@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SysDebugMode</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_back">Back</string>
+
+    <!-- Log dump -->
+    <string name="logdump_activity_title">Log Dump</string>
+    <string name="dialog_sdcard">SD card</string>
+    <string name="dialog_internal">Internal Storage</string>
+    <string name="receiver_activity_title">CP Crash</string>
+
+    <!-- Debug Trace Level -->
+    <string name="debuglevel_activity_title">Set CP Debug Trace Mode</string>
+    <string name="debug_level">Choose Debug Level</string>
+    <string name="debug_trace_off">Debug Trace OFF</string>
+    <string name="debug_trace_on">Debug Trace ON</string>
+    <string name="cpdebug_off">CP Debug Off on Boot</string>
+
+    <!-- RIL log Level -->
+    <string name="rilloglevel_activity_title">Set RIL Log Level</string>
+    <string name="category_log_category_preferences">Vendor RIL Log Category</string>
+    <string name="key_category_log_level_preferences">key_category_log_level_preferences</string>
+    <string name="select_all">Select all</string>
+    <string name="deselect_all">Deselect all</string>
+    <string name="apply">Apply</string>
+    <string name="system_reboot">Reboot</string>
+
+</resources>

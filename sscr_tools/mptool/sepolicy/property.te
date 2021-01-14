@@ -1,0 +1,19 @@
+type mptool_prop, property_type, mlstrustedsubject;
+
+#compatible_property_only(`
+  # Neverallow coredomain to set vendor properties
+#  neverallow {
+#    coredomain
+#    -init
+#    -system_writes_vendor_properties_violators
+#  } {
+#    property_type
+#    -mptool_prop
+#  }:property_service set;
+#')
+
+#dontaudit domain {
+#  mptool_prop
+#}:property_service set;
+
+

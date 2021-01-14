@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <CheckBox
+        android:id="@+id/btn_cpdebugoff"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_rectangle"
+        android:text="@string/cpdebug_off" />
+
+    <Button
+        android:id="@+id/btn_debug_off"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#6F6F6F"
+        android:text="@string/debug_trace_off"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_debug_on"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#6F6F6F"
+        android:text="@string/debug_trace_on"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

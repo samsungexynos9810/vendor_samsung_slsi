@@ -1,0 +1,109 @@
+diff --git a/frameworks/base/api/current.txt b/frameworks/base/api/current.txt
+index 8b99dce..b6e812d 100644
+--- a/frameworks/base/api/current.txt
++++ b/frameworks/base/api/current.txt
+@@ -31089,9 +31089,14 @@ package android.os {
+     method public static void prepareMainLooper();
+     method public void quit();
+     method public void quitSafely();
++    method public void setHookInterface(android.os.Looper.HookInterface);
+     method public void setMessageLogging(android.util.Printer);
+   }
+ 
++  public static abstract interface Looper.HookInterface {
++    method public abstract boolean hook(boolean, android.os.Message);
++  }
++
+   public class MemoryFile {
+     ctor public MemoryFile(java.lang.String, int) throws java.io.IOException;
+     method public deprecated synchronized boolean allowPurging(boolean) throws java.io.IOException;
+diff --git a/frameworks/base/api/system-current.txt b/frameworks/base/api/system-current.txt
+index c73a0c1..aecdf18 100644
+--- a/frameworks/base/api/system-current.txt
++++ b/frameworks/base/api/system-current.txt
+@@ -33836,9 +33836,14 @@ package android.os {
+     method public static void prepareMainLooper();
+     method public void quit();
+     method public void quitSafely();
++    method public void setHookInterface(android.os.Looper.HookInterface);
+     method public void setMessageLogging(android.util.Printer);
+   }
+ 
++  public static abstract interface Looper.HookInterface {
++    method public abstract boolean hook(boolean, android.os.Message);
++  }
++
+   public class MemoryFile {
+     ctor public MemoryFile(java.lang.String, int) throws java.io.IOException;
+     method public deprecated synchronized boolean allowPurging(boolean) throws java.io.IOException;
+diff --git a/frameworks/base/api/test-current.txt b/frameworks/base/api/test-current.txt
+index 3d5cb25..dd7d155 100644
+--- a/frameworks/base/api/test-current.txt
++++ b/frameworks/base/api/test-current.txt
+@@ -31266,9 +31266,14 @@ package android.os {
+     method public static void prepareMainLooper();
+     method public void quit();
+     method public void quitSafely();
++    method public void setHookInterface(android.os.Looper.HookInterface);
+     method public void setMessageLogging(android.util.Printer);
+   }
+ 
++  public static abstract interface Looper.HookInterface {
++    method public abstract boolean hook(boolean, android.os.Message);
++  }
++
+   public class MemoryFile {
+     ctor public MemoryFile(java.lang.String, int) throws java.io.IOException;
+     method public deprecated synchronized boolean allowPurging(boolean) throws java.io.IOException;
+diff --git a/frameworks/base/core/java/android/os/Looper.java b/frameworks/base/core/java/android/os/Looper.java
+index 04cceb8..58fb5fb 100644
+--- a/frameworks/base/core/java/android/os/Looper.java
++++ b/frameworks/base/core/java/android/os/Looper.java
+@@ -75,6 +75,10 @@ public final class Looper {
+     final Thread mThread;
+ 
+     private Printer mLogging;
++    public interface HookInterface {
++        public boolean hook(boolean pre, Message msg);
++    }
++    private HookInterface mHookInterface;
+     private long mTraceTag;
+ 
+     /* If set, the looper will show a warning log if a message dispatch takes longer than time. */
+@@ -151,6 +155,15 @@ public final class Looper {
+                 logging.println(">>>>> Dispatching to " + msg.target + " " +
+                         msg.callback + ": " + msg.what);
+             }
++            final HookInterface hook = me.mHookInterface;
++            boolean drop = false;
++            if (hook != null) {
++                drop = hook.hook(true, msg);
++            }
++            if(drop == true)
++            {
++                continue;
++            }
+ 
+             final long slowDispatchThresholdMs = me.mSlowDispatchThresholdMs;
+ 
+@@ -180,6 +193,9 @@ public final class Looper {
+             if (logging != null) {
+                 logging.println("<<<<< Finished to " + msg.target + " " + msg.callback);
+             }
++            if (hook != null) {
++                hook.hook(false, msg);
++            }
+ 
+             // Make sure that during the course of dispatching the
+             // identity of the thread wasn't corrupted.
+@@ -238,6 +254,10 @@ public final class Looper {
+         mLogging = printer;
+     }
+ 
++    public void setHookInterface(@Nullable HookInterface hook) {
++        mHookInterface = hook;
++    }
++
+     /** {@hide} */
+     public void setTraceTag(long traceTag) {
+         mTraceTag = traceTag;

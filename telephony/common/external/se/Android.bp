@@ -1,0 +1,74 @@
+cc_defaults {
+    name: "android.hardware.secure_element@1.1_uicc",
+    relative_install_path: "hw",
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    srcs: [
+        "1.1/SecureElementMain.cpp",
+        "1.1/UiccTerminal.cpp",
+        "1.1/SecureElement.cpp",
+        "1.1/Interface.cpp"
+    ],
+
+    shared_libs: [
+        "android.hardware.secure_element@1.0",
+        "android.hardware.secure_element@1.1",
+        "libbase",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+    ],
+}
+
+cc_defaults {
+    name: "android.hardware.secure_element@1.0_uicc",
+    relative_install_path: "hw",
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    srcs: [
+        "1.0/SecureElementMain.cpp",
+        "1.0/UiccTerminal.cpp",
+        "1.0/SecureElement.cpp",
+        "1.0/Interface.cpp"
+    ],
+
+    shared_libs: [
+        "android.hardware.secure_element@1.0",
+        "libbase",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.secure_element@1.0-service-uicc",
+    init_rc: ["1.0/android.hardware.secure_element@1.0-service-uicc.rc"],
+    defaults: ["android.hardware.secure_element@1.0_uicc"],
+}
+
+cc_binary {
+    name: "android.hardware.secure_element@1.0-service-uicc-disabled",
+    init_rc: ["1.0/android.hardware.secure_element@1.0-service-uicc-disabled.rc"],
+    defaults: ["android.hardware.secure_element@1.0_uicc"],
+}
+
+cc_binary {
+    name: "android.hardware.secure_element@1.1-service-uicc",
+    init_rc: ["1.1/android.hardware.secure_element@1.1-service-uicc.rc"],
+    defaults: ["android.hardware.secure_element@1.1_uicc"],
+}
+
+cc_binary {
+    name: "android.hardware.secure_element.uicc@1.1-service-uicc-disabled",
+    init_rc: ["1.1/android.hardware.secure_element@1.1-service-uicc-disabled.rc"],
+    defaults: ["android.hardware.secure_element@1.1_uicc"],
+}

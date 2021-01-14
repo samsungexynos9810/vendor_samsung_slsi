@@ -1,0 +1,53 @@
+type spad, domain;
+type spad_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(spad);
+
+allow spad vendor_block_device:blk_file { read write open };
+allow spad vendor_block_device:dir { search };
+allow spad hal_nfc_hwservice:hwservice_manager find;
+#allow spad hal_smcd_hwservice:hwservice_manager find;
+allow spad hwservicemanager:binder { call transfer };
+allow spad hwservicemanager:process getattr;
+allow spad hwservicemanager:file { open read };
+allow spad hwservicemanager:dir { search };
+allow spad sysfs:file { read open };
+allow spad sysfs_batteryinfo:dir search;
+allow spad sysfs_batteryinfo:file { getattr setattr };
+allow spad vendor_shell_exec:file execute_no_trans;
+allow spad vendor_toolbox_exec:file execute_no_trans;
+get_prop(spad, hwservicemanager_prop);
+allow spad smcd:binder call;
+set_prop(spad, mptool_prop);
+allow spad vendor_default_prop:file { getattr map read open };
+allow spad serial_device:chr_file { read write open ioctl };
+allow spad block_device:dir search;
+allow spad smcd:unix_stream_socket { connectto };
+
+allow spad mnt_vendor_file:lnk_file { read };
+
+allow spad swcnd:unix_stream_socket { connectto };
+#allow spad vendor_init:unix_stream_socket { connectto };
+
+allow spad self:tcp_socket create_stream_socket_perms;
+
+# Connect to ports.
+allow spad port_type:tcp_socket name_connect;
+
+# Bind to ports.
+allow spad node_type:{ tcp_socket udp_socket } node_bind;
+allow spad port_type:tcp_socket name_bind;
+
+allow spad sctd:unix_stream_socket { connectto };
+
+#allow spad efs_file:dir create_dir_perms;
+#allow spad efs_file:file create_file_perms;
+
+allow spad efs_file:dir create_dir_perms;
+allow spad efs_file:file create_file_perms;
+
+get_prop(spad, vendor_rild_prop);
+allow spad self:capability { fowner chown };
+hal_client_domain(spad, hal_nfc);
+
+allow spad mnt_vendor_file:dir search;
+

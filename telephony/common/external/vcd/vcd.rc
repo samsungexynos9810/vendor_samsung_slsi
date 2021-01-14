@@ -1,0 +1,6 @@
+# VC daemon
+    service VC-daemon /vendor/bin/vcd
+    class main
+    user system
+    group system
+    seclabel u:r:vcd:s0

@@ -1,0 +1,3 @@
+# for wland
+persist.vendor.wltblog.  u:object_r:vendor_wland_prop:s0
+exynos.wlbtlog.          u:object_r:vendor_wland_prop:s0

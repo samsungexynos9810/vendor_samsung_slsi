@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Engineer Mode</string>
+    <string name="action_key">Input Key</string>
+    <string name="str_ok">OK</string>
+    <string name="str_cancel">Cancel</string>
+
+</resources>

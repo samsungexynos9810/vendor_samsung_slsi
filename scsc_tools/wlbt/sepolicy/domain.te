@@ -1,0 +1,17 @@
+allow { domain -untrusted_app_all -ephemeral_app -isolated_app -shell } {
+### slsi wlbt log output
+    vendor_wlbt_log_file
+### slsi wlbt log output
+}:dir search;
+
+allow domain {
+### slsi wlbt mxlog
+    vendor_wlbt_debugfs
+### slsi wlbt mxlog
+}:dir r_dir_perms;
+
+allow domain {
+### slsi wlbt mxlog
+    vendor_wlbt_debugfs
+### slsi wlbt mxlog
+}:file { open ioctl lock };

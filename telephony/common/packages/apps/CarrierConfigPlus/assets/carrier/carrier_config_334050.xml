@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+<boolean name="allow_emergency_numbers_in_call_log_bool" value="true" />
+<boolean name="skip_cf_fail_to_disable_dialog_bool" value="true" />
+<boolean name="ut_support_sim" value="true" />
+<string name="default_vm_number_string">*86</string>
+</carrier_config>
+</carrier_config_list>

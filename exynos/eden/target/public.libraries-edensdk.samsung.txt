@@ -1,0 +1,2 @@
+libeden_rt_stub.edensdk.samsung.so
+libeden_rt_stub_3rd_app.edensdk.samsung.so

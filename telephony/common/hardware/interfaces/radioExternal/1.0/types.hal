@@ -1,0 +1,76 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.telephony.hardware.radioExternal@1.0;
+
+enum RadioExternalClientId : int32_t {
+    RADIO_EXTERNAL_CLIENT_0 = 0,
+    RADIO_EXTERNAL_CLIENT_1,
+    RADIO_EXTERNAL_CLIENT_2,
+    RADIO_EXTERNAL_CLIENT_3,
+    RADIO_EXTERNAL_CLIENT_4,
+    RADIO_EXTERNAL_CLIENT_5,
+    RADIO_EXTERNAL_CLIENT_6,
+    RADIO_EXTERNAL_CLIENT_7,
+    RADIO_EXTERNAL_CLIENT_8,
+    RADIO_EXTERNAL_CLIENT_9,
+    RADIO_EXTERNAL_CLIENT_10,
+    RADIO_EXTERNAL_CLIENT_11,
+    RADIO_EXTERNAL_CLIENT_12,
+    RADIO_EXTERNAL_CLIENT_13,
+    RADIO_EXTERNAL_CLIENT_14,
+    RADIO_EXTERNAL_CLIENT_15,
+    RADIO_EXTERNAL_CLIENT_16,
+    RADIO_EXTERNAL_CLIENT_17,
+    RADIO_EXTERNAL_CLIENT_18,
+    RADIO_EXTERNAL_CLIENT_19,
+    RADIO_EXTERNAL_CLIENT_20,
+    RADIO_EXTERNAL_CLIENT_NUM,
+};
+
+enum RadioExternalResponsType : int32_t {
+    RADIO_EXTERNAL_SOLICITED,
+    RADIO_EXTERNAL_SOLICITED_ACK,
+    RADIO_EXTERNAL_SOLICITED_ACK_EXP,
+};
+
+enum RadioExternalError : int32_t {
+    RADIO_EXTERNAL_NONE = 0,
+    RADIO_EXTERNAL_GENERIC_FAILURE = 1,
+    RADIO_EXTERNAL_NOT_CONNECTED = 2,
+    RADIO_EXTERNAL_INVALID_ARGUMENTS = 3,
+    RADIO_EXTERNAL_IO_FIAL  = 4,
+    RADIO_EXTERNAL_NO_RESOURCE = 5,
+
+    RADIO_EXTERNAL_MISSING_RESOURCE = 6,
+    RADIO_EXTERNAL_NO_SUCH_ELEMENT,
+    RADIO_EXTERNAL_INTERNAL_ERR,
+    RADIO_EXTERNAL_NO_MEMORY,
+    RADIO_EXTERNAL_NO_RESOURCES,
+    RADIO_EXTERNAL_CANCELLED,
+    RADIO_EXTERNAL_SIM_ERROR,
+    RADIO_EXTERNAL_INVALID_SIM_STATUS,
+    RADIO_EXTERNAL_FDN_CHECK_FAILURE,
+    RADIO_EXTERNAL_REQUEST_NOT_SUPPORTED
+};
+
+struct RadioExternalResponseInfo {
+    int32_t slotId;                 // slot ID
+    int32_t serial;                 // Serial number of the request
+    int32_t rilcMsgId;              // RILC message ID
+    int32_t length;                 // length of data
+    RadioExternalError error;       // Response error
+};

@@ -1,0 +1,19 @@
+This is sample application. No guarantee for commercial.
+
+For Tether Provisioning, These are required. and This sample app supports
+ 1. Tether Provisioning App with UI Activity : This is used for Settings Menu
+ 2. Tether Provisioning App with No-UI Service : This is used for Tile Icon Hotspot menu or Silent Service call
+ 3. Configure 'config_mobile_hotspot_provision_app' in core/res/res/values/config.xml
+    First item is 'package'
+    Second item is 'package/.ActivityClass'
+ 4. Configure 'config_mobile_hotspot_provision_app_no_ui' in core/res/res/values/config.xml
+    First item is 'package'
+    Second item is 'ACTION name' to trigger provisioning, Currently use same naming rule 'package.Service'
+    for sharing ACTION name
+
+For Tether Apn configuration, These are required.
+ 1. Configure 'config_tether_apn' in core/res/res/values/config.xml that can be override in device folder
+    proper tether apn should be added. This apn is not listed in the APN Settings menu.
+    Just used internally, in DcTracker when TETHER_DUN is required
+ 2. Configure 'networkattribute' in core/res/res/values/config.xml that can be override in device folder
+    mobile_dun type should be added

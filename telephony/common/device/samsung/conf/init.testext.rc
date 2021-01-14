@@ -1,0 +1,63 @@
+##//////////////////////
+# Script will be no more needed. netd will support directly
+#on post-fs-data
+#    mkdir /data/vendor/testscript 0755 shell shell
+#    mkdir /data/vendor/misc 0755 shell shell
+#    mkdir /data/vendor/misc/net 0755 shell shell
+
+#service portfwd_on /system/bin/sh /vendor/bin/portfwd.sh
+#    class main
+#    user root
+#    group system inet
+#    disabled
+#    seclabel u:r:netd:s0
+#    oneshot
+
+service block_dnsquery /system/bin/ndc-wrapper-1.0 test dnsqueryblock 1
+    class main
+    user root
+    group system inet
+    disabled
+    seclabel u:r:netutils_wrapper:s0
+    oneshot
+
+service unblock_dnsquery /system/bin/ndc-wrapper-1.0 test dnsqueryblock 0
+    class main
+    user root
+    group system inet
+    disabled
+    seclabel u:r:netutils_wrapper:s0
+    oneshot
+
+service nstestmode_on /system/bin/ndc-wrapper-1.0 test testforward 1
+    class main
+    user root
+    group system inet
+    disabled
+    seclabel u:r:netutils_wrapper:s0
+    oneshot
+
+service nstestmode_off /system/bin/ndc-wrapper-1.0 test testforward 0
+    class main
+    user root
+    group system inet
+    disabled
+    seclabel u:r:netutils_wrapper:s0
+    oneshot
+
+#on property:vendor.exynos.portfwd.nstest=1
+#    start portfwd_on
+
+on property:persist.vendor.config.dnsblock=1
+    start block_dnsquery
+
+on property:persist.vendor.config.dnsblock=0
+    start unblock_dnsquery
+
+on property:vendor.config.net.nstest_enabled=1
+    start nstestmode_on
+
+on property:vendor.config.net.nstest_enabled=0
+    start nstestmode_off
+
+##//////////////////////

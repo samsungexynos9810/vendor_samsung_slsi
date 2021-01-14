@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+(c) SCSC 2019, definitions for moredump4: neus platform
+-->
+
+<moredump4 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.samsung.com ../Moredump4.xsd">
+
+  <target name="neus" aka="mxl450" idat="c0000000" chipid="A6" firmware="80000000"
+          comment="http://confluence/display/MAKALU/Maxwell450+Memory+Map">
+    <!-- Define the mmap range(s) -->
+    <mmap startAddr="80000000" endAddr="805fffff" dev="/dev/mx_0_mmap"/>
+
+    <!-- Nodes in cpu section(s) are only accessible by the enclosing CPU -->
+    <cpu name="CortexR7" xml="cortexR7.xml">
+      <instance t32API="20000" t32GDB="30000" dev="/dev/mx_0_r4_gdb"/>
+      <extraXml name="GIC" xml="periph_gic_registers.xml"/>
+      <subsystem name="PERW0" xml="perw_registers.xml" comment=""/>
+      <subsystem name="PERW1" xml="perw_registers.xml" offset="08000000" comment="Second instance of PERW at higher address"/>
+      <memory startAddr="00000000" endAddr="0000ffff" name="ITCM0" comment="64KB" />
+      <memory startAddr="10000000" endAddr="1000ffff" name="DTCM0" comment="64KB" />
+      <memory startAddr="20000000" endAddr="20013fff" name="RAMI0" comment="64KB - RAMI[0]" />
+      <memory startAddr="28000000" endAddr="28013fff" name="RAMD0" comment="64KB - RAMD[0]" />
+      <memory startAddr="30000000" endAddr="30013fff" name="RAMI1" comment="64KB - RAMI[1]" />
+      <memory startAddr="38000000" endAddr="38013fff" name="RAMD1" comment="64KB - RAMD[1]" />
+      
+      <!-- Add subsystem elements for each shared mailbox -->
+      <subsystem name="Cellular mailbox" xml="mb_cp2wlbt_registers.xml"/>
+      <subsystem name="CHUB mailbox" xml="mb_wlbt2chub_registers.xml"/>
+      <subsystem name="APM mailbox" xml="mb_apm2wlbt_registers.xml"/>
+      <subsystem name="AP mailbox" xml="mb_ap2wlbt_registers.xml"/>
+      <subsystem name="A-BOX mailbox" xml="mb_wlbt2abox_registers.xml"/>
+      <subsystem name="GNSS mailbox" xml="mb_gnss2wlbt_registers.xml"/>
+    </cpu>
+    <cpu name="CortexM3" xml="cortexM3.xml">
+      <instance index="0" t32API="20001" t32GDB="30001" dev="/dev/mx_0_m4_gdb">
+        <map name="RAMI0" target="00000000" comment="RAMI0 remapped to 0x00000000" />
+        <map name="RAMD0" target="10000000" comment="RAMD0 remapped to 0x10000000" />
+        <map name="PERW0" target="40000000" comment="PERW0 remapped to 0x40000000" />
+      </instance>
+      <instance index="1" t32API="20002" t32GDB="30002" dev="/dev/mx_0_m4_1_gdb">
+        <map name="RAMI1" target="00000000" comment="RAMI1 remapped to 0x00000000" />
+        <map name="RAMD1" target="10000000" comment="RAMD1 remapped to 0x10000000" />
+        <map name="PERW1" target="40000000" comment="PERW1 remapped to 0x40000000" />
+      </instance>
+<!--      <extraXml name="Memory Protection Unit" xml="cortexM3_mpu.xml"/> -->
+      <extraXml name="Nested Vectored Interrupt Controller" xml="cortexM3_nvic.xml"/>
+      <extraXml name="Debug" xml="cortexM3_dbg.xml"/>
+      <extraXml name="System Control Space" xml="cortexM3_scs.xml"/>
+      <extraXml name="Data Watchpoint and Trace Unit" xml="cortexM3_dwt.xml"/>
+      <extraXml name="Flash Patch and Breakpoint Unit" xml="cortexM3_fpb.xml"/>
+      <extraXml name="Instrumentation Trace Macrocell" xml="cortexM3_itm.xml"/>
+<!--      <extraXml name="Trace Port Interface Unit" xml="cortexM3_tpi.xml"/> -->
+      <extraXml name="Embedded Trace Macrocell" xml="cortexM3_etm.xml"/>
+    </cpu>
+
+    <!-- memory/subsystems defined outside cpu node is global (accessible by all cpus at the same address(es)) -->
+    <memory startAddr="60000000" endAddr="60047fff" name="RAMS" comment="288KB" />
+    <memory startAddr="80000000" endAddr="805fffff" name="DRAM" comment="" />
+    <subsystem name="btwl" aka="PERI" xml="peri_registers.xml" comment=""/>
+  </target>
+
+  <rfchips zippy="c5100000">
+    <rfchip name="hopper" idat="0000" chipid="B2" interface="zippy">
+      <version majorminor="01" xml="rf_chip_registers.xml" comment="S620 EVT0.1"/>
+    </rfchip>
+  </rfchips>
+</moredump4>

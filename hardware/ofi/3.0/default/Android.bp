@@ -1,0 +1,9 @@
+cc_prebuilt_binary {
+    name: "vendor.samsung_slsi.hardware.ofi@3.0-service",
+    srcs: ["vendor.samsung_slsi.hardware.ofi@3.0-service"],
+    shared_libs: ["vendor.samsung_slsi.hardware.ofi@3.0"],
+    vendor: true,
+    relative_install_path: "hw",
+    vintf_fragments: ["vendor.samsung_slsi.hardware.ofi@3.0-service.xml"],
+    init_rc: ["vendor.samsung_slsi.hardware.ofi@3.0-service.rc"],
+}

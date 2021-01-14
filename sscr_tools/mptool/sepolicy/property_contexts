@@ -1,0 +1,9 @@
+persist.spad.debug              u:object_r:mptool_prop:s0 exact string
+mptool.		                	u:object_r:mptool_prop:s0
+persist.mptool.		            u:object_r:mptool_prop:s0
+#mptool.smcd.mode                u:object_r:mptool_prop:s0 exact string
+#mptool.smcd.timeout             u:object_r:mptool_prop:s0 exact int
+#mptool.smcd.connect.vcd        u:object_r:mptool_prop:s0 exact int
+mptool.smcd.                    u:object_r:mptool_prop:s0
+ro.mptool.                      u:object_r:mptool_prop:s0
+

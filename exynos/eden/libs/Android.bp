@@ -1,0 +1,160 @@
+/*
+ * Copyright 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+cc_prebuilt_library_shared {
+name: "libeden_model",
+    multilib: {
+        lib32: {
+            srcs: ["lib/libeden_model.so"],
+        },
+        lib64: {
+            srcs: ["lib64/libeden_model.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_rt",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_rt.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_rt.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_osal",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_osal.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_osal.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_ud_cpu",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_ud_cpu.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_ud_cpu.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_ud_npu",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_ud_npu.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_ud_npu.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_ud_gpu",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_ud_gpu.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_ud_gpu.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_nn",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_nn.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_nn.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_profiler",
+    multilib: {
+        lib32: {
+	        srcs: ["lib/libeden_profiler.so"],
+        },
+        lib64: {
+	        srcs: ["lib64/libeden_profiler.so"],
+        },
+    },
+	vendor: true,
+    strip: {
+        none: true,
+    }
+}
+
+cc_prebuilt_library_shared {
+name: "libeden_xtool",
+    multilib: {
+        lib32: {
+            srcs: ["lib/libeden_xtool.so"],
+        },
+        lib64: {
+            srcs: ["lib64/libeden_xtool.so"],
+        },
+    },
+    vendor: true,
+    strip: {
+        none: true,
+    }
+}
+

@@ -1,0 +1,15 @@
+#exynos.portfwd.nstest    u:object_r:portfwd_prop:s0
+# /device/samsung/common/sepolicy/property_contexts has these
+#
+# persist.vendor.debug_level      u:object_r:vendor_rild_prop:s0
+# persist.vendor.radio.           u:object_r:vendor_rild_prop:s0
+# persist.vendor.ril.             u:object_r:vendor_rild_prop:s0
+# vendor.radio.ril.               u:object_r:vendor_rild_prop:s0
+# vendor.sys.rild_reset           u:object_r:vendor_rild_prop:s0
+# vendor.ril.                     u:object_r:vendor_rild_prop:s0
+# ro.radio.imei.sv                u:object_r:vendor_rild_prop:s0
+# vendor.radio.                   u:object_r:vendor_rild_prop:s0
+
+# Above subset setting overrides common default properties for vendor
+# persist.vendor.         u:object_r:vendor_default_prop:s0
+# vendor.                 u:object_r:vendor_default_prop:s0

@@ -1,0 +1,6 @@
+service secure_element_hal_service /vendor/bin/hw/android.hardware.secure_element@1.0-service-uicc
+    class hal
+    interface android.hardware.secure_element@1.0::ISecureElement SIM1
+    user secure_element
+    group secure_element
+    seclabel u:object_r:hal_secure_element_default_exec:s0

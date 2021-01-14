@@ -1,0 +1,5 @@
+cc_binary {
+    srcs: ["slsi_lerna.c"],
+    name: "slsi_lerna",
+    proprietary: true,
+}

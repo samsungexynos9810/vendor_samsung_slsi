@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="mmsCloseConnection" value="true"/>
+        <!--Array of auto retry intervals(in milliseconds).
+         For example, if a device retries after 30 seconds for 1st retry, 2nd retry after 3 mins,
+         3rd retry after 5 mins, and no more auto retry, this would look like:
+            <long-array name="rexxxxingIntervals" num="3">
+                <item value="30000"/>
+                <item value="180000"/>
+                <item value="300000"/>
+            </long-array>
+
+         For no retry, just configure as follows:
+            <long-array name="rexxxxingIntervals" num="1">
+                <item value="-1"/>
+            </long-array>
+        -->
+        <long-array name="resendingIntervals" num="3">
+            <item value="30000"/>
+            <item value="180000"/>
+            <item value="300000"/>
+        </long-array>
+        <long-array name="redownloadingIntervals" num="3">
+            <item value="30000"/>
+            <item value="180000"/>
+            <item value="300000"/>
+        </long-array>
+        <boolean name="drop_hold_call_for_emc_sim" value="false" />
+    </carrier_config>
+</carrier_config_list>

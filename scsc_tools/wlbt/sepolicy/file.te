@@ -1,0 +1,22 @@
+### slsi wlbt log output
+type vendor_wlbt_log_file, file_type, data_file_type;
+### slsi wlbt log output
+
+### slsi wlbt mxlog
+type vendor_wlbt_debugfs, fs_type, debugfs_type;
+### slsi wlbt mxlog
+
+### slsi wlbt udilog
+type vendor_wlbt_build, file_type;
+### slsi wlbt udilog
+
+### slsi wlbt btlog
+type vendor_wlbt_sysfs_scsc_reset_all_droplevels_to, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_droplevel_mlme, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_droplevel_mx_fw, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_redirect_to_printk_droplvl, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_droplevel_udi, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_droplevel_fw_test, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_scsc_droplevel_bt_h4, fs_type, sysfs_type;
+type vendor_wlbt_sysfs_mxlog_filter, fs_type, sysfs_type;
+### slsi wlbt btlog

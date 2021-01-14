@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.samsung.slsi.keystring.KeyStringActivity" >
+
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_help"/>
+
+</menu>

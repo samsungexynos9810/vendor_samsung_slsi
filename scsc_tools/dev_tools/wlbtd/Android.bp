@@ -1,0 +1,12 @@
+cc_binary {
+    srcs: ["wlbtd.cpp"],
+    name: "wlbtd",
+    include_dirs: ["system/core/include"],
+    shared_libs: [
+        "liblog",
+        "libnl",
+    ],
+
+    proprietary: true,
+    tidy:true, //clang-tidy
+}

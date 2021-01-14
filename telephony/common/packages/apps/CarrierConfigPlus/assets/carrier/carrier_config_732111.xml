@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+<carrier_config>
+<string name="default_vm_number_string">*123</string>
+<boolean name="spn_display_rule_use_roaming_from_service_state_bool" value="true"/>
+</carrier_config>
+</carrier_config_list>

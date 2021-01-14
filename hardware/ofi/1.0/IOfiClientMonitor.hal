@@ -1,0 +1,17 @@
+//------------------------------------------------------------------------------
+/// @file  IOfiClientMonitor.hdl
+/// @ingroup  ofi_service
+///
+/// @brief HAL interface description for Ofi Service
+///
+/// @section copyright_section Copyright
+/// &copy; 2018, Samsung Electronics Co., Ltd.
+///
+/// @section license_section License
+//------------------------------------------------------------------------------
+
+package vendor.samsung_slsi.hardware.ofi@1.0;
+
+interface IOfiClientMonitor {
+  ofiClientPing() generates(int32_t ret);
+};

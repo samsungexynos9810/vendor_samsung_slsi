@@ -1,0 +1,29 @@
+type sfmd, domain;
+type sfmd_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(sfmd);
+
+allow sfmd vendor_block_device:blk_file { read write open };
+allow sfmd vendor_block_device:dir { search };
+#allow sfmd hal_smcd_hwservice:hwservice_manager find;
+allow sfmd hwservicemanager:binder { call transfer };
+allow sfmd hwservicemanager:process getattr;
+allow sfmd hwservicemanager:file { open read };
+allow sfmd hwservicemanager:dir { search };
+allow sfmd sysfs:file { read open };
+allow sfmd sysfs_batteryinfo:dir search;
+allow sfmd sysfs_batteryinfo:file { getattr setattr };
+allow sfmd vendor_shell_exec:file execute_no_trans;
+allow sfmd vendor_toolbox_exec:file execute_no_trans;
+get_prop(sfmd, hwservicemanager_prop);
+allow sfmd smcd:binder call;
+#get_prop(sfmd, default_prop);
+allow sfmd vendor_default_prop:file { getattr map read open };
+allow sfmd serial_device:chr_file { read write open ioctl };
+allow sfmd block_device:dir search;
+allow sfmd smcd:unix_stream_socket { connectto };
+
+allow sfmd mnt_vendor_file:lnk_file { read };
+
+#allow sfmd vendor_init:unix_stream_socket { connectto };
+
+set_prop(sfmd, mptool_prop)

@@ -1,0 +1,19 @@
+
+/mnt/vendor/efsbk(/.*)?			        			u:object_r:efs_file:s0
+
+/vendor/bin/swcnd                   	u:object_r:swcnd_exec:s0
+/vendor/bin/sctd                   	u:object_r:sctd_exec:s0
+/vendor/bin/smcd                   	u:object_r:smcd_exec:s0
+/vendor/bin/spad                        u:object_r:spad_exec:s0
+/vendor/bin/sfmd                        u:object_r:sfmd_exec:s0
+
+/dev/socket/sync_wlan			u:object_r:vendor_mptool_device:s0
+/dev/socket/async_wlan			u:object_r:vendor_mptool_device:s0
+
+/dev/socket/sync_bt			u:object_r:vendor_mptool_device:s0
+/dev/socket/async_bt			u:object_r:vendor_mptool_device:s0
+
+
+/dev/socket/sync_smcd			u:object_r:vendor_mptool_device:s0
+/dev/socket/async_smcd			u:object_r:vendor_mptool_device:s0
+

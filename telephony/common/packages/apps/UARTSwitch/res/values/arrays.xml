@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="array_uart">
+        <item>AP UART</item>
+        <item>CP UART</item>
+    </string-array>
+    <string-array name="array_dun">
+        <item>Normal</item>
+        <item>Test mode</item>
+    </string-array>
+
+</resources>

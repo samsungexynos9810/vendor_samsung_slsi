@@ -1,0 +1,40 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0;
+
+interface IExynosHWCServiceTW {
+
+    setWFDMode(uint32_t mode) generates (int32_t error);
+    getWFDMode() generates (int32_t mode);
+    getWFDInfo() generates (int32_t error, WFDInfo info);
+    sendWFDCommand(int32_t cmd, int32_t ext1, int32_t ext2) generates (int32_t error);
+    setBootFinished();
+    enableMPP(uint32_t physicalType, uint32_t physicalIndex, uint32_t logcialIndex,
+            uint32_t enable);
+    setHWCDebug(int32_t debug);
+    setHWCCtl(uint32_t display, uint32_t ctrl, int32_t val) generates (int32_t mode);
+    setWFDOutputResolution(uint32_t width, uint32_t height) generates (int32_t error);
+    setVDSGlesFormat(int32_t format) generates (int32_t error);
+    getHWCDebug() generates (uint32_t result);
+    setDDIScaler(uint32_t width, uint32_t height) generates (int32_t error);
+    setSecureVDSMode(uint32_t mode) generates (int32_t error);
+    setExternalVsyncEnabled(uint32_t index) generates (int32_t error);
+    setPresentationMode(uint32_t multiple_layerStack);
+    getExternalHdrCapabilities() generates (int32_t hdr_support);
+    getCPUPerfInfo(int32_t display, int32_t config) generates (int32_t error, CPUPerfInfo info);
+    isNeedCompressedTargetBuffer(uint64_t displayId) generates (bool result);
+};

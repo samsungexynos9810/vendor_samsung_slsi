@@ -1,0 +1,1 @@
+allow init vendor_wlbt_app:file read;

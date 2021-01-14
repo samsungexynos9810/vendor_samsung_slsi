@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.samsung.slsi.telephony.testmode"
+    android:sharedUserId="android.uid.system"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+    <uses-permission android:name="android.permission.REBOOT" />
+
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="24" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".TestModeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.usimusattest.USIMUSATTestActivity"
+            android:label="@string/usimusattest_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.USIMUSATTEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.apnlist.ApnListActivity"
+            android:label="@string/apnlist_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.APNLIST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.portforwarding.PortForwardingActivity"
+            android:label="@string/portforwarding_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.PORTFORWARDING" />
+                <action android:name="android.hardware.usb.action.USB_STATE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.smspref.SmsPrefModeActivity"
+            android:label="@string/sms_mode_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.SMSPREFMODE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.biptest.BipTestActivity"
+            android:label="@string/bip_test_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.BIPTEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.platsubnet.PlatSubnetActivity"
+            android:label="@string/plat_subnet_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.PLAT_SUBNET" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.sgc.SgcTestActivity"
+            android:label="@string/sgc_test_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.SGC_TEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.embmstest.EmbmsTestActivity"
+            android:label="@string/embms_test_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.EMBMSTEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.samsung.slsi.telephony.networkmode.NetworkModeActivity"
+            android:label="@string/networkmode_activity_title"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.NETWORK_MODE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.samsung.slsi.telephony.testmode.KeyStringReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+
+                <data
+                    android:host="7777"
+                    android:scheme="android_secret_code" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.samsung.slsi.telephony.testmode.TestModeReceiver" >
+            <intent-filter>
+                <action android:name="com.samsung.slsi.action.REJECT_REG" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.samsung.slsi.action.POWER" />
+                <action android:name="com.samsung.slsi.action.DATA_STATE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

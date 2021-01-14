@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Silent Logging</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnCopy">Copy to Storage</string>
+    <string name="btnDelete">Delete Log</string>
+    <string name="btnSnapshot">Snapshot Log</string>
+    <string name="txtstorage">Internal storage status</string>
+    <string name="txtProfile">Profile Reloading</string>
+    <string name="AP">AP</string>
+    <string name="CP">CP</string>
+    <string name="TCP">TCP</string>
+    <string name="dialog_sdcard">SD Card</string>
+    <string name="dialog_internal">Internal Storage</string>
+    <string name="sl_settings">Silent Logging Settings</string>
+    <string name="ap_settings">AP Logging Settings</string>
+    <string name="cp_settings">CP Logging Settings</string>
+    <string name="tcp_settings">TCP Logging Settings</string>
+    <string name="ap_logging_type">AP Logging Type</string>
+    <string name="tcp_logging_type">TCP Logging Type</string>
+    <string name="cp_tcp_dump">TCP(CP) packet Logging</string>
+    <string name="profile_load">Profile Load</string>
+    <string name="profile_reset">Profile Reset</string>
+    <string name="action_save">Save</string>
+    <string name="autologging">Auto Logging</string>
+
+    <string-array name="ap_logtype">
+        <item>all</item>
+        <item>main</item>
+        <item>system</item>
+        <item>radio</item>
+        <item>events</item>
+    </string-array>
+
+    <string-array name="tcp_logtype">
+        <item>any</item>
+        <item>lo</item>
+        <item>sit0</item>
+        <item>wlan0</item>
+        <item>rmnet1</item>
+        <item>rmnet2</item>
+        <item>rmnet3</item>
+        <item>rmnet4</item>
+        <item>rmnet5</item>
+        <item>rmnet6</item>
+        <item>rmnet7</item>
+        <item>ip6tnl0</item>
+    </string-array>
+</resources>

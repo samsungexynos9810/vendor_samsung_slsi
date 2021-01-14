@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="support_30s_busy_tone_build" value="true" />
+        <boolean name="dial_conversion_build_vzw" value="true" />
+        <boolean name="assisted_dialing_build" value="true" />
+        <boolean name="call_restrictions_build" value="true" />
+    </carrier_config>
+</carrier_config_list>

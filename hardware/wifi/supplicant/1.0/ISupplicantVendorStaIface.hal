@@ -1,0 +1,29 @@
+package vendor.samsung_slsi.hardware.wifi.supplicant@1.0;
+
+import android.hardware.wifi.supplicant@1.0::types;
+import vendor.samsung_slsi.hardware.wifi.supplicant@1.0::ISupplicantVendorIface;
+import vendor.samsung_slsi.hardware.wifi.supplicant@1.0::ISupplicantVendorStaIfaceCallback;
+
+/**
+ * Vendor StaIface Interface
+ */
+interface ISupplicantVendorStaIface extends @1.0::ISupplicantVendorIface{
+  /**
+   * Register for vendorcallbacks from this interface.
+   *
+   * These callbacks are invoked for events that are specific to this interface.
+   * Registration of multiple vendor callback objects is supported. These objects
+   * must be automatically deleted when the corresponding client process is dead or
+   * if this interface is removed.
+   *
+   * @param callback An instance of the |ISupplicantVendorStaIfaceCallback| HIDL
+   *        interface object.
+   * @return status Status of the operation.
+   *         Possible status codes:
+   *         |SupplicantStatusCode.SUCCESS|,
+   *         |SupplicantStatusCode.FAILURE_UNKNOWN|,
+   *         |SupplicantStatusCode.FAILURE_IFACE_INVALID|
+   */
+  registerVendorCallback(ISupplicantVendorStaIfaceCallback callback)
+      generates (SupplicantStatus status);
+};

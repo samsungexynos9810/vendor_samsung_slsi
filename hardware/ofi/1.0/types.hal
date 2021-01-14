@@ -1,0 +1,112 @@
+//------------------------------------------------------------------------------
+/// @file  IOfiService.hdl
+/// @ingroup  ofi_service
+///
+/// @brief HAL interface description for VIP Service
+///
+/// @section copyright_section Copyright
+/// &copy; 2018, Samsung Electronics Co., Ltd.
+///
+/// @section license_section License
+//------------------------------------------------------------------------------
+package vendor.samsung_slsi.hardware.ofi@1.0;
+
+typedef uint32_t GUID_TYPE;
+
+struct rt_hidl_image_meta {
+  uint32_t batch;
+  uint32_t channel;
+  uint32_t width;
+  uint32_t height;
+};
+
+struct rt_hidl_mem_t {
+  handle buffer_fd;
+  uint32_t size;           /* if size = 0, this is null */
+  uint32_t offset;
+  uint8_t allocation_type; /* ION or ASHMEM */
+  uint8_t attribute;       /* CACHE or not */
+};
+
+struct rt_hidl_mem_info_t {
+  int32_t buffer_pool_index;
+  rt_hidl_image_meta img_meta;
+};
+
+struct rt_hidl_graph_info_t {
+  rt_hidl_mem_t compile;
+  rt_hidl_mem_t temp;
+  rt_hidl_mem_t weight;
+  rt_hidl_mem_t bias;
+  rt_hidl_mem_t user_para;
+};
+
+struct rt_hidl_caffe_extras {
+  string blob;
+  vec<uint32_t> shape;
+};
+
+struct rt_hidl_caffemodel_info {
+  vec<string> in_blob_name;
+  vec<string> out_blob_name;
+  vec<rt_hidl_caffe_extras> overrided;
+  rt_hidl_mem_t caffemodel_binary;
+};
+
+struct rt_hidl_submodel_info {
+  GUID_TYPE submodel_id;
+  vec<rt_hidl_mem_info_t> in_buffer_infos;
+  vec<rt_hidl_mem_info_t> out_buffer_infos;
+  vec<GUID_TYPE> deps;
+  vec<GUID_TYPE> trigs;
+  rt_hidl_caffemodel_info caffemodel_info;  /* for armnn */
+};
+
+
+/* 1. load_graph */
+/* // merged with rt_hidl_model_info
+struct rt_hidl_load_graph_t {
+  uint32_t n_kernel_binary_list;
+  vec<GUID_TYPE> gid;
+  vec<string> kernel_binary_list;
+};
+*/
+
+/* 2. model (verify) */
+struct rt_hidl_model_info {
+  GUID_TYPE model_id;
+  uint32_t nn_id;
+  vec<rt_hidl_submodel_info> submodel_info;
+  vec<rt_hidl_mem_t> model_memory_pool;
+
+  /* for vip */
+  rt_hidl_graph_info_t graph_info;
+
+  uint32_t n_kernel_binary_list;
+  vec<GUID_TYPE> gid;
+  vec<string> kernel_binary_list;
+};
+
+
+/* 3. request (execute) */
+struct rt_hidl_request_info {
+  GUID_TYPE graph_id;                       /* return from armnn */
+  uint32_t macro_sg_offset;                 /* for vip */
+  vec<vec<rt_hidl_mem_t>> inputs;
+  vec<vec<rt_hidl_mem_t>> outputs;
+  uint32_t user_para_size;
+  uint32_t custom_cpu_kernel_id;
+  uint8_t skip_flag;
+  rt_hidl_mem_t userparam;
+};
+
+struct rt_hidl_execute_info {
+  GUID_TYPE model_id;
+  vec<rt_hidl_request_info> req_infos;
+  bool is_wait;
+};
+
+struct rt_hidl_profile {
+  string filename;
+};
+

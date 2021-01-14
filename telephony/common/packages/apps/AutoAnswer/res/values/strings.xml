@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Auto Answer</string>
+
+    <!-- Auto Answer Preferences -->
+    <string name="key_auto_answer">key_auto_answer</string>
+    <string name="key_auto_mode">key_auto_mode</string>
+    <string name="key_answer_time">key_answer_time</string>
+    <string name="str_auto_answer">Auto Answer</string>
+    <string name="str_auto_mode">Auto Answer Mode</string>
+    <string name="str_answer_time">Answer Time</string>
+
+</resources>

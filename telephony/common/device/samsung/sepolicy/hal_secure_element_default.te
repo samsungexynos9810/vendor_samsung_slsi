@@ -1,0 +1,4 @@
+get_prop(hal_secure_element_default, exported3_radio_prop);
+
+allow hal_secure_element_default hal_exynos_rild_hwservice:hwservice_manager find;
+allow hal_secure_element_default rild:binder { call transfer };

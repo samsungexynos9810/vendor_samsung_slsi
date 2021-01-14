@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<carrier_config_list>
+    <carrier_config>
+        <boolean name="show_apn_setting_cdma_bool" value="true" />
+        <boolean name="enableGroupMms" value="false" />
+        <boolean name="enableMMSDeliveryReports" value="true" />
+        <boolean name="ut_support_hplmn_sim" value="true" />
+        <boolean name="ss_data_popup_sim" value="true" />
+        <boolean name="carrier_name_override_bool" value="true" />
+        <string name="carrier_name_string">中国电信</string>
+        <boolean name="ss_data_off_popup_sim" value="true" />
+    </carrier_config>
+</carrier_config_list>

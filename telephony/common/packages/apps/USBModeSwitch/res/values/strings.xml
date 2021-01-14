@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="app_name">USB Mode Switch</string>
+
+    <!-- USB Mode Select -->
+    <string-array name="array_usb_mode">
+        <item>mtp,adb</item>
+        <item>rndis,acm,dm</item>
+        <item>rndis,acm,dm,adb</item>
+        <item>dm,acm,adb</item>
+        <item>rndis,adb</item>
+        <item>dm,acm,uts,adb</item>
+    </string-array>
+
+    <string name="str_dialog_title">Choose a set of USB gadgets</string>
+    <string name="key_usb_mode">key_usb_mode</string>
+    <string name="str_usb_mode">USB mode</string>
+
+    <!-- USB Mode Selector Menu -->
+    <string name="str_recover">Recover Original USB Mode</string>
+
+</resources>

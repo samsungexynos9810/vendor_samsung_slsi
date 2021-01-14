@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<PreferenceCategory
+		android:title="@string/category_log_category_preferences"
+		android:key="@string/key_category_log_level_preferences">
+	</PreferenceCategory>
+</PreferenceScreen>
