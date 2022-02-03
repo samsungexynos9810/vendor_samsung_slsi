@@ -25,7 +25,7 @@ function print_error() {
 ####### Arguments Check-up #######
 function print_usage_exit () {
   print_error "$1"
-  echo 'Usage: ./build.sh <PRODUCT> [ eng | userdebug | user ] [ "" | bootimage | host-tools | product | platform ] [ <TARGET_BUILD_CARRIER> ]'
+  echo 'Usage: ./build.sh <PRODUCT> [ eng | userdebug | user ] [ "" | bootimage | host-tools | platform ] [ <TARGET_BUILD_CARRIER> ]'
   echo "                Available TARGET_BUILD_CARRIER : ${build_carrier[@]}"
   exit 2
 }
@@ -67,57 +67,10 @@ if [ -z $BUILD_VARIANT ]; then
   BUILD_VARIANT=eng
 fi
 
-if [ -z $EXYNOS_PRODUCT_NAME ]; then
-  EXYNOS_PRODUCT_NAME="product_"$BUILD_PRODUCT
-fi
-
-#PRODUCT_MANIFEST=$ROOT_DIR/product
-if [ ! -d "$ROOT_DIR/$EXYNOS_PRODUCT_NAME" ]
-then
-EXYNOS_PRODUCT_NAME="product"
-fi
-
-PRODUCT_MANIFEST=$ROOT_DIR/$EXYNOS_PRODUCT_NAME
-TITLE="Exynos Product Folder Name is $PRODUCT_MANIFEST"
-print_title
-
-TARGET_KERNEL=$PRODUCT_MANIFEST/kernel
-PRODUCT_TOOLCHAIN_BASE=$PRODUCT_MANIFEST/toolchain
-
-KERNEL_CONFIG=$TARGET_KERNEL/build.config.$BUILD_PRODUCT
-SUBCONFIG_BASE=$PRODUCT_MANIFEST/script/configs
-KERNEL_SUBCONFIG=$SUBCONFIG_BASE/kernel.build.config.$BUILD_PRODUCT
-
-KERNEL_CLANG_BASE=$ROOT_DIR/prebuilts/clang/host/linux-x86
-KERNEL_GCC_PATH=$ROOT_DIR/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin
-KERNEL_MERGE_CONFIG=$TARGET_KERNEL/scripts/kconfig/merge_config.sh
 MKDTIMG=$ROOT_DIR/host_tools/host/linux-x86/bin/mkdtimg
 LPMAKE=$ROOT_DIR/host_tools/host/linux-x86/bin/lpmake
 UFDT_APPLY_OVERLAY=$ROOT_DIR/host_tools/host/linux-x86/bin/ufdt_apply_overlay
 BUILD_SUPER_IMAGE=$ROOT_DIR/build/make/tools/releasetools/build_super_image.py
-
-DIST=$ROOT_DIR/device/samsung/${BUILD_PRODUCT}-prebuilts
-PRODUCT_DIST=$PRODUCT_MANIFEST/out_$BUILD_PRODUCT
-
-####### Clean up Sequences #######
-function clean_dist()
-{
-  TITLE="Clean Main DIST"
-  print_title
-  echo "rm -rf $DIST"
-  rm -rf $DIST
-  mkdir -p $DIST
-}
-
-function clean_kernel()
-{
-  TITLE="Clean kernel"
-  print_title
-  PATH=$KERNEL_GCC_PATH:$PATH
-  CROSS_COMPILE=aarch64-linux-android-
-  echo "make -C $TARGET_KERNEL -j distclean"
-  make -C $TARGET_KERNEL -j distclean
-}
 
 function clean_android()
 {
@@ -142,8 +95,6 @@ function clean_android()
 }
 
 if [ "clean" == "$1" ]; then
-  clean_dist
-  clean_kernel
   clean_android "*"
   exit 0
 fi
@@ -164,24 +115,6 @@ function check_exit()
   fi
 }
 
-function check_kernel()
-{
-  if [ ! -d $TARGET_KERNEL ]; then
-    print_error "$TARGET_KERNEL: No kernel source"
-    exit 2
-  fi
-
-  if [ ! -f $KERNEL_CONFIG ]; then
-    if [ -f $KERNEL_SUBCONFIG ]; then
-      KERNEL_CONFIG=$KERNEL_SUBCONFIG
-    else
-      print_error "$KERNEL_CONFIG: No kernel config"
-      print_error "$KERNEL_SUBCONFIG: No kernel subconfig"
-      exit 2
-    fi
-  fi
-}
-
 function check_environment()
 {
   if [[ ! -z "${TARGET_PRODUCT}" ]]; then
@@ -190,10 +123,7 @@ function check_environment()
   fi
 }
 
-check_kernel
 check_environment
-$PRODUCT_MANIFEST/prod_build.sh $BUILD_PRODUCT check
-check_exit
 
 ####### Collection Sequencess #######
 function copy_binlist()
@@ -207,201 +137,6 @@ function copy_binlist()
     fi
     cp -f $BINBASE/${split[0]} $DIST/${split[1]}
   done
-}
-
-function copy_misc_bin()
-{
-  TITLE="Copy Product DIST to Main DIST "
-  print_title
-  echo
-  echo $DIST
-  ls -la $DIST
-}
-
-####### Build Sequencess #######
-function build_defconfig()
-{
-  TITLE="Build kernel(1) defconfig"
-  print_title
-  KERNEL_DEFCONFIG_PATH=$KERNEL_CONFIG_BASE/$DEFCONFIG
-  KERNEL_DEFCONFIG_BASE=$KERNEL_CONFIG_BASE/${TARGET_SOC}-base_defconfig
-  if [ ! -f $KERNEL_DEFCONFIG_BASE ]; then
-    KERNEL_DEFCONFIG_BASE=""
-  fi
-  if [ "eng" == "$BUILD_VARIANT" ]; then
-    KERNEL_USER_CFG=""
-  elif [ "userdebug" == "$BUILD_VARIANT" ]; then
-    KERNEL_USER_CFG=$KERNEL_CONFIG_BASE/${TARGET_SOC}_userdebug.cfg
-  elif [ "user" == "$BUILD_VARIANT" ]; then
-    KERNEL_USER_CFG=$KERNEL_CONFIG_BASE/${TARGET_SOC}_user.cfg
-  fi
-
-  if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-    MAKE_CONFIG_CMD="$KERNEL_MERGE_CONFIG -m -O $TARGET_KERNEL $KERNEL_DEFCONFIG_PATH $KERNEL_DEFCONFIG_BASE $KERNEL_USER_CFG &> /dev/null;"
-    MAKE_CONFIG_CMD="$MAKE_CONFIG_CMD make -C $TARGET_KERNEL O=$KERNEL_OBJ KCONFIG_ALLCONFIG=.config alldefconfig -j$CPU_JOB_NUM $CC_CLANG;"
-    MAKE_CONFIG_CMD="$MAKE_CONFIG_CMD make -C $TARGET_KERNEL distclean -j$CPU_JOB_NUM $CC_CLANG;"
-  else
-    MAKE_CONFIG_CMD="$KERNEL_MERGE_CONFIG -m -O $TARGET_KERNEL $KERNEL_DEFCONFIG_PATH $KERNEL_DEFCONFIG_BASE $KERNEL_USER_CFG &> /dev/null;"
-    MAKE_CONFIG_CMD="$MAKE_CONFIG_CMD make -C $TARGET_KERNEL KCONFIG_ALLCONFIG=.config alldefconfig -j$CPU_JOB_NUM $CC_CLANG;"
-  fi
-
-  echo "$MAKE_CONFIG_CMD"
-  bash -c "$MAKE_CONFIG_CMD"
-  check_exit
-  echo
-}
-
-function build_kernel_core()
-{
-  TITLE="Build kernel(2)"
-  print_title
-  if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-    echo "make -C $TARGET_KERNEL -j$CPU_JOB_NUM O=$KERNEL_OBJ $CC_CLANG"
-    make -C $TARGET_KERNEL -j$CPU_JOB_NUM O=$KERNEL_OBJ $CC_CLANG
-  else
-    echo "make -C $TARGET_KERNEL -j$CPU_JOB_NUM $CC_CLANG"
-    make -C $TARGET_KERNEL -j$CPU_JOB_NUM $CC_CLANG
-  fi
-  check_exit
-  echo
-}
-
-function build_dtbo()
-{
-  TITLE="Build kernel(3) dtbo"
-  print_title
-  if [ "None" == "${TARGET_DTBO_CFG}" ]; then
-    return 0;
-  fi
-  if [ ! -z ${TARGET_DTBO_CFG} ]; then
-    KERNEL_DTBO_CFG=$KERNEL_DTB_SOURCE_DIR/${TARGET_DTBO_CFG}
-  else
-    KERNEL_DTBO_CFG=$KERNEL_DTB_SOURCE_DIR/${TARGET_SOC}_dtboimg.cfg
-  fi
-  if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-    echo "$MKDTIMG cfg_create $KERNEL_OBJ/dtbo.img $KERNEL_DTBO_CFG -d $KERNEL_OBJ"
-    $MKDTIMG cfg_create $KERNEL_OBJ/dtbo.img $KERNEL_DTBO_CFG -d $KERNEL_OBJ
-  else
-    echo "$MKDTIMG cfg_create $TARGET_KERNEL/dtbo.img $KERNEL_DTBO_CFG -d $TARGET_KERNEL"
-    $MKDTIMG cfg_create $TARGET_KERNEL/dtbo.img $KERNEL_DTBO_CFG -d $TARGET_KERNEL
-  fi
-  check_exit
-  echo
-}
-
-function check_dtbo_merge()
-{
-  TITLE="Build kernel(3-1) dtbo merge verification"
-  print_title
-  ## find dtb/dtbo file name in kernel build.config ##
-  IFS=' ' read -ra BINARR <<< $(echo "$BINLIST" | tr "\n" " ")
-  for bin in "${BINARR[@]}"; do
-    IFS=':' read -ra split <<< $bin
-    if [ ! -f $BINBASE/${split[0]} ]; then
-      print_error "$BINBASE/${split[0]}: No such file"
-      exit 2
-    fi
-    if [ "dtb.img" == "${split[1]}" ]; then
-      KERNEL_DTB=$BINBASE/${split[0]}
-    fi
-    if [ "dtbo.img" == "${split[1]}" ]; then
-      KERNEL_DTBO=$BINBASE/${split[0]}
-    fi
-  done
-
-  ## error check ##
-  if [ -z ${KERNEL_DTB} ]; then
-      print_error "ERROR: Can not find dtb file name in build.config"
-      exit 2
-  fi
-
-  if [ -z ${KERNEL_DTBO} ]; then
-      print_error "ERROR: Can not find dtbo file name in build.config"
-      exit 2
-  fi
-
-  ## delete pre dtbo_dump.* files ##
-  rm -f $BINBASE/dtbo_dump.*
-
-  ## dump dtbo entry files from dtbo.img ##
-  echo "$MKDTIMG dump $KERNEL_DTBO -b $BINBASE/dtbo_dump"
-  $MKDTIMG dump $KERNEL_DTBO -b $BINBASE/dtbo_dump > /dev/null
-  check_exit
-
-  ## verify to merge with dtb and dtbo ##
-  local merge_ret
-  local dtbo
-  for dtbo in $(ls $BINBASE/dtbo_dump.*)
-  do
-    echo "$dtbo"
-    merge_ret=$($UFDT_APPLY_OVERLAY $KERNEL_DTB $dtbo $dtbo.out 2>&1)
-    echo  $merge_ret
-    if [[ $merge_ret =~ "ERROR" ]]; then
-      exit 2
-    fi
-  done
-
-  ## clean dtbo_dump.* files ##
-  rm -f $BINBASE/dtbo_dump.*
-}
-
-function build_kernel()
-{
-  check_kernel
-  START_TIME=`date +%s`
-  unset $(cat $KERNEL_CONFIG | grep -v FILES | grep -v "[:\"]" | cut -d= -f1)
-  export $(cat $KERNEL_CONFIG | grep -v FILES | grep -v "[:\"]" | cut -d= -f1)
-  source $KERNEL_CONFIG
-  KERNEL_CONFIG_BASE=$TARGET_KERNEL/arch/$ARCH/configs
-  KERNEL_DTB_SOURCE_DIR=$TARGET_KERNEL/arch/$ARCH/boot/dts/exynos
-  if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-    KERNEL_OBJ=$PRODUCT_MANIFEST/KERNEL_OBJ
-  fi
-  echo
-  PATH=$KERNEL_GCC_PATH:$PATH
-  if [ ! -z ${CLANG_VERSION} ]; then
-    CC_CLANG="CC=clang"
-    if [ ! "z${KERNEL_LTO_ON_4_19}" == "z" ] ; then
-      CC_CLANG="CC=clang LD=ld.lld"
-    fi
-    CLANG_CANDIDATE=$PRODUCT_TOOLCHAIN_BASE/$CLANG_VERSION
-    if [ -d ${CLANG_CANDIDATE} ]; then
-      PATH=$CLANG_CANDIDATE/bin:$PATH
-    else
-      CLANG_CANDIDATE=$KERNEL_CLANG_BASE/$CLANG_VERSION
-      if [ -d ${CLANG_CANDIDATE} ]; then
-        PATH=$CLANG_CANDIDATE/bin:$PATH
-      else
-        print_error "$PRODUCT_TOOLCHAIN_BASE/$CLANG_VERSION: No clang in product/toolchain"
-        print_error "$KERNEL_CLANG_BASE/$CLANG_VERSION: No clang in platform/prebuilts"
-        exit -2
-      fi
-    fi
-
-    if [ ! "z${KERNEL_LTO_ON}" == "z" ] ; then
-      export LLVM_AR=$CLANG_CANDIDATE/bin/llvm-ar
-      export LLVM_DIS=$CLANG_CANDIDATE/bin/llvm-dis
-      export LTO_LLVM_LIB_BASE=$CLANG_CANDIDATE/lib64/
-    fi
-  fi
-
-  build_defconfig
-  build_kernel_core
-  build_dtbo
-  BINLIST=$FILES
-  if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-    BINBASE=$KERNEL_OBJ
-  else
-    BINBASE=$TARGET_KERNEL
-  fi
-  if [ "z${SKIP_DTBO_MERGE_VERIFICATION}" == "z" ]; then
-      check_dtbo_merge
-  fi
-  copy_binlist
-  check_exit
-  END_TIME=`date +%s`
-  FUNC=${FUNCNAME[0]}
-  elapsed_time
 }
 
 function build_host_tools()
@@ -603,10 +338,6 @@ function build_android()
     unzip -o $OUT_DIR/dist/full_$BUILD_PRODUCT-img* -d $PRODUCT_OUT/
     cp -f $OUT_DIR/dist/super.img $PRODUCT_OUT/
   fi
-  # if [ ! -z ${SEPERATE_KERNEL_OBJ} ]; then
-  #   TARGET_OUT_INTERMEDIATES=$(OUT_DIR=$OUT_DIR get_build_var TARGET_OUT_INTERMEDIATES)
-  #   mv $PRODUCT_MANIFEST/KERNEL_OBJ $TARGET_OUT_INTERMEDIATES
-  # fi
   echo "$PRODUCT_OUT"
   ls -l $PRODUCT_OUT/*.img $PRODUCT_OUT/ff_* 2> /dev/null
   if [ "$WITH_ESSI" == "true" ] ; then
@@ -637,23 +368,10 @@ function audit()
   elapsed_time
 }
 
-function build_product()
-{
-  $PRODUCT_MANIFEST/prod_build.sh $BUILD_PRODUCT
-  check_exit
-  cp $PRODUCT_DIST/* $DIST
-}
-
 function build_all()
 {
     START_TIME=`date +%s`
-    clean_dist
     clean_android "_${BUILD_PRODUCT}_${BUILD_VARIANT}"
-    $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT product
-    check_exit
-    $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT kernel
-    check_exit
-    copy_misc_bin
     $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT platform $TARGET_BUILD_CARRIER
     check_exit
     END_TIME=`date +%s`
@@ -676,20 +394,9 @@ case "$BUILD_OPTION" in
   host-tools)
     build_host_tools
     ;;
-  product)
-    build_product
-    ;;
-  kernel)
-    $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT host-tools
-    build_kernel
-    ;;
   bootimage)
     START_TIME=`date +%s`
-    clean_dist
     clean_android "_${BUILD_PRODUCT}_${BUILD_VARIANT}"
-    $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT kernel
-    check_exit
-    copy_misc_bin
     PLATFORM_BUILD_TARGET=bootimage $BUILDSH $BUILD_PRODUCT $BUILD_VARIANT platform
     END_TIME=`date +%s`
     FUNC="Total"
