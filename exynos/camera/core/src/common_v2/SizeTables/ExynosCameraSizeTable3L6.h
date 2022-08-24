@@ -53,7 +53,7 @@ static int PREVIEW_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     { SIZE_RATIO_16_9,
      (4000 + 0) , (3000 + 0),   /* [sensor ] */
       4000      , 3000      ,   /* [bns    ] */
-      1920      , 1080      ,   /* [bcrop  ] */
+      3808      , 2058       ,   /* [bcrop  ] */
       1920      , 1080      ,   /* [bds  ] */
       1920      , 1080      ,   /* [target ] */
     },
@@ -61,7 +61,7 @@ static int PREVIEW_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     { SIZE_RATIO_4_3,
      (4000 + 0) ,(3000 + 0) ,   /* [sensor ] */
       4000      , 3000      ,   /* [bns    ] */
-      1440      , 1080      ,   /* [bcrop  ] */
+      3808      , 3000      ,   /* [bcrop  ] */
       1440      , 1080      ,   /* [bds    ] */
       1440      , 1080      ,   /* [target ] */
     },
@@ -289,6 +289,7 @@ static int S5K3L6_PREVIEW_LIST[][SIZE_OF_RESOLUTION] =
 
 static int S5K3L6_JPEG_LIST[][SIZE_OF_RESOLUTION] =
 {
+    { 4000, 3000, 33331760, SIZE_RATIO_4_3},
     { 4000, 2250, 33331760, SIZE_RATIO_16_9},
     { 1920, 1080, 33331760, SIZE_RATIO_16_9},
     { 1280,  720, 33331760, SIZE_RATIO_16_9},
@@ -323,6 +324,8 @@ static int S5K3L6_VIDEO_LIST[][SIZE_OF_RESOLUTION] =
 
 static int S5K3L6_YUV_LIST[][SIZE_OF_RESOLUTION] =
 {
+    { 4000, 3000, 33331760, SIZE_RATIO_4_3},
+    { 4000, 2250, 33331760, SIZE_RATIO_16_9},
     { 1920, 1080, 33331760, SIZE_RATIO_16_9},
     { 1280,  720, 33331760, SIZE_RATIO_16_9},
     {  960,  720, 33331760, SIZE_RATIO_4_3},

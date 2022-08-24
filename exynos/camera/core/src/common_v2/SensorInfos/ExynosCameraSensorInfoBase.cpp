@@ -7124,7 +7124,7 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
 
     sensorMarginW = 0;
     sensorMarginH = 0;
-    sensorArrayRatio = SIZE_RATIO_16_9;
+    sensorArrayRatio = SIZE_RATIO_4_3;
 
     bnsSupport = false;
     sizeTableSupport = true;
