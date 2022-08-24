@@ -7168,13 +7168,16 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
     /* FULL-Level default capabilities */
     supportedCapabilities = (CAPABILITIES_MANUAL_SENSOR
                             | CAPABILITIES_MANUAL_POST_PROCESSING
-                            | CAPABILITIES_BURST_CAPTURE);
+                            | CAPABILITIES_BURST_CAPTURE
+                            | CAPABILITIES_PRIVATE_REPROCESSING);
     requestKeys = AVAILABLE_REQUEST_KEYS_BASIC;
     resultKeys = AVAILABLE_RESULT_KEYS_BASIC;
     characteristicsKeys = AVAILABLE_CHARACTERISTICS_KEYS_BASIC;
+    sessionKeys = AVAILABLE_SESSION_KEYS_BASIC;
     requestKeysLength = ARRAY_LENGTH(AVAILABLE_REQUEST_KEYS_BASIC);
     resultKeysLength = ARRAY_LENGTH(AVAILABLE_RESULT_KEYS_BASIC);
     characteristicsKeysLength = ARRAY_LENGTH(AVAILABLE_CHARACTERISTICS_KEYS_BASIC);
+    sessionKeysLength = ARRAY_LENGTH(AVAILABLE_SESSION_KEYS_BASIC);
 
     /* Android ColorCorrection Static Metadata */
     colorAberrationModes = AVAILABLE_COLOR_CORRECTION_ABERRATION_MODES;
@@ -7193,7 +7196,7 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
 #endif
     effectModes = AVAILABLE_EFFECT_MODES;
     sceneModes = AVAILABLE_SCENE_MODES;
-    videoStabilizationModes = AVAILABLE_VIDEO_STABILIZATION_ENABLE_MODES;
+    videoStabilizationModes = AVAILABLE_VIDEO_STABILIZATION_MODES;
     awbModes = AVAILABLE_AWB_MODES;
     controlModes = AVAILABLE_CONTROL_MODES;
     controlModesLength = ARRAY_LENGTH(AVAILABLE_CONTROL_MODES);
@@ -7206,7 +7209,7 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
     antiBandingModesLength = ARRAY_LENGTH(AVAILABLE_ANTIBANDING_MODES);
     effectModesLength = ARRAY_LENGTH(AVAILABLE_EFFECT_MODES);
     sceneModesLength = ARRAY_LENGTH(AVAILABLE_SCENE_MODES);
-    videoStabilizationModesLength = ARRAY_LENGTH(AVAILABLE_VIDEO_STABILIZATION_ENABLE_MODES);
+    videoStabilizationModesLength = ARRAY_LENGTH(AVAILABLE_VIDEO_STABILIZATION_MODES);
     awbModesLength = ARRAY_LENGTH(AVAILABLE_AWB_MODES);
     sceneModeOverridesLength = ARRAY_LENGTH(SCENE_MODE_OVERRIDES);
 
@@ -7236,7 +7239,7 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
     focalLengthIn35mmLength = 28;
     hyperFocalDistance = 1.0f / 3.426f;
     // minimumFocusDistance = 1.66f / 0.1f;
-    minimumFocusDistance = 0.0f;
+    minimumFocusDistance = 1.00f / 0.1f;
     if (minimumFocusDistance > 0.0f) {
         afModes = AVAILABLE_AF_MODES;
         afModesLength = ARRAY_LENGTH(AVAILABLE_AF_MODES);
@@ -7329,14 +7332,14 @@ ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCamer
     toneMapModes = AVAILABLE_TONE_MAP_MODES;
     toneMapModesLength = ARRAY_LENGTH(AVAILABLE_TONE_MAP_MODES);
 
-    horizontalViewAngle[SIZE_RATIO_16_9] = 69.6f;
-    horizontalViewAngle[SIZE_RATIO_4_3] = 69.6f;
-    horizontalViewAngle[SIZE_RATIO_1_1] = 55.0f;
+    horizontalViewAngle[SIZE_RATIO_16_9] = 65.0f;
+    horizontalViewAngle[SIZE_RATIO_4_3] = 65.0f;
+    horizontalViewAngle[SIZE_RATIO_1_1] = 51.1f;
     horizontalViewAngle[SIZE_RATIO_3_2] = 65.0f;
     horizontalViewAngle[SIZE_RATIO_5_4] = 61.0f;
     horizontalViewAngle[SIZE_RATIO_5_3] = 65.0f;
     horizontalViewAngle[SIZE_RATIO_11_9] = 60.0f;
-    verticalViewAngle = 55.0f;
+    verticalViewAngle = 41.0f;
 
     /* Android Sync Static Metadata */
     maxLatency = ANDROID_SYNC_MAX_LATENCY_PER_FRAME_CONTROL;
