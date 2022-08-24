@@ -7110,14 +7110,15 @@ ExynosCameraSensor2X5SPBase::ExynosCameraSensor2X5SPBase(int sensorId) : ExynosC
     /* END of Camera HAL 3.2 Static Metadatas */
 };
 
-/* based on S5K3L2 */
+/* based on S5K3L6 */
 ExynosCameraSensor3L6Base::ExynosCameraSensor3L6Base(int sensorId) : ExynosCameraSensorInfoBase() {
-    maxSensorW = 1920;
-    maxSensorH = 1080;
-    maxPreviewW = 1920;
-    maxPreviewH = 1080;
-    maxPictureW = 1920;
-    maxPictureH = 1080;
+    
+    maxSensorW = 4000;
+    maxSensorH = 3000;
+    maxPreviewW = 4000;
+    maxPreviewH = 3000;
+    maxPictureW = 4000;
+    maxPictureH = 3000;
     maxThumbnailW = 512;
     maxThumbnailH = 384;
 

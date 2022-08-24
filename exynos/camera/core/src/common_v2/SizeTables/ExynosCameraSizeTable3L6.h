@@ -40,8 +40,8 @@
     TARGET_W,
     TARGET_H,
 -----------------------------
-    Sensor Margin Width  = 16,
-    Sensor Margin Height = 10
+    Sensor Margin Width  = 0,
+    Sensor Margin Height = 0
 -----------------------------*/
 
 static int PREVIEW_SIZE_LUT_3L6[][SIZE_OF_LUT] =
@@ -49,8 +49,23 @@ static int PREVIEW_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 1.0
        BDS       = 1080p */
-
-    /*  4:3 (Single, Dual) */
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
+    /* 4:3 (VT_Call) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) ,(3000 + 0) ,   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1440      , 1080      ,   /* [bcrop  ] */
+      1440      , 1080      ,   /* [bds    ] */
+      1440      , 1080      ,   /* [target ] */
+    },
+    /*  16:9 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
       1920      , 1080      ,   /* [bns    ] */
@@ -65,7 +80,22 @@ static int PREVIEW_SIZE_LUT_3L6_BNS[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 2.0
        BDS       = OFF */
-
+     /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
+    /* 4:3 (VT_Call) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) ,(3000 + 0) ,   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1440      , 1080      ,   /* [bcrop  ] */
+      1440      , 1080      ,   /* [bds    ] */
+      1440      , 1080      ,   /* [target ] */
+    },
     /*  4:3 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
@@ -81,8 +111,39 @@ static int PICTURE_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 1.0
        BDS       = OFF */
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      4000      , 3000      ,   /* [bcrop  ] */
+      4000      , 3000      ,   /* [bds  ] */
+      4000      , 3000      ,   /* [target ] */
+    },
 
-    /* 16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      4000      , 2250      ,   /* [bcrop  ] */
+      4000      , 2250      ,   /* [bds  ] */
+      4000      , 2250      ,   /* [target ] */
+    },
+     /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
+    /* 4:3 (VT_Call) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) ,(3000 + 0) ,   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1440      , 1080      ,   /* [bcrop  ] */
+      1440      , 1080      ,   /* [bds    ] */
+      1440      , 1080      ,   /* [target ] */
+    },
+    /*  4:3 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
       1920      , 1080      ,   /* [bns    ] */
@@ -97,7 +158,15 @@ static int VIDEO_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 1.0
        BDS       = 1080p */
-
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
+    
     /*  4:3 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
@@ -113,7 +182,14 @@ static int VIDEO_SIZE_LUT_3L6_BNS[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 2.0
        BDS       = 1080p */
-
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
     /*  4:3 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
@@ -129,7 +205,22 @@ static int PREVIEW_FULL_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 1.0
        BDS       = 1080p */
-
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
+    /* 4:3 (VT_Call) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) ,(3000 + 0) ,   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1440      , 1080      ,   /* [bcrop  ] */
+      1440      , 1080      ,   /* [bds    ] */
+      1440      , 1080      ,   /* [target ] */
+    },
     /*  4:3 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
@@ -145,7 +236,28 @@ static int PICTURE_FULL_SIZE_LUT_3L6[][SIZE_OF_LUT] =
     /* Binning   = OFF
        BNS ratio = 1.0
        BDS       = OFF */
-
+    /*  16:9 (Single, Dual) */
+    { SIZE_RATIO_4_3,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      4000      , 3000      ,   /* [bcrop  ] */
+      4000      , 3000      ,   /* [bds  ] */
+      4000      , 3000      ,   /* [target ] */
+    },
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      4000      , 2250      ,   /* [bcrop  ] */
+      4000      , 2250      ,   /* [bds  ] */
+      4000      , 2250      ,   /* [target ] */
+    },
+    { SIZE_RATIO_16_9,
+     (4000 + 0) , (3000 + 0),   /* [sensor ] */
+      4000      , 3000      ,   /* [bns    ] */
+      1920      , 1080      ,   /* [bcrop  ] */
+      1920      , 1080      ,   /* [bds  ] */
+      1920      , 1080      ,   /* [target ] */
+    },
     /* 16:9 (Single, Dual) */
     { SIZE_RATIO_16_9,
      (1920 + 0) , (1080 + 0),   /* [sensor ] */
@@ -177,6 +289,7 @@ static int S5K3L6_PREVIEW_LIST[][SIZE_OF_RESOLUTION] =
 
 static int S5K3L6_JPEG_LIST[][SIZE_OF_RESOLUTION] =
 {
+    { 4000, 2250, 33331760, SIZE_RATIO_16_9},
     { 1920, 1080, 33331760, SIZE_RATIO_16_9},
     { 1280,  720, 33331760, SIZE_RATIO_16_9},
     {  960,  720, 33331760, SIZE_RATIO_4_3},
