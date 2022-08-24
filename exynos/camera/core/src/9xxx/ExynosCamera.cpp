@@ -223,7 +223,10 @@ status_t ExynosCamera::createDevice(cameraId_Info *camIdInfo, camera_metadata_t 
 
         m_currentCaptureShot[m_cameraId] = new struct camera2_shot_ext;
         memset(m_currentCaptureShot[m_cameraId], 0x00, sizeof(struct camera2_shot_ext));
-
+#ifdef ENABLE_VISION_MODE
+        m_currentVisionShot[m_cameraId] = new struct camera2_shot_ext;
+        memset(m_currentVisionShot[m_cameraId], 0x00, sizeof(struct camera2_shot_ext));
+#endif
         break;
     }
 
@@ -1904,7 +1907,7 @@ status_t ExynosCamera::m_createVisionFrameFunc(enum Request_Sync_Type syncType, 
     FrameFactoryListIterator factorylistIter;
     factory_handler_t frameCreateHandler;
     List<ExynosCameraRequestSP_sprt_t>::iterator r;
-    frame_type_t frameType = FRAME_TYPE_VISION;
+    frame_type_t frameType = FRAME_TYPE_PREVIEW;
     uint32_t watingListSize = 0;
     bool isNeedRequestFrame = false;
     ExynosCameraFrameSP_sptr_t reqSyncFrame = NULL;
@@ -2952,7 +2955,11 @@ void ExynosCamera::m_checkUpdateResult(ExynosCameraFrameSP_sptr_t frame, uint32_
             break;
         case FRAME_TYPE_VISION:
             targetBit = 0;
+#ifdef ENABLE_VISION_MODE
+            SET_STREAM_CONFIG_BIT(targetBit, HAL_STREAM_ID_PREVIEW);
+#else
             SET_STREAM_CONFIG_BIT(targetBit, HAL_STREAM_ID_VISION);
+#endif
             previewFlag = (COMPARE_STREAM_CONFIG_BIT(streamConfigBit, targetBit) > 0) ? true : false;
 
             if (previewFlag == true) {
@@ -4950,7 +4957,9 @@ uint32_t ExynosCamera::m_getBayerPipeId(void)
     } else {
         pipeId = PIPE_3AA;
     }
-
+#ifdef ENABLE_VISION_MODE
+        pipeId = PIPE_FLITE;
+#endif
     return pipeId;
 }
 

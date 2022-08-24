@@ -51,7 +51,7 @@
 namespace android {
 
 /* #define DUMP_2_FILE */
-/* #define EXYNOS_CAMERA_BUFFER_TRACE */
+//#define EXYNOS_CAMERA_BUFFER_TRACE
 
 #ifdef EXYNOS_CAMERA_BUFFER_TRACE
 #define EXYNOS_CAMERA_BUFFER_IN()   CLOGD("IN..")

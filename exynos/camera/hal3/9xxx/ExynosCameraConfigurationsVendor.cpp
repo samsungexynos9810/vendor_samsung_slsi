@@ -1120,7 +1120,9 @@ status_t ExynosCameraConfigurations::m_vendorReInit(void)
     setModeValue(CONFIGURATION_FULL_SIZE_SENSOR_LUT_FPS_VALUE, 0);
     setMode(CONFIGURATION_SESSION_MODE, false);
     setMode(CONFIGURATION_ZERO_CAMERA_MODE, false);
-
+#ifdef ENABLE_VISION_MODE
+    setMode(CONFIGURATION_VISION_MODE, true);
+#endif
     setModeValue(CONFIGURATION_MAX_OLD_BAYER_KEEP_VALUE, 0);
     setMode(CONFIGURATION_RESTART_FORCE_FLUSH, false);
 #ifdef USES_COMBINE_PLUGIN

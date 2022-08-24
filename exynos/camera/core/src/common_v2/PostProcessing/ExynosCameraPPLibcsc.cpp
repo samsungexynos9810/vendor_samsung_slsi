@@ -113,7 +113,8 @@ void ExynosCameraPPLibcsc::m_init(void)
     m_srcImageCapacity.addColorFormat(V4L2_PIX_FMT_YVU420M);
     m_srcImageCapacity.addColorFormat(V4L2_PIX_FMT_YVU420);
     m_srcImageCapacity.addColorFormat(V4L2_PIX_FMT_YUYV);
-
+    m_srcImageCapacity.addColorFormat(V4L2_PIX_FMT_YVYU);
+    
     m_dstImageCapacity.setNumOfImage(1);
     m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_NV12M);
     m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_NV21M);
@@ -122,4 +123,6 @@ void ExynosCameraPPLibcsc::m_init(void)
     m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_YVU420M);
     m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_YVU420);
     m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_YUYV);
+    m_dstImageCapacity.addColorFormat(V4L2_PIX_FMT_YVYU);
+    
 }

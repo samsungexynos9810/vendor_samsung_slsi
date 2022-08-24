@@ -1550,7 +1550,7 @@ int ExynosCameraNode::m_qBuf(ExynosCameraBuffer *buf)
         }
         v4l2_buf.m.planes[planeIndex].length = (unsigned long)(buf->size[buf->getDebugInfoPlaneIndex()]);
 
-        CLOGV("planeIndex(%d), length=%d, m.fd=%d ",planeIndex, v4l2_buf.m.planes[planeIndex].length, v4l2_buf.m.planes[planeIndex].m.fd );
+        CLOGW("planeIndex(%d), length=%d, m.fd=%d ",planeIndex, v4l2_buf.m.planes[planeIndex].length, v4l2_buf.m.planes[planeIndex].m.fd );
         planeIndex--;
     }
 
@@ -1809,7 +1809,7 @@ int ExynosCameraNode::m_dqBuf(ExynosCameraBuffer *buf, int *dqIndex)
     if (v4l2_buf.flags & V4L2_BUF_FLAG_ERROR) {
         CLOGE("exynos_v4l2_dqbuf(fd:%d) returned with error (%d)",
              m_fd, V4L2_BUF_FLAG_ERROR);
-        ret = -1;
+        //ret = -1; Bob
     }
 #endif
 

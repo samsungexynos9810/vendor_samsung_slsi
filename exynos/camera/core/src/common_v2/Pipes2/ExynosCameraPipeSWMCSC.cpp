@@ -298,11 +298,13 @@ status_t ExynosCameraPipeSWMCSC::m_runScalerParallel(ExynosCameraFrameSP_sptr_t 
         if (frame->getRequest(pipeId) == false && node_group_info.capture[pipeId - base].request == false)
             continue;
 
+#ifndef ENABLE_VISION_MODE
         if ((m_configurations->getOnePortId() > -1) &&
                 (pipeId == (m_configurations->getOnePortId() % ExynosCameraParameters::YUV_MAX) + PIPE_MCSC0)) {
             CLOGV("[F%d] pipeId(%d) is not output of SWMCSC", frame->getFrameCount(), pipeId);
             continue;
         }
+#endif
 
         dstBuffer.index = -1;
 
@@ -541,11 +543,13 @@ status_t ExynosCameraPipeSWMCSC::m_handleGscDoneFrame()
             continue;
         }
 
+#ifndef ENABLE_VISION_MODE
         if ((m_configurations->getOnePortId() > -1) &&
                 (pipeId == (m_configurations->getOnePortId() % ExynosCameraParameters::YUV_MAX) + PIPE_MCSC0)) {
             CLOGV("[F%d] pipeId(%d) is not output of SWMCSC", requestFrame->getFrameCount(), pipeId);
             continue;
         }
+#endif
 
         CLOGV("wait GSC(%d) output", i);
 
