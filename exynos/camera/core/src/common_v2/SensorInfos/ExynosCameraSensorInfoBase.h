@@ -225,6 +225,9 @@ typedef enum CAMERA_INDEX {
 #if defined(CAMERA_OPEN_ID_REAR_0)
     CAMERA_INDEX_REAR_0,
 #endif
+#if defined(CAMERA_OPEN_ID_FRONT_0)
+    CAMERA_INDEX_FRONT_0,
+#endif
 #if defined(CAMERA_OPEN_ID_FRONT_1)
     CAMERA_INDEX_FRONT_1,
 #endif
@@ -898,6 +901,10 @@ public:
     ExynosCameraSensor2X5SPBase(int sensorId);
 };
 
+struct ExynosCameraSensor3L6Base : public ExynosCameraSensorInfoBase {
+public:
+    explicit ExynosCameraSensor3L6Base(int sensorId);
+};
 }; /* namespace android */
 #endif
 

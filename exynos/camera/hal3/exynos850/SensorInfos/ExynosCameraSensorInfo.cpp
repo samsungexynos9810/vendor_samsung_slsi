@@ -26,10 +26,10 @@ namespace android {
 #ifdef USE_CONFLICTING_LISTS
 __unused static char *CONFLICTING_LIST_OPEN_ID_REAR_0[] =
 {
-    TO_STRING(CAMERA_OPEN_ID_FRONT_1),
+    TO_STRING(CAMERA_OPEN_ID_FRONT_0),
 };
 
-__unused static char *CONFLICTING_LIST_OPEN_ID_FRONT_1[] =
+__unused static char *CONFLICTING_LIST_OPEN_ID_FRONT_0[] =
 {
     TO_STRING(CAMERA_OPEN_ID_REAR_0),
 };
@@ -51,6 +51,21 @@ static struct HAL_CameraInfo_t sCameraConfigTotalInfo[] = {
 #endif
     },
 #endif
+#ifdef CAMERA_OPEN_ID_FRONT_0
+    {
+        CAMERA_OPEN_ID_FRONT_0,
+        CAMERA_FACING_FRONT,
+        BACK_ROTATION,  /* orientation */
+        51,      /* resoruce_cost               : [0 , 100] */
+#if 0 /* #ifdef USE_CONFLICTING_LISTS */
+        CONFLICTING_LIST_OPEN_ID_FRONT_0,
+        TO_SIZE(CONFLICTING_LIST_OPEN_ID_REAR_0, char*),
+#else
+        NULL,
+        0,
+#endif
+    },
+#endif
 #ifdef CAMERA_OPEN_ID_FRONT_1
     {
         CAMERA_OPEN_ID_FRONT_1,
@@ -58,8 +73,8 @@ static struct HAL_CameraInfo_t sCameraConfigTotalInfo[] = {
         FRONT_ROTATION,  /* orientation */
         51,      /* resoruce_cost               : [0 , 100] */
 #if 0 /* #ifdef USE_CONFLICTING_LISTS */
-        CONFLICTING_LIST_OPEN_ID_FRONT_1,
-        TO_SIZE(CONFLICTING_LIST_OPEN_ID_FRONT_1, char*),
+        CONFLICTING_LIST_OPEN_ID_FRONT_0,
+        TO_SIZE(CONFLICTING_LIST_OPEN_ID_FRONT_0, char*),
 #else
         NULL,
         0,
@@ -251,6 +266,10 @@ struct ExynosCameraSensorInfoBase *createExynosCameraSensorInfo(int cameraId, __
     case SENSOR_NAME_S5K4H5YC:
         sensorInfo = new ExynosCameraSensor4H5YC(sensorId);
         snprintf(sensorInfo->name, sizeof(sensorInfo->name), "S5K4H5YC");
+        break;
+    case SENSOR_NAME_S5K3L6:
+        sensorInfo = new ExynosCameraSensor3L6(sensorId);
+        snprintf(sensorInfo->name, sizeof(sensorInfo->name), "3L6");
         break;
     case SENSOR_NAME_S5KGM1SP:
         sensorInfo = new ExynosCameraSensorGM1SP(sensorId);
@@ -542,6 +561,10 @@ ExynosCameraSensor4HA::ExynosCameraSensor4HA(int sensorId) : ExynosCameraSensor4
     /* Use ExynosCameraSensorS5K4HABase Constructor */
 };
 
+ExynosCameraSensor3L6::ExynosCameraSensor3L6(int sensorId) : ExynosCameraSensor3L6Base(sensorId) {
+    /* Use ExynosCameraSensorS5K3L6Base Constructor */
+}
+
 /* Convert Id to the one for HAL. Refer to the enum CAMERA_ID in ExynosCameraSensorInfoBase.h  */
 int getCameraIdInfo(cameraId_Info *camIdInfo)
 {
@@ -559,9 +582,18 @@ int getCameraIdInfo(cameraId_Info *camIdInfo)
             camIdInfo->logicalSyncType = -1;
             break;
 #endif
+#ifdef CAMERA_OPEN_ID_FRONT_0
+        case CAMERA_OPEN_ID_FRONT_0:
+            camIdInfo->cameraId[MAIN_CAM] = CAMERA_ID_FRONT;
+            camIdInfo->cameraId[SUB_CAM] = -1;
+            camIdInfo->camInfoIndex = CAMERA_INDEX_FRONT_0;
+            camIdInfo->numOfSensors = 1;
+            camIdInfo->logicalSyncType = -1;
+            break;
+#endif
 #ifdef CAMERA_OPEN_ID_FRONT_1
         case CAMERA_OPEN_ID_FRONT_1:
-            camIdInfo->cameraId[MAIN_CAM] = CAMERA_ID_FRONT;
+            camIdInfo->cameraId[MAIN_CAM] = CAMERA_ID_FRONT_1;
             camIdInfo->cameraId[SUB_CAM] = -1;
             camIdInfo->camInfoIndex = CAMERA_INDEX_FRONT_1;
             camIdInfo->numOfSensors = 1;

@@ -50,8 +50,8 @@
 /******************************
  * Basic Device Features *
  ******************************/
-#define CAMERA_OPEN_ID_REAR_0       0
-#define CAMERA_OPEN_ID_FRONT_1      1
+// #define CAMERA_OPEN_ID_REAR_0       0
+// #define CAMERA_OPEN_ID_FRONT_1      1
 //#define CAMERA_OPEN_ID_REAR_2       0
 //#define CAMERA_OPEN_ID_REAR_2
 //#define CAMERA_OPEN_ID_REAR_3
