@@ -315,7 +315,7 @@ status_t ExynosCameraConfigurations::checkPreviewFpsRange(uint32_t minFps, uint3
 void ExynosCameraConfigurations::setPreviewFpsRange(uint32_t min, uint32_t max)
 {
     m_minFps = min;
-    m_maxFps = 30; // [TS] set max frame = 15 (4ec)
+    m_maxFps = max;
 
 #ifdef USE_DUAL_CAMERA
     CLOGV("fps min(%d) max(%d)", min, max);
@@ -328,7 +328,7 @@ void ExynosCameraConfigurations::getPreviewFpsRange(uint32_t *min, uint32_t *max
 {
     /* ex) min = 15 , max = 30 */
     *min = m_minFps;
-    *max = 30; // [TS] set max frame = 15 (4ec)
+    *max = m_maxFps;
 }
 
 status_t ExynosCameraConfigurations::m_adjustPreviewFpsRange(__unused uint32_t &newMinFps, uint32_t &newMaxFps)

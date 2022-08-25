@@ -70,9 +70,9 @@
 using namespace android;
 
 namespace android {
-//#define EXYNOS_CAMERA_NODE_TRACE
-//#define EXYNOS_CAMERA_NODE_TRACE_Q_DURATION
-//#define EXYNOS_CAMERA_NODE_TRACE_DQ_DURATION
+/* #define EXYNOS_CAMERA_NODE_TRACE */
+/* #define EXYNOS_CAMERA_NODE_TRACE_Q_DURATION */
+/* #define EXYNOS_CAMERA_NODE_TRACE_DQ_DURATION */
 
 #ifdef EXYNOS_CAMERA_NODE_TRACE
 #define EXYNOS_CAMERA_NODE_IN()   CLOGD("IN...m_nodeState[%d]", m_nodeState)

@@ -254,7 +254,7 @@ private:
     /* Helper functions for notification */
     status_t    m_sendJpegStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer, int size);
     status_t    m_sendRawStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer);
-    status_t    m_sendVisionStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer, int streamId);
+    status_t    m_sendVisionStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer);
     status_t    m_sendZslStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer);
 
     status_t    m_sendDepthStreamResult(ExynosCameraRequestSP_sprt_t request, ExynosCameraBuffer *buffer, int streamId);

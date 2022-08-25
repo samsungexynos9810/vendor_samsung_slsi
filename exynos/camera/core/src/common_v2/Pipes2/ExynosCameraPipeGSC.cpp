@@ -83,11 +83,9 @@ status_t ExynosCameraPipeGSC::m_run(void)
 
     rotation = newFrame->getRotation(getPipeId());
     CLOGV(" getPipeId(%d), rotation(%d)", getPipeId(), rotation);
-        
-    flipHorizontal = 0;//bypass newFrame->getFlipHorizontal(getPipeId());
-    flipVertical = 0;//bypass newFrame->getFlipVertical(getPipeId());
 
-    //CLOGW(" flipHorizontal(%d), getFlipVertical(%d)", flipHorizontal, flipVertical);
+    flipHorizontal = newFrame->getFlipHorizontal(getPipeId());
+    flipVertical = newFrame->getFlipVertical(getPipeId());
 
     ret = newFrame->getSrcRect(getPipeId(), &srcRect);
     ret = newFrame->getDstRect(getPipeId(), &dstRect);
@@ -115,13 +113,11 @@ status_t ExynosCameraPipeGSC::m_run(void)
         return OK;
     }
 
-#ifndef USE_EXYNOS_NU310_GSC_BYPASS
     ret = m_gscWrapper->convertWithRotation(srcRect, dstRect, srcBuffer, dstBuffer, rotation, flipHorizontal, flipVertical);
     if (ret != NO_ERROR) {
-         CLOGE("convertWithRoration fail, ret(%d)", ret);
-         newFrame->setDstBufferState(getPipeId(), ENTITY_BUFFER_STATE_ERROR, 0);
+        CLOGE("convertWithRoration fail, ret(%d)", ret);
+        newFrame->setDstBufferState(getPipeId(), ENTITY_BUFFER_STATE_ERROR, 0);
     }
-#endif
 
     CLOGV("Rotation(%d), flip horizontal(%d), vertical(%d)",
              rotation, flipHorizontal, flipVertical);

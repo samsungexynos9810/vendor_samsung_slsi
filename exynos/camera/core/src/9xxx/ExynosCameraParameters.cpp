@@ -2355,7 +2355,7 @@ status_t ExynosCameraParameters::getCropSizeImpl(ExynosRect *srcRect, ExynosRect
     int curBnsW = 0, curBnsH = 0;
     getSize(HW_INFO_HW_BNS_SIZE, (uint32_t *)&curBnsW, (uint32_t *)&curBnsH);
     if (SIZE_RATIO(curBnsW, curBnsH) != SIZE_RATIO(hwBnsW, hwBnsH)) {
-        CLOGV("current BNS size(%dx%d) is NOT same with Hw BNS size(%dx%d)",
+        CLOGW("current BNS size(%dx%d) is NOT same with Hw BNS size(%dx%d)",
                  curBnsW, curBnsH, hwBnsW, hwBnsH);
     }
 

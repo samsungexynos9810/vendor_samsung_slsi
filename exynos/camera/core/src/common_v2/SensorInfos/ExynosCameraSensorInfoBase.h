@@ -905,11 +905,6 @@ struct ExynosCameraSensor3L6Base : public ExynosCameraSensorInfoBase {
 public:
     explicit ExynosCameraSensor3L6Base(int sensorId);
 };
-
-struct ExynosCameraSensor4ECBase : public ExynosCameraSensorInfoBase {
-public:
-    explicit ExynosCameraSensor4ECBase(int sensorId);
-};
 }; /* namespace android */
 #endif
 
