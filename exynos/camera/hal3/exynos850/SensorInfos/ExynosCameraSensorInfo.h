@@ -147,6 +147,10 @@ struct ExynosCameraSensor3L6 : public ExynosCameraSensor3L6Base {
 public:
     explicit ExynosCameraSensor3L6(int sensorId);
 };
+struct ExynosCameraSensor4EC : public ExynosCameraSensor4ECBase {
+public:
+    explicit ExynosCameraSensor4EC(int sensorId);
+};
 /* Helpper functions */
 struct ExynosCameraSensorInfoBase *createExynosCameraSensorInfo(int cameraId, int serviceCameraId = 0);
 struct HAL_CameraInfo_t *getExynosCameraVendorDeviceInfoByServiceCamId(int serviceCameraId);

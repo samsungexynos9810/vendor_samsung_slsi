@@ -271,6 +271,10 @@ struct ExynosCameraSensorInfoBase *createExynosCameraSensorInfo(int cameraId, __
         sensorInfo = new ExynosCameraSensor3L6(sensorId);
         snprintf(sensorInfo->name, sizeof(sensorInfo->name), "3L6");
         break;
+    case SENSOR_NAME_S5K4EC:
+        sensorInfo = new ExynosCameraSensor4EC(sensorId);
+        snprintf(sensorInfo->name, sizeof(sensorInfo->name), "4EC");
+        break;
     case SENSOR_NAME_S5KGM1SP:
         sensorInfo = new ExynosCameraSensorGM1SP(sensorId);
         snprintf(sensorInfo->name, sizeof(sensorInfo->name), "GM1SP");
@@ -563,6 +567,10 @@ ExynosCameraSensor4HA::ExynosCameraSensor4HA(int sensorId) : ExynosCameraSensor4
 
 ExynosCameraSensor3L6::ExynosCameraSensor3L6(int sensorId) : ExynosCameraSensor3L6Base(sensorId) {
     /* Use ExynosCameraSensorS5K3L6Base Constructor */
+}
+
+ExynosCameraSensor4EC::ExynosCameraSensor4EC(int sensorId) : ExynosCameraSensor4ECBase(sensorId) {
+    /* Use ExynosCameraSensorS5K4ECBase Constructor */
 }
 
 /* Convert Id to the one for HAL. Refer to the enum CAMERA_ID in ExynosCameraSensorInfoBase.h  */
