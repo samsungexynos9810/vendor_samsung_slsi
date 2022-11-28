@@ -1660,6 +1660,9 @@ int getBayerLineSize(int width, int bayerFormat)
     }
 
     switch (bayerFormat) {
+    case V4L2_PIX_FMT_RGB24:
+        bytesPerLine = ROUND_UP(width * 3, CAMERA_16PX_ALIGN);
+        break;
     case V4L2_PIX_FMT_SBGGR16:
     case V4L2_PIX_FMT_SBGGR10: //unpacked
         bytesPerLine = ROUND_UP(width * 2, CAMERA_16PX_ALIGN);
@@ -1676,6 +1679,7 @@ int getBayerLineSize(int width, int bayerFormat)
         break;
     case V4L2_PIX_FMT_SBGGR8:
     case V4L2_PIX_FMT_SGRBG8:
+    case V4L2_PIX_FMT_UYVY:
         bytesPerLine = ROUND_UP(width , CAMERA_16PX_ALIGN);
         break;
     default:
@@ -1707,6 +1711,8 @@ float getBayerBytesPerPixel(int bayerFormat)
         break;
     case V4L2_PIX_FMT_SBGGR8:
     case V4L2_PIX_FMT_SGRBG8:
+    case V4L2_PIX_FMT_UYVY:
+    case V4L2_PIX_FMT_RGB24:
         bytesPerPixel = 1;
         break;
     default:
@@ -2070,6 +2076,7 @@ status_t getYuvPlaneSize(int format, unsigned int *size,
         switch (format) {
         case V4L2_PIX_FMT_BGR32:
         case V4L2_PIX_FMT_RGB32:
+        case V4L2_PIX_FMT_RGB24:
             size[0] = frame_size << 2;
             if (pixelCompInfo == COMP) {
                 ALOGE("ERR(%s[%d]): not support comp planes(%d) format(%x)", __FUNCTION__, __LINE__, src_planes, format);
@@ -2270,6 +2277,7 @@ status_t getV4l2FormatInfo(unsigned int v4l2_pixel_format,
         break;
     case V4L2_PIX_FMT_SBGGR8:
     case V4L2_PIX_FMT_SGRBG8:
+    case V4L2_PIX_FMT_RGB24:
         *bpp    = 8;
         *planes = 1;
         break;

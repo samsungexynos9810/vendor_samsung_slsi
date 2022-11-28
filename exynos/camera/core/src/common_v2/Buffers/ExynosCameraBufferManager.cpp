@@ -1263,7 +1263,7 @@ int ExynosCameraBufferManager::getNumOfAvailableAndNoneBuffer(void)
 void ExynosCameraBufferManager::printBufferState(void)
 {
     for (int i = m_indexOffset; i < m_allocatedBufCount + m_indexOffset; i++) {
-        CLOGV("m_buffer[%d].fd[0]=%d, position=%d, permission=%d]",
+        CLOGD("m_buffer[%d].fd[0]=%d, position=%d, permission=%d]",
             i, m_buffer[i].fd[0],
             m_buffer[i].status.position, m_buffer[i].status.permission);
     }
@@ -1289,7 +1289,7 @@ void ExynosCameraBufferManager::printBufferQState()
 
     for (r = m_availableBufferIndexQ.begin(); r != m_availableBufferIndexQ.end(); r++) {
         bufferIndex = *r;
-        CLOGV("bufferIndex=%d", bufferIndex);
+        CLOGD("bufferIndex=%d", bufferIndex);
     }
 
     return;

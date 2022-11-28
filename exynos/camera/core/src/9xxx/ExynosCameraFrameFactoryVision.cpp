@@ -55,6 +55,13 @@ status_t ExynosCameraFrameFactoryVision::create()
         return INVALID_OPERATION;
     }
 
+    ret = m_pipes[INDEX(PIPE_SW_MCSC)]->create();
+    if (ret != NO_ERROR) {
+        CLOGE("PIPE_SW_MCSC create fail, ret(%d)", ret);
+        /* TODO: exception handling */
+        return INVALID_OPERATION;
+    }
+
     CLOGD("%s(%d) created", m_pipes[PIPE_FLITE]->getPipeName(), PIPE_FLITE);
 
     /* s_ctrl HAL version for selecting dvfs table */
@@ -118,13 +125,23 @@ status_t ExynosCameraFrameFactoryVision::destroy(void)
 
 status_t ExynosCameraFrameFactoryVision::m_fillNodeGroupInfo(ExynosCameraFrameSP_sptr_t frame)
 {
+    status_t ret = NO_ERROR;
     camera2_node_group node_group_info_flite;
     camera2_node_group *node_group_info_temp;
     ExynosRect sensorSize;
 
     int pipeId = -1;
     uint32_t perframePosition = 0;
-    int bayerFormat = V4L2_PIX_FMT_SGRBG8;
+    int nodePipeId = -1;
+
+    int yuvFormat[ExynosCameraParameters::YUV_MAX] = {0};
+    int yuvIndex = -1;
+
+    for (int i = ExynosCameraParameters::YUV_0;
+        i < ExynosCameraParameters::YUV_MAX; i++) {
+        yuvFormat[i] = m_configurations->getYuvFormat(i);
+    }
+    int bayerFormat = V4L2_PIX_FMT_YVYU;
 
     memset(&node_group_info_flite, 0x0, sizeof(camera2_node_group));
 
@@ -151,6 +168,90 @@ status_t ExynosCameraFrameFactoryVision::m_fillNodeGroupInfo(ExynosCameraFrameSP
     setCaptureSizeToNodeGroupInfo(&node_group_info_flite, perframePosition, sensorSize.w, sensorSize.h);
 
     frame->storeNodeGroupInfo(&node_group_info_flite, PERFRAME_INFO_FLITE);
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    nodePipeId = PIPE_SW_MCSC;
+    if (m_request[nodePipeId]) {
+      ExynosRect inputSize, outputSize, ratioCropSize;
+      camera2_node_group node_group_info_sw_mcsc;
+      memset(&node_group_info_sw_mcsc, 0x0, sizeof(camera2_node_group));
+
+      perframePosition = 0;
+      int count = 3;
+      int swMCSCyuvFormat[FIMC_IS_VIDEO_M5P_NUM] = {0};
+      int yuvWidth[ExynosCameraParameters::YUV_MAX] = {0};
+      int yuvHeight[ExynosCameraParameters::YUV_MAX] = {0};
+      int onePortId = m_configurations->getOnePortId();
+      int secondPortId = m_configurations->getSecondPortId();
+
+      node_group_info_sw_mcsc.leader.pixelformat = bayerFormat;
+        //  yuvFormat[(onePortId % ExynosCameraParameters::YUV_MAX) +
+        //            ExynosCameraParameters::YUV_0];
+
+      for (int i = 0; i < count; i++) {
+        swMCSCyuvFormat[i] = yuvFormat[i];
+        m_parameters->getSize(HW_INFO_HW_YUV_SIZE, (uint32_t *)&yuvWidth[i],
+                              (uint32_t *)&yuvHeight[i], i);
+      }
+      for (int i=0; i < 2; i++) {
+        if (i == 0 && onePortId < 0) continue;
+        if (i == 1 && secondPortId < 0) continue;
+        node_group_info_sw_mcsc.capture[i].request = m_request[INDEX(nodePipeId)];
+        CLOGV("node_group_info_sw_mcsc.capture[%d].request = %d", i,
+                node_group_info_sw_mcsc.capture[i].request);
+        node_group_info_sw_mcsc.capture[secondPortId].vid =
+            (FIMC_IS_VIDEO_M0P_NUM + i) - FIMC_IS_VIDEO_BAS_NUM;
+        node_group_info_sw_mcsc.capture[i].pixelformat =
+            swMCSCyuvFormat[i];
+
+        inputSize.x = 0;
+        inputSize.y = 0;
+        inputSize.w = VISION_WIDTH;
+        inputSize.h = VISION_HEIGHT;
+        outputSize.x = 0;
+        outputSize.y = 0;
+        outputSize.w = yuvWidth[i];
+        outputSize.h = yuvHeight[i];
+
+        ret = getCropRectAlign(inputSize.w, inputSize.h, outputSize.w, outputSize.h,
+                            &ratioCropSize.x, &ratioCropSize.y, &ratioCropSize.w,
+                            &ratioCropSize.h, CAMERA_MCSC_ALIGN, 2, 1.0f);
+        if (ret != NO_ERROR) {
+            CLOGE2("getCropRectAlign failed. MCSC in_crop %dx%d, MCSC%d out_size "
+                "%dx%d",
+                inputSize.w, inputSize.h, secondPortId, outputSize.w,
+                outputSize.h);
+            ratioCropSize.x = 0;
+            ratioCropSize.y = 0;
+            ratioCropSize.w = inputSize.w;
+            ratioCropSize.h = inputSize.h;
+        }
+        node_group_info_sw_mcsc.capture[i].input.cropRegion[0] =
+            ratioCropSize.x;
+        node_group_info_sw_mcsc.capture[i].input.cropRegion[1] =
+            ratioCropSize.y;
+        node_group_info_sw_mcsc.capture[i].input.cropRegion[2] =
+            ratioCropSize.w;
+        node_group_info_sw_mcsc.capture[i].input.cropRegion[3] =
+            ratioCropSize.h;
+        node_group_info_sw_mcsc.capture[i].output.cropRegion[0] =
+            outputSize.x;
+        node_group_info_sw_mcsc.capture[i].output.cropRegion[1] =
+            outputSize.y;
+        node_group_info_sw_mcsc.capture[i].output.cropRegion[2] =
+            outputSize.w;
+        node_group_info_sw_mcsc.capture[i].output.cropRegion[3] =
+            outputSize.h;
+        CLOGV("PIPE_SW_MCSC intput cropRegion (%d,%d,%d,%d) output cropRegion "
+                "(%d,%d,%d,%d)",
+                ratioCropSize.x, ratioCropSize.y, ratioCropSize.w, ratioCropSize.h,
+                outputSize.x, outputSize.y, outputSize.w, outputSize.h);
+       }
+
+      updateNodeGroupInfo(PIPE_SW_MCSC, frame, &node_group_info_sw_mcsc);
+      frame->storeNodeGroupInfo(&node_group_info_sw_mcsc, PERFRAME_INFO_SWMCSC);
+    }
+#endif
+
 
     return NO_ERROR;
 }
@@ -161,12 +262,13 @@ ExynosCameraFrameSP_sptr_t ExynosCameraFrameFactoryVision::createNewFrame(uint32
     ExynosCameraFrameEntity *newEntity[MAX_NUM_PIPES] = {0};
     ExynosCameraFrameSP_sptr_t frame = NULL;
     int requestEntityCount = 0;
+    int pipeId = -1;
 
     if (frameCount <= 0) {
         frameCount = m_frameCount;
     }
 
-    frame = m_frameMgr->createFrame(m_configurations, frameCount, FRAME_TYPE_VISION);
+    frame = m_frameMgr->createFrame(m_configurations, frameCount, FRAME_TYPE_PREVIEW);
     if (frame == NULL) {
         CLOGE("frame is NULL");
         return NULL;
@@ -185,6 +287,39 @@ ExynosCameraFrameSP_sptr_t ExynosCameraFrameFactoryVision::createNewFrame(uint32
     frame->setPipeIdForResultUpdate(ExynosCameraFrame::RESULT_UPDATE_TYPE_BUFFER, (enum pipeline)PIPE_FLITE);
     frame->setPipeIdForResultUpdate(ExynosCameraFrame::RESULT_UPDATE_TYPE_ALL, (enum pipeline)PIPE_FLITE);
     requestEntityCount++;
+
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+        int flipHorizontal = 0;
+        int flipVertical = 0;
+
+#ifdef SUPPORT_PERFRAME_FLIP
+        flipHorizontal = m_configurations->getModeValue(CONFIGURATION_PERFRAME_FLIP_H_PICTURE);
+        flipVertical = m_configurations->getModeValue(CONFIGURATION_PERFRAME_FLIP_V_PICTURE);
+#else
+        flipHorizontal = m_configurations->getModeValue(CONFIGURATION_FLIP_HORIZONTAL);
+        flipVertical = m_configurations->getModeValue(CONFIGURATION_FLIP_VERTICAL);
+#endif
+
+        pipeId = PIPE_SW_MCSC;
+        if (m_request[pipeId] == true) {
+            frame->setMode(FRAME_MODE_SWMCSC, true);
+
+            newEntity[pipeId] = new ExynosCameraFrameEntity(pipeId, ENTITY_TYPE_INPUT_OUTPUT, ENTITY_BUFFER_FIXED);
+            frame->addSiblingEntity(NULL, newEntity[pipeId]);
+            frame->setPipeIdForResultUpdate(ExynosCameraFrame::RESULT_UPDATE_TYPE_BUFFER, (enum pipeline)pipeId);
+            frame->setPipeIdForResultUpdate(ExynosCameraFrame::RESULT_UPDATE_TYPE_ALL, (enum pipeline)pipeId);
+            frame->setFlipHorizontal(pipeId, flipHorizontal);
+            frame->setFlipVertical(pipeId, flipVertical);
+            requestEntityCount++;
+            for(int i = PIPE_MCSC0 ; i < PIPE_MCSC5; i++) {
+                pipeId = i;
+                newEntity[pipeId] = new ExynosCameraFrameEntity(pipeId, ENTITY_TYPE_INPUT_OUTPUT, ENTITY_BUFFER_FIXED);
+                frame->addSiblingEntity(NULL, newEntity[pipeId]);
+                requestEntityCount++;
+            }
+        }
+#endif
+
 
     ret = m_initPipelines(frame);
     if (ret != NO_ERROR) {
@@ -212,7 +347,7 @@ status_t ExynosCameraFrameFactoryVision::initPipes(void)
     enum NODE_TYPE leaderNodeType = OUTPUT_NODE;
     int pipeId = -1;
     int bufferCount = 0;
-    uint32_t frameRate = 30;
+    uint32_t frameRate = 15;
 
     ExynosRect tempRect;
     int hwSensorW = 0, hwSensorH = 0;
@@ -226,7 +361,7 @@ status_t ExynosCameraFrameFactoryVision::initPipes(void)
     {
         hwSensorW = VISION_WIDTH;
         hwSensorH = VISION_HEIGHT;
-        bayerFormat = V4L2_PIX_FMT_SGRBG8;
+        bayerFormat = V4L2_PIX_FMT_YVYU;
         bufferCount = NUM_BAYER_BUFFERS;
     }
 
@@ -239,7 +374,7 @@ status_t ExynosCameraFrameFactoryVision::initPipes(void)
     streamParam.parm.capture.timeperframe.denominator = frameRate;
     CLOGI("Set framerate (denominator=%d)", frameRate);
 
-    ret = setParam(&streamParam, pipeId);
+    //ret = setParam(&streamParam, pipeId);
     if (ret != NO_ERROR) {
         CLOGE("FLITE setParam(frameRate(%d), pipeId(%d)) fail", frameRate, pipeId);
         return INVALID_OPERATION;
@@ -317,6 +452,17 @@ status_t ExynosCameraFrameFactoryVision::startPipes(void)
         return INVALID_OPERATION;
     }
 
+#if defined (USE_SW_MCSC) && (USE_SW_MCSC == true)
+    if (m_pipes[PIPE_SW_MCSC] != NULL) {
+        ret = m_pipes[PIPE_SW_MCSC]->start();
+        if (ret < 0) {
+            CLOGE("PIPE_SW_MCSC start fail, ret(%d)", ret);
+            /* TODO: exception handling */
+            return INVALID_OPERATION;
+        }
+    }
+#endif
+
     ret = m_pipes[INDEX(PIPE_FLITE)]->prepare();
     if (ret < 0) {
         CLOGE("FLITE prepare fail, ret(%d)", ret);
@@ -363,6 +509,12 @@ status_t ExynosCameraFrameFactoryVision::setStopFlag(void)
 
     ret = m_pipes[PIPE_FLITE]->setStopFlag();
 
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    if (m_pipes[PIPE_SW_MCSC] != NULL && m_pipes[PIPE_SW_MCSC]->flagStart() == true)
+        ret = m_pipes[PIPE_SW_MCSC]->setStopFlag();
+#endif
+
+
     return NO_ERROR;
 }
 
@@ -382,6 +534,17 @@ status_t ExynosCameraFrameFactoryVision::stopPipes(void)
         }
     }
 
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    if (m_pipes[PIPE_SW_MCSC]->isThreadRunning() == true) {
+        ret = m_pipes[PIPE_SW_MCSC]->stopThread();
+        if (ret != NO_ERROR) {
+            CLOGE("SW_MCSC stopThread fail. ret(%d)", ret);
+            funcRet |= ret;
+        }
+    }
+#endif
+    
+
     ret = m_pipes[INDEX(PIPE_FLITE)]->sensorStream(false);
     if (ret < 0) {
         CLOGE("FLITE sensorStream fail, ret(%d)", ret);
@@ -396,6 +559,18 @@ status_t ExynosCameraFrameFactoryVision::stopPipes(void)
         /* TODO: exception handling */
         funcRet |= ret;
     }
+
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    if (m_pipes[PIPE_SW_MCSC] != NULL) {
+        ret = m_pipes[PIPE_SW_MCSC]->stop();
+        CLOGV("previewVendor: m_pipes[PIPE_SW_MCSC]->stop() is called");
+        if (ret != NO_ERROR) {
+            CLOGE("SW_MCSC stop fail. ret(%d)", ret);
+            funcRet |= ret;
+        }
+    }
+#endif
+
 
     ret = m_pipes[INDEX(PIPE_FLITE)]->stop();
     if (ret < 0) {
@@ -428,6 +603,11 @@ status_t ExynosCameraFrameFactoryVision::m_setupConfig()
 
     m_initDeviceInfo(PIPE_FLITE);
 
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    m_initDeviceInfo(PIPE_SW_MCSC);
+#endif
+
+
     pipeId = PIPE_FLITE;
     nodeType = getNodeType(PIPE_FLITE);
     m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_FLITE;
@@ -448,10 +628,44 @@ status_t ExynosCameraFrameFactoryVision::m_setupConfig()
     /* VC0 for bayer */
     nodeType = getNodeType(PIPE_VC0);
     m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_VC0;
+    m_deviceInfo[pipeId].bufferManagerType[nodeType] = BUFFER_MANAGER_ION_TYPE;
     m_deviceInfo[pipeId].connectionMode[nodeType] = HW_CONNECTION_MODE_OTF;
     m_deviceInfo[pipeId].nodeNum[nodeType] = getFliteCaptureNodenum(m_cameraId, m_deviceInfo[pipeId].nodeNum[getNodeType(PIPE_FLITE)]);
     strncpy(m_deviceInfo[pipeId].nodeName[nodeType], "BAYER", EXYNOS_CAMERA_NAME_STR_SIZE - 1);
     m_sensorIds[pipeId][nodeType] = m_getSensorId(m_deviceInfo[pipeId].nodeNum[getNodeType(PIPE_FLITE)], false, flagStreamLeader, flagReprocessing, sensorScenario);
+
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    pipeId = PIPE_SW_MCSC;
+
+    nodeType = getNodeType(PIPE_SW_MCSC);
+    m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_SW_MCSC;
+    m_deviceInfo[pipeId].nodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].secondaryNodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].bufferManagerType[nodeType] = BUFFER_MANAGER_ION_TYPE;
+    strncpy(m_deviceInfo[pipeId].nodeName[nodeType], "SW_MCSC_OUTPUT", EXYNOS_CAMERA_NAME_STR_SIZE - 1);
+
+    nodeType = getNodeType(PIPE_MCSC0);
+    m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_MCSC0;
+    m_deviceInfo[pipeId].nodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].secondaryNodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].bufferManagerType[nodeType] = BUFFER_MANAGER_SERVICE_GRALLOC_TYPE;
+    strncpy(m_deviceInfo[pipeId].secondaryNodeName[nodeType], "SW_MCSC_YUV0", EXYNOS_CAMERA_NAME_STR_SIZE - 1);
+
+    nodeType = getNodeType(PIPE_MCSC1);
+    m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_MCSC1;
+    m_deviceInfo[pipeId].nodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].secondaryNodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].bufferManagerType[nodeType] = BUFFER_MANAGER_SERVICE_GRALLOC_TYPE;
+    strncpy(m_deviceInfo[pipeId].secondaryNodeName[nodeType], "SW_MCSC_YUV1", EXYNOS_CAMERA_NAME_STR_SIZE - 1);
+
+    nodeType = getNodeType(PIPE_MCSC2);
+    m_deviceInfo[pipeId].pipeId[nodeType] = PIPE_MCSC2;
+    m_deviceInfo[pipeId].nodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].secondaryNodeNum[nodeType] = PREVIEW_GSC_NODE_NUM;
+    m_deviceInfo[pipeId].bufferManagerType[nodeType] = BUFFER_MANAGER_SERVICE_GRALLOC_TYPE;
+    strncpy(m_deviceInfo[pipeId].secondaryNodeName[nodeType], "SW_MCSC_YUV2", EXYNOS_CAMERA_NAME_STR_SIZE - 1);
+#endif
+
 
     return NO_ERROR;
 }
@@ -467,6 +681,21 @@ status_t ExynosCameraFrameFactoryVision::m_constructPipes()
     m_pipes[pipeId] = (ExynosCameraPipe*)new ExynosCameraMCPipe(m_cameraId, m_configurations, m_parameters, false, &m_deviceInfo[pipeId], m_camIdInfo);
     m_pipes[pipeId]->setPipeName("PIPE_FLITE");
     m_pipes[pipeId]->setPipeId(pipeId);
+
+#if defined(USE_SW_MCSC) && (USE_SW_MCSC == true)
+    pipeId = PIPE_SW_MCSC;
+    m_pipes[pipeId] = (ExynosCameraPipe*)new ExynosCameraPipeSWMCSC(
+                m_cameraId,
+                m_configurations,
+                m_parameters,
+                m_flagReprocessing,
+                m_nodeNums[pipeId],
+                m_camIdInfo,
+                &m_deviceInfo[pipeId]);
+    m_pipes[pipeId]->setPipeName("PIPE_SW_MCSC");
+    m_pipes[pipeId]->setPipeId(PIPE_SW_MCSC);
+#endif
+
 
     CLOGI("pipe ids for vision");
     for (int i = 0; i < MAX_NUM_PIPES; i++) {
@@ -503,7 +732,12 @@ status_t ExynosCameraFrameFactoryVision::m_initFrameMetadata(ExynosCameraFrameSP
     }
 
     frame->setRequest(PIPE_VC0, m_request[PIPE_VC0]);
-
+#if defined (USE_SW_MCSC) && (USE_SW_MCSC == true)
+    frame->setRequest(PIPE_SW_MCSC, m_request[PIPE_SW_MCSC]);
+#endif
+    frame->setRequest(PIPE_MCSC0, m_request[PIPE_MCSC0]);
+    frame->setRequest(PIPE_MCSC1, m_request[PIPE_MCSC1]);
+    frame->setRequest(PIPE_MCSC2, m_request[PIPE_MCSC2]);
     m_TNRMode = 0;
     m_bypassFD = 1;
 
