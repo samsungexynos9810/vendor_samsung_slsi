@@ -25,6 +25,7 @@ endif
 
 LOCAL_MODULE := vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service
 LOCAL_INIT_RC := vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc
+LOCAL_VINTF_FRAGMENTS := vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.xml
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := \
